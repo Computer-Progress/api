@@ -1,0 +1,13 @@
+from app.database.base import Base
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
+
+class TaskDataset(Base):
+    id = Column(Integer, primary_key=True, index=True)
+
+    task_id = Column(Integer, ForeignKey('task.id'))
+    dataset_id = Column(Integer, ForeignKey('dataset.id'))
+    task = relationship("Task")
+    dataset = relationship("Dataset")
+    accuracy_types = relationship("TaskDatasetAccuracyType")
