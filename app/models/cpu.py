@@ -8,8 +8,8 @@ class Cpu(Base):
 
     name = Column(String, nullable=False)
     number_of_cores = Column(Integer)
-    frequency = Column(Integer)
+    frequency = Column(Float(precision=3))
     fp32_per_cycle = Column(Integer)
     transistors = Column(Integer)
-    tdp = Column(Integer)
+    tdp = Column(Float(precision=3))
     gflops = Column(Float(precision=3))

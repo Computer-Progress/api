@@ -8,5 +8,5 @@ class Tpu(Base):
 
     name = Column(String, nullable=False)
     transistors = Column(Integer)
-    tdp = Column(Integer)
+    tdp = Column(Float(precision=3))
     gflops = Column(Float(precision=3))

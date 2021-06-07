@@ -1,5 +1,5 @@
 from app.database.base import Base
-from sqlalchemy import Column, Integer, ForeignKey, JSON
+from sqlalchemy import Column, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
 
 
@@ -12,4 +12,4 @@ class AccuracyValue(Base):
     accuracy_type_id = Column(Integer, ForeignKey('accuracy_type.id'))
     accuracy_type = relationship("AccuracyType")
 
-    value = Column(JSON)
+    value = Column(Float(precision=3))
