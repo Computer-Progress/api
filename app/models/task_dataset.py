@@ -8,6 +8,4 @@ class TaskDataset(Base):
 
     task_id = Column(Integer, ForeignKey('task.id'))
     dataset_id = Column(Integer, ForeignKey('dataset.id'))
-    task = relationship("Task")
-    dataset = relationship("Dataset")
     accuracy_types = relationship("TaskDatasetAccuracyType")

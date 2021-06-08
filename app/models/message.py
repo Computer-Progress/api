@@ -9,7 +9,7 @@ class Message(Base):
     body = Column(Text, nullable=False)
 
     revision_id = Column(Integer, ForeignKey('revision.id'))
-    revision = relationship("Revision")
+    revision = relationship("Revision", back_populates="messages")
 
     author_id = Column(Integer, ForeignKey('user.id'))
     author = relationship("User")

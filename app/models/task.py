@@ -11,4 +11,4 @@ class Task(Base):
     description = Column(Text, nullable=False)
     datasets = relationship(
         "Dataset",
-        secondary="task_dataset")
+        secondary="task_dataset", back_populates="tasks")
