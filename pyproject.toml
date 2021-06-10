@@ -16,6 +16,7 @@ emails = "^0.6"
 python-multipart = "^0.0.5"
 psycopg2 = "^2.8.6"
 bcrypt = "^3.2.0"
+Jinja2 = "^3.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

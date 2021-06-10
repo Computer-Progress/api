@@ -9,7 +9,6 @@ class TaskBase(BaseModel):
     name: str
     image: Optional[str]
     description: Optional[str]
-    datasets: Optional[List[Dataset]]
 
 
 # Properties to receive via API on creation
@@ -31,6 +30,7 @@ class TaskInDBBase(TaskBase):
 
 # Additional properties to return via API
 class Task(TaskInDBBase):
+    datasets: Optional[List[Dataset]]
     pass
 
 

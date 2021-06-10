@@ -4,24 +4,22 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class DatasetBase(BaseModel):
+class AccuracyTypeBase(BaseModel):
     name: str
-    image: Optional[str]
     description: Optional[str]
-    source: Optional[str]
 
 
 # Properties to receive via API on creation
-class DatasetCreate(DatasetBase):
+class AccuracyTypeCreate(AccuracyTypeBase):
     pass
 
 
 # Properties to receive via API on update
-class DatasetUpdate(DatasetBase):
+class AccuracyTypeUpdate(AccuracyTypeBase):
     name: Optional[str]
 
 
-class DatasetInDBBase(DatasetBase):
+class AccuracyTypeInDBBase(AccuracyTypeBase):
     id: Optional[int] = None
 
     class Config:
@@ -29,10 +27,10 @@ class DatasetInDBBase(DatasetBase):
 
 
 # Additional properties to return via API
-class Dataset(DatasetInDBBase):
+class AccuracyType(AccuracyTypeInDBBase):
     pass
 
 
 # Additional properties stored in DB
-class DatasetInDB(DatasetInDBBase):
+class AccuracyTypeInDB(AccuracyTypeInDBBase):
     pass
