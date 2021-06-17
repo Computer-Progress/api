@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d8c61ee873e3
+Revision ID: ec1ccec76843
 Revises: 
-Create Date: 2021-06-06 22:25:58.169680
+Create Date: 2021-06-17 16:53:11.354823
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd8c61ee873e3'
+revision = 'ec1ccec76843'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,8 +22,8 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('description', sa.Text(), nullable=False),
+    sa.Column('name', sa.String(), nullable=True),
+    sa.Column('description', sa.Text(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_accuracy_type_id'), 'accuracy_type', ['id'], unique=False)
@@ -33,11 +33,13 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('number_of_cores', sa.Integer(), nullable=True),
-    sa.Column('frequency', sa.Integer(), nullable=True),
+    sa.Column('frequency', sa.Float(precision=3), nullable=True),
     sa.Column('fp32_per_cycle', sa.Integer(), nullable=True),
     sa.Column('transistors', sa.Integer(), nullable=True),
-    sa.Column('tdp', sa.Integer(), nullable=True),
+    sa.Column('tdp', sa.Float(precision=3), nullable=True),
     sa.Column('gflops', sa.Float(precision=3), nullable=True),
+    sa.Column('die_size', sa.Integer(), nullable=True),
+    sa.Column('year', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_cpu_id'), 'cpu', ['id'], unique=False)
@@ -45,9 +47,9 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('name', sa.String(), nullable=True),
     sa.Column('image', sa.String(), nullable=True),
-    sa.Column('description', sa.Text(), nullable=False),
+    sa.Column('description', sa.Text(), nullable=True),
     sa.Column('source', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -58,8 +60,10 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('transistors', sa.Integer(), nullable=True),
-    sa.Column('tdp', sa.Integer(), nullable=True),
+    sa.Column('tdp', sa.Float(precision=3), nullable=True),
     sa.Column('gflops', sa.Float(precision=3), nullable=True),
+    sa.Column('die_size', sa.Integer(), nullable=True),
+    sa.Column('year', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_gpu_id'), 'gpu', ['id'], unique=False)
@@ -67,9 +71,9 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('name', sa.String(), nullable=True),
     sa.Column('image', sa.String(), nullable=True),
-    sa.Column('description', sa.Text(), nullable=False),
+    sa.Column('description', sa.Text(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_task_id'), 'task', ['id'], unique=False)
@@ -79,8 +83,10 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('transistors', sa.Integer(), nullable=True),
-    sa.Column('tdp', sa.Integer(), nullable=True),
+    sa.Column('tdp', sa.Float(precision=3), nullable=True),
     sa.Column('gflops', sa.Float(precision=3), nullable=True),
+    sa.Column('die_size', sa.Integer(), nullable=True),
+    sa.Column('year', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_tpu_id'), 'tpu', ['id'], unique=False)
@@ -109,8 +115,8 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(), nullable=False),
-    sa.Column('link', sa.Integer(), nullable=True),
+    sa.Column('title', sa.String(), nullable=True),
+    sa.Column('link', sa.String(), nullable=True),
     sa.Column('code_link', sa.Integer(), nullable=True),
     sa.Column('publication_date', sa.Date(), nullable=True),
     sa.Column('authors', sa.ARRAY(sa.String()), nullable=True),
@@ -136,10 +142,10 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('hardware_burden', sa.Float(precision=3), nullable=True),
-    sa.Column('training_time', sa.Integer(), nullable=True),
+    sa.Column('training_time', sa.BigInteger(), nullable=True),
     sa.Column('gflops', sa.Float(precision=3), nullable=True),
-    sa.Column('epochs', sa.Integer(), nullable=True),
-    sa.Column('number_of_parameters', sa.Integer(), nullable=True),
+    sa.Column('epochs', sa.BigInteger(), nullable=True),
+    sa.Column('number_of_parameters', sa.BigInteger(), nullable=True),
     sa.Column('multiply_adds', sa.Float(precision=3), nullable=True),
     sa.Column('number_of_cpus', sa.Integer(), nullable=True),
     sa.Column('number_of_gpus', sa.Integer(), nullable=True),
@@ -188,7 +194,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('model_id', sa.Integer(), nullable=True),
     sa.Column('accuracy_type_id', sa.Integer(), nullable=True),
-    sa.Column('value', sa.JSON(), nullable=True),
+    sa.Column('value', sa.Float(precision=3), nullable=True),
     sa.ForeignKeyConstraint(['accuracy_type_id'], ['accuracy_type.id'], ),
     sa.ForeignKeyConstraint(['model_id'], ['model.id'], ),
     sa.PrimaryKeyConstraint('id')

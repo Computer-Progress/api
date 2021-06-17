@@ -1,3 +1,4 @@
+from app.models import accuracy_value
 from datetime import datetime
 
 from fastapi.encoders import jsonable_encoder
@@ -81,7 +82,9 @@ def init_db() -> None:
                 model = {
                     'name':  m.get('model'),
                     'training_time': parseInt(m.get('time_sec')),
-                    'gflops':  parseFloat(m.get('flops')),
+                    'gflops':
+                        (parseFloat(m.get('flops')) / 10e9) if (
+                            parseFloat(m.get('flops'))) else None,
                     'epochs':  parseInt(m.get('#epochs')),
                     'number_of_parameters':  parseInt(m.get('#params')),
                     'multiply_adds':  parseFloat(m.get('multiadds')),
