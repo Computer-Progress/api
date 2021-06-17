@@ -1,172 +1,96 @@
-id,dataset,year,url,title,method,flops,BOX_AP,AP50,AP75,APS,APM,APL,hw time,time_sec,gpu,# gpu,cpu,#cpu,hw_gflops,#param,#epochs
+id,dataset,year,url,title,method,flops,BOX_AP,AP50,AP75,APS,APM,APL,hw time,time_sec,gpu,#gpu,cpu,#cpu,hw_gflops,#param,#epochs
 85,COCO test-dev,2016,https://arxiv.org/pdf/1604.02135v2.pdf,A MultiPath Network for Object Detection,MultiPath Network,,33.2,51.9,36.3,13.6,37.2,47.8,3days,259200,GeForce Titan X,4,,,4.39E+04,,
 56,COCO test-dev,2018,https://arxiv.org/pdf/1807.11590v1.pdf,Acquisition of Localization Confidence for Accurate Object Detection,IoU-Net,,40.6,59.3,,,,,160k iterations,,GeForce Titan X,1,,,1.10E+04,,
-17,COCO test-dev,2017,https://arxiv.org/pdf/1711.08189v2.pdf,An Analysis of Scale Invariance in Object Detection - SNIP,"D-RFCN + SNIP
-(DPN-98 with flip, multi-scale)",,45.7,67.3,51.1,29.3,48.8,57.1,,,GeForce Titan X,1,,,1.10E+04,,
-31,COCO test-dev,2017,https://arxiv.org/pdf/1711.08189v2.pdf,An Analysis of Scale Invariance in Object Detection - SNIP,"D-RFCN + SNIP
-(ResNet-101, multi-scale)",,43.4,65.5,48.4,27.2,46.5,54.9,,,GeForce Titan X,1,,,1.10E+04,,
-28,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512
-(VoVNet-57, multi-scale)",,43.6,64.9,47.7,27.2,46.9,55.6,14.9 fps,,Titan X Pascal,1,,,1.10E+04,6.30E+07,90
-64,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512
-(VoVNet-57, single-scale)",,39.2,60.7,42.6,20.2,42.4,52.8,14.9 fps,,Titan X Pascal,1,,,1.10E+04,6.30E+07,90
-67,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512 + VoVNet-57
-(sinlge-scale)",,39.2,,,,,,14.9 fps,,Titan X Pascal,1,,,1.10E+04,6.30E+07,90
-71,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512
-(VoVNet-39, single-scale)",,38.5,60.4,42,20,41.4,51.7,16.6 fps,,Titan X Pascal,1,,,1.10E+04,4.90E+07,90
+17,COCO test-dev,2017,https://arxiv.org/pdf/1711.08189v2.pdf,An Analysis of Scale Invariance in Object Detection - SNIP,"D-RFCN + SNIP (DPN-98 with flip, multi-scale)",,45.7,67.3,51.1,29.3,48.8,57.1,,,GeForce Titan X,1,,,1.10E+04,,
+31,COCO test-dev,2017,https://arxiv.org/pdf/1711.08189v2.pdf,An Analysis of Scale Invariance in Object Detection - SNIP,"D-RFCN + SNIP (ResNet-101, multi-scale)",,43.4,65.5,48.4,27.2,46.5,54.9,,,GeForce Titan X,1,,,1.10E+04,,
+28,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512 (VoVNet-57, multi-scale)",,43.6,64.9,47.7,27.2,46.9,55.6,14.9 fps,,Titan X Pascal,1,,,1.10E+04,6.30E+07,90
+64,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512 (VoVNet-57, single-scale)",,39.2,60.7,42.6,20.2,42.4,52.8,14.9 fps,,Titan X Pascal,1,,,1.10E+04,6.30E+07,90
+67,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512 + VoVNet-57 (sinlge-scale)",,39.2,,,,,,14.9 fps,,Titan X Pascal,1,,,1.10E+04,6.30E+07,90
+71,COCO test-dev,2019,https://arxiv.org/pdf/1904.09730v1.pdf,An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection,"RefineDet512 (VoVNet-39, single-scale)",,38.5,60.4,42,20,41.4,51.7,16.6 fps,,Titan X Pascal,1,,,1.10E+04,4.90E+07,90
 66,COCO test-dev,2019,https://arxiv.org/pdf/1904.09925v4.pdf,Attention Augmented Convolutional Networks,AA-ResNet-10 + RetinaNet,2.45E+11,39.2,57.8,41.9,,,,,,V100,8,,,1.13E+05,5.17E+07,150
 78,COCO test-dev,2016,https://arxiv.org/pdf/1612.06851v2.pdf,Beyond Skip Connections: Top-Down Modulation for Object Detection,Faster R-CNN + TDM,,36.8,,,,,,,,,,,,,,
-27,COCO test-dev,2019,https://arxiv.org/pdf/1901.08043v3.pdf,"Bottom-up Object Detection by Grouping Extreme and Center Points
-","ExtremeNet
-(Hourglass-104, multi-scale)",,43.7,60.5,47,24.1,46.9,57.6,14 days,1209600,Titan V,10,,,1.49E+05,,
-59,COCO test-dev,2019,https://arxiv.org/pdf/1901.08043v3.pdf,"Bottom-up Object Detection by Grouping Extreme and Center Points
-","ExtremeNet
-(Hourglass-104, single-scale)",,40.2,55.5,43.2,20.4,43.2,53.1,14 days,1209600,Titan V,10,,,1.49E+05,,
+27,COCO test-dev,2019,https://arxiv.org/pdf/1901.08043v3.pdf,"Bottom-up Object Detection by Grouping Extreme and Center Points","ExtremeNet (Hourglass-104, multi-scale)",,43.7,60.5,47,24.1,46.9,57.6,14 days,1209600,Titan V,10,,,1.49E+05,,
+59,COCO test-dev,2019,https://arxiv.org/pdf/1901.08043v3.pdf,"Bottom-up Object Detection by Grouping Extreme and Center Points ","ExtremeNet (Hourglass-104, single-scale)",,40.2,55.5,43.2,20.4,43.2,53.1,14 days,1209600,Titan V,10,,,1.49E+05,,
 58,COCO test-dev,2018,https://arxiv.org/pdf/1809.08545v3.pdf,Bounding Box Regression with Uncertainty for Accurate Object Detection,ResNet-50-FPN Mask R-CNN + KL Loss + var voting + soft-NMS,,40.4,58.7,,,,,,,1080 Ti,4,,,4.54E+04,,
-37,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN
-(ResNet-101-FPN+, cascade)",,42.8,62.1,46.3,23.7,45.5,55.2,46hrs,165600,GeForce Titan X,8,,,8.78E+04,3.45E+08,
-54,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN
-(ResNet-50-FPN+, cascade)",,40.6,59.9,44,22.6,42.7,52.1,36hrs,129600,GeForce Titan X,8,,,8.78E+04,2.72E+08,
-69,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN
-(ResNet-101-FPN+)",,38.8,61.1,41.9,21.3,41.8,49.8,37hrs,133200,GeForce Titan X,8,,,8.78E+04,2.38E+08,
-79,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN
-(ResNet-50-FPN+)",,36.5,59,39.2,20.3,38.8,46.4,32hrs,115200,GeForce Titan X,8,,,8.78E+04,1.65E+08,
+37,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN (ResNet-101-FPN+, cascade)",,42.8,62.1,46.3,23.7,45.5,55.2,46hrs,165600,GeForce Titan X,8,,,8.78E+04,3.45E+08,
+54,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN (ResNet-50-FPN+, cascade)",,40.6,59.9,44,22.6,42.7,52.1,36hrs,129600,GeForce Titan X,8,,,8.78E+04,2.72E+08,
+69,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN (ResNet-101-FPN+)",,38.8,61.1,41.9,21.3,41.8,49.8,37hrs,133200,GeForce Titan X,8,,,8.78E+04,2.38E+08,
+79,COCO test-dev,2017,https://arxiv.org/pdf/1712.00726v1.pdf,Cascade R-CNN: Delving into High Quality Object Detection,"Cascade R-CNN (ResNet-50-FPN+)",,36.5,59,39.2,20.3,38.8,46.4,32hrs,115200,GeForce Titan X,8,,,8.78E+04,1.65E+08,
 38,COCO test-dev,2019,https://arxiv.org/pdf/1906.09756v1.pdf,Cascade R-CNN: High Quality Object Detection and Instance Segmentation,Cascade R-CNN,,42.8,62.1,46.3,23.7,45.5,55.2,,,Titan Xp,1,,,1.14E+04,3.45E+08,
-55,COCO test-dev,2019,https://arxiv.org/pdf/1909.06720v2.pdf,Cascade RPN: Delving into High-Quality Region Proposal Network with Adaptive Convolution,"Faster R-CNN
-(Cascade RPN)",,40.6,58.9,44.5,22,42.8,52.6,12 hours,43200,V100,8,,,1.13E+05,,12
-60,COCO test-dev,2019,https://arxiv.org/pdf/1909.06720v2.pdf,Cascade RPN: Delving into High-Quality Region Proposal Network with Adaptive Convolution,"Fast R-CNN
-(Cascade RPN)",,40.1,59.4,43.8,22.1,42.4,51.6,12 hours,43200,V100,8,,,1.13E+05,,12
+55,COCO test-dev,2019,https://arxiv.org/pdf/1909.06720v2.pdf,Cascade RPN: Delving into High-Quality Region Proposal Network with Adaptive Convolution,"Faster R-CNN (Cascade RPN)",,40.6,58.9,44.5,22,42.8,52.6,12 hours,43200,V100,8,,,1.13E+05,,12
+60,COCO test-dev,2019,https://arxiv.org/pdf/1909.06720v2.pdf,Cascade RPN: Delving into High-Quality Region Proposal Network with Adaptive Convolution,"Fast R-CNN (Cascade RPN)",,40.1,59.4,43.8,22.1,42.4,51.6,12 hours,43200,V100,8,,,1.13E+05,,12
 1,COCO test-dev,2019,https://arxiv.org/pdf/1909.03625v1.pdf,CBNet: A Novel Composite Backbone Network Architecture for Object Detection,"Cascade Mask R-CNN (Triple-ResNeXt152, multi-scale)",,53.3,71.9,58.5,35.5,55.8,66.7,,,V100,4,,,5.65E+04,,
 ,COCO test-dev,2019,https://arxiv.org/pdf/1911.06667v6.pdf,CenterMask : Real-Time Anchor-Free Instance Segmentation,Centermask + ResNet101,,43.1,61.6,46.9,25.2,46.1,54.4,35 fps,,Titan Xp,1,,,1.14E+04,1.14E+08,
-11,COCO test-dev,2019,https://arxiv.org/pdf/1904.08189v3.pdf,CenterNet: Keypoint Triplets for Object Detection,"CenterNet511
-(Hourglass-104, multi-scale)",,47,64.5,50.7,28.9,49.9,58.9,,,P100,1,,,9.53E+03,,
-62,COCO test-dev,2017,https://arxiv.org/pdf/1708.08169v1.pdf,ChainerCV: a Library for Deep Learning in Computer Vision,"FPN
-(ResNet101 backbone)",,39.5,,,,,,,,,,,,,,
+11,COCO test-dev,2019,https://arxiv.org/pdf/1904.08189v3.pdf,CenterNet: Keypoint Triplets for Object Detection,"CenterNet511 (Hourglass-104, multi-scale)",,47,64.5,50.7,28.9,49.9,58.9,,,P100,1,,,9.53E+03,,
+62,COCO test-dev,2017,https://arxiv.org/pdf/1708.08169v1.pdf,ChainerCV: a Library for Deep Learning in Computer Vision,"FPN (ResNet101 backbone)",,39.5,,,,,,,,,,,,,,
 75,COCO test-dev,2019,https://arxiv.org/pdf/1907.09665v3.pdf,Compact Global Descriptor for Neural Networks,Faster R-CNN + FPN + CGD,,37.9,60.3,40.7,23,42,48,,,,2,,,,,12
 91,COCO test-dev,2019,https://arxiv.org/pdf/1907.09665v3.pdf,Compact Global Descriptor for Neural Networks,MobielNet-v1-SSD-300x300+CGD,,21.4,,,,,,,,,2,,,,6.80E+06,120
-34,COCO test-dev,2019,https://arxiv.org/pdf/1904.08900v1.pdf,CornerNet-Lite: Efficient Keypoint Based Object Detection,"CornerNet-Saccade
-(Hourglass-104, multi-scale)",,43.2,,,24.4,44.6,57.3,,,1080Ti,4,Intel Core i7 i7-7700K,1,4.59E+04,,
+34,COCO test-dev,2019,https://arxiv.org/pdf/1904.08900v1.pdf,CornerNet-Lite: Efficient Keypoint Based Object Detection,"CornerNet-Saccade (Hourglass-104, multi-scale)",,43.2,,,24.4,44.6,57.3,,,1080Ti,4,Intel Core i7 i7-7700K,1,4.59E+04,,
 84,COCO test-dev,2019,https://arxiv.org/pdf/1904.08900v1.pdf,CornerNet-Lite: Efficient Keypoint Based Object Detection,CornerNet-Squeeze,,34.4,,,,,,,,1080Ti,4,Intel Core i7 i7-7700K,1,4.59E+04,,
-44,COCO test-dev,2018,https://arxiv.org/pdf/1808.01244v2.pdf,CornerNet: Detecting Objects as Paired Keypoints,"CornerNet511
-(Hourglass-104, multi-scale)",,42.2,57.8,45.2,20.7,44.8,56.6,250k iterations,,Titan X Pascal,10,,,1.10E+05,,
-76,COCO test-dev,2018,https://arxiv.org/pdf/1904.08900v1.pdf,CornerNet: Detecting Objects as Paired Keypoints,"CornerNet511
-(Hourglass-52, single-scale)",,37.8,53.7,40.1,17,39,50.5,250k iterations,,Titan X Pascal,10,,,1.10E+05,,
-9,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"HTC
-(HRNetV2p-W48)",7.17E+11,47.3,65.9,51.2,28,49.7,59.8,74 hours,266400,V100,4,,,5.65E+04,1.22E+08,
-15,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"Mask R-CNN
-(HRNetV2p-W48 + cascade)",6.18E+11,46.1,64,50.3,27.1,48.6,58.3,75 hours,270000,V100,4,,,5.65E+04,1.19E+08,
-19,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"Cascade R-CNN
-(HRNetV2p-W48)",4.67E+11,44.8,63.1,48.6,26,47.3,56.3,76 hours,273600,V100,4,,,5.65E+04,1.11E+08,
-30,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"CenterNet
-(HRNetV2-W48)",2.17E+11,43.5,62.1,46.5,22.2,46.5,57.8,77 hours,277200,V100,4,,,5.65E+04,7.36E+07,
-42,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919v2.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"Faster R-CNN
-(HRNetV2p-W48)",2.08E+11,42.4,63.6,46.4,24.9,44.6,53,78 hours,280800,V100,4,,,5.65E+04,5.51E+07,
+44,COCO test-dev,2018,https://arxiv.org/pdf/1808.01244v2.pdf,CornerNet: Detecting Objects as Paired Keypoints,"CornerNet511 (Hourglass-104, multi-scale)",,42.2,57.8,45.2,20.7,44.8,56.6,250k iterations,,Titan X Pascal,10,,,1.10E+05,,
+76,COCO test-dev,2018,https://arxiv.org/pdf/1904.08900v1.pdf,CornerNet: Detecting Objects as Paired Keypoints,"CornerNet511 (Hourglass-52, single-scale)",,37.8,53.7,40.1,17,39,50.5,250k iterations,,Titan X Pascal,10,,,1.10E+05,,
+9,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"HTC (HRNetV2p-W48)",7.17E+11,47.3,65.9,51.2,28,49.7,59.8,74 hours,266400,V100,4,,,5.65E+04,1.22E+08,
+15,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"Mask R-CNN (HRNetV2p-W48 + cascade)",6.18E+11,46.1,64,50.3,27.1,48.6,58.3,75 hours,270000,V100,4,,,5.65E+04,1.19E+08,
+19,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"Cascade R-CNN (HRNetV2p-W48)",4.67E+11,44.8,63.1,48.6,26,47.3,56.3,76 hours,273600,V100,4,,,5.65E+04,1.11E+08,
+30,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"CenterNet (HRNetV2-W48)",2.17E+11,43.5,62.1,46.5,22.2,46.5,57.8,77 hours,277200,V100,4,,,5.65E+04,7.36E+07,
+42,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919v2.pdf,Deep High-Resolution Representation Learning for Visual Recognition,"Faster R-CNN (HRNetV2p-W48)",2.08E+11,42.4,63.6,46.4,24.9,44.6,53,78 hours,280800,V100,4,,,5.65E+04,5.51E+07,
 57,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919v2.pdf,Deep High-Resolution Representation Learning for Visual Recognition,FCOS (HRNetV2p-W48),2.73E+11,40.5,59.3,43.3,23.4,42.6,51,79 hours,284400,V100,4,,,5.65E+04,3.73E+07,
-21,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,"Deep High-Resolution Representation Learning for Visual Recognition
-","Mask R-CNN
-(HRNetV2p-W32 + cascade)",5.06E+11,44.7,62.5,48.6,25.8,47.1,56.3,80 hours,288000,V100,4,,,5.65E+04,8.29E+07,
+21,COCO test-dev,2019,https://arxiv.org/pdf/1908.07919.pdf,"Deep High-Resolution Representation Learning for Visual Recognition","Mask R-CNN (HRNetV2p-W32 + cascade)",5.06E+11,44.7,62.5,48.6,25.8,47.1,56.3,80 hours,288000,V100,4,,,5.65E+04,8.29E+07,
 82,COCO test-dev,2015,https://arxiv.org/pdf/1512.03385v1.pdf,Deep Residual Learning for Image Recognition,Faster R-CNN + box refinement + context + multi-scale testing,,34.9,55.7,,,,,240k iterations,,,8,,,,,
-16,COCO test-dev,2018,https://arxiv.org/pdf/1811.11168v2.pdf,"Deformable ConvNets v2: More Deformable, Better Results","DCNv2
-(ResNet-101, multi-scale)",,46,67.9,50.8,27.8,49.1,59.5,,,,8,,,,,
-2,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D7 + AA
-(EfficientNet-B7)",3.25E+11,51.8,,,,,,,,Titan V,1,,,1.49E+04,5.20E+07,
-3,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D6 + AA
-(EfficientNet-B6)",2.26E+11,51.3,,,,,,,,Titan V,1,,,1.49E+04,5.20E+07,
-4,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D5 + AA
-(EfficientNet-B5)",1.35E+11,50.5,,,,,,,,Titan V,1,,,1.49E+04,3.40E+07,
-12,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D4 + AA
-(EfficientNet-B4)",5.50E+10,49,,,,,,,,Titan V,1,,,1.49E+04,2.10E+07,
-23,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D3 + AA
-(EfficientNet-B3)",2.50E+10,45.9,,,,,,,,Titan V,1,,,1.49E+04,1.20E+07,
-49,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D2 + AA
-(EfficientNet-B2)",1.10E+10,42.5,,,,,,,,Titan V,1,,,1.49E+04,8.10E+06,
-72,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D1 + AA
-(EfficientNet-B1)",6.10E+09,39.1,,,,,,,,Titan V,1,,,1.49E+04,6.60E+06,
-88,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D0 + AA
-(EfficientNet-B0)",2.50E+09,33.5,,,,,,,,Titan V,1,,,1.49E+04,3.90E+06,
+16,COCO test-dev,2018,https://arxiv.org/pdf/1811.11168v2.pdf,"Deformable ConvNets v2: More Deformable, Better Results","DCNv2 (ResNet-101, multi-scale)",,46,67.9,50.8,27.8,49.1,59.5,,,,8,,,,,
+2,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D7 + AA (EfficientNet-B7)",3.25E+11,51.8,,,,,,,,Titan V,1,,,1.49E+04,5.20E+07,
+3,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D6 + AA (EfficientNet-B6)",2.26E+11,51.3,,,,,,,,Titan V,1,,,1.49E+04,5.20E+07,
+4,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D5 + AA (EfficientNet-B5)",1.35E+11,50.5,,,,,,,,Titan V,1,,,1.49E+04,3.40E+07,
+12,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D4 + AA (EfficientNet-B4)",5.50E+10,49,,,,,,,,Titan V,1,,,1.49E+04,2.10E+07,
+23,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D3 + AA (EfficientNet-B3)",2.50E+10,45.9,,,,,,,,Titan V,1,,,1.49E+04,1.20E+07,
+49,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D2 + AA (EfficientNet-B2)",1.10E+10,42.5,,,,,,,,Titan V,1,,,1.49E+04,8.10E+06,
+72,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D1 + AA (EfficientNet-B1)",6.10E+09,39.1,,,,,,,,Titan V,1,,,1.49E+04,6.60E+06,
+88,COCO test-dev,2019,https://arxiv.org/pdf/1911.09070.pdf,EfficientDet: Scalable and Efficient Object Detection,"EfficientDet-D0 + AA (EfficientNet-B0)",2.50E+09,33.5,,,,,,,,Titan V,1,,,1.49E+04,3.90E+06,
 89,COCO test-dev,2018,https://arxiv.org/pdf/1811.11431v3.pdf,"ESPNetv2: A Light-weight, Power Efficient, and General Purpose Convolutional Neural Network",ESPNetv2-512,2.80E+09,26,,,,,,,,1080 Ti,1,,,1.13E+04,,
 20,COCO test-dev,2019,https://arxiv.org/pdf/1904.01355v5.pdf,FCOS: Fully Convolutional One-Stage Object Detection,FCOS (ResNeXt-64x4d-101-FPN 4 + improvements),,44.7,64.1,48.4,27.6,47.5,55.6,,,V100,8,,,1.13E+05,,
-33,COCO test-dev,2019,https://arxiv.org/pdf/1904.01355v5.pdf,FCOS: Fully Convolutional One-Stage Object Detection,"FCOS
-(ResNeXt-101-64x4d-FPN)",,43.2,62.8,46.6,26.5,46.2,53.3,,,V100,8,,,1.13E+05,,
-40,COCO test-dev,2019,https://arxiv.org/pdf/1904.01355v5.pdf,FCOS: Fully Convolutional One-Stage Object Detection,"FCOS
-(ResNeXt-32x8d-101-FPN)",,42.7,62.2,46.1,26,45.6,52.6,,,V100,8,,,1.13E+05,,
-45,COCO test-dev,2019,https://arxiv.org/pdf/1904.01355v5.pdf,FCOS: Fully Convolutional One-Stage Object Detection,"FCOS
-(HRNet-W32-5l)",,42,60.4,45.3,25.4,45,51,,,V100,8,,,1.13E+05,,
+33,COCO test-dev,2019,https://arxiv.org/pdf/1904.01355v5.pdf,FCOS: Fully Convolutional One-Stage Object Detection,"FCOS (ResNeXt-101-64x4d-FPN)",,43.2,62.8,46.6,26.5,46.2,53.3,,,V100,8,,,1.13E+05,,
+40,COCO test-dev,2019,https://arxiv.org/pdf/1904.01355v5.pdf,FCOS: Fully Convolutional One-Stage Object Detection,"FCOS (ResNeXt-32x8d-101-FPN)",,42.7,62.2,46.1,26,45.6,52.6,,,V100,8,,,1.13E+05,,
+45,COCO test-dev,2019,https://arxiv.org/pdf/1904.01355v5.pdf,FCOS: Fully Convolutional One-Stage Object Detection,"FCOS (HRNet-W32-5l)",,42,60.4,45.3,25.4,45,51,,,V100,8,,,1.13E+05,,
 81,COCO test-dev,2016,https://arxiv.org/pdf/1612.03144v2.pdf,Feature Pyramid Networks for Object Detection,Faster R-CNN + FPN + CGD,,36.2,59.1,,18.2,39,48.2,10hrs,36000,M40,8,,,5.48E+04,,
-22,COCO test-dev,2019,https://arxiv.org/pdf/1903.00621v1.pdf,Feature Selective Anchor-Free Module for Single-Shot Object Detection,"FSAF
-(ResNeXt-101, multi-scale)",,44.6,65.2,48.6,29.7,47.1,54.6,,,GeForce Titan X,8,,,8.78E+04,,
-52,COCO test-dev,2019,https://arxiv.org/pdf/1903.00621v1.pdf,Feature Selective Anchor-Free Module for Single-Shot Object Detection,"FSAF
-(ResNet-101, single-scale)",,40.9,61.5,44,24,44.2,51.3,5 days,432000,GeForce Titan X,8,,,8.78E+04,,
-53,COCO test-dev,2017,https://arxiv.org/pdf/1708.02002v2.pdf,Focal Loss for Dense Object Detection,"RetinaNet
-(ResNeXt-101-FPN)",,40.8,61.1,44.1,24.1,44.2,51.2,10-35 hour,81000,M40,8,,,1.13E+05,,
-68,COCO test-dev,2017,https://arxiv.org/pdf/1708.02002v2.pdf,Focal Loss for Dense Object Detection,"RetinaNet
-(ResNet-101-FPN)",,39.1,59.1,42.3,21.8,42.7,50.2,10-35 hour,81000,M40,8,,,1.13E+05,,
-26,COCO test-dev,2019,https://arxiv.org/pdf/1904.03797v1.pdf,FoveaBox: Beyond Anchor-based Object Detector,"FoveaBox
-(ResNeXt-101)",,43.9,63.5,47.7,26.8,46.9,55.6,,,V100,4,,,5.65E+04,,
-,COCO test-dev,,https://arxiv.org/pdf/1904.03797v1.pdf,FoveaBox: Beyond Anchor-based Object Detector,"FoveaBox
-(ResNeXt-101)",,42.1,61.9,45.2,24.9,46.8,55.6,0.712(s/iter) * 270k,,V100,4,,,5.65E+04,,24
-18,COCO test-dev,2019,https://arxiv.org/pdf/1909.02466v2.pdf,FreeAnchor: Learning to Match Anchors for Visual Object Detection,"FreeAnchor
-(ResNeXt-101)",,44.8,64.3,48.4,27,47.9,56,,,V100,8,,,1.13E+05,,
-,COCO test-dev,2019,https://arxiv.org/pdf/1909.02466v2.pdf,FreeAnchor: Learning to Match Anchors for Visual Object Detection,"FreeAnchor
-(ResNeXt-101)",,44.9,64.3,48.55,26.8,48.3,55.9,180k iterations,,V100,8,,,1.13E+05,,
-6,COCO test-dev,2019,https://arxiv.org/pdf/1904.11492v1.pdf,GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond,"GCNet
-(ResNeXt-101 + DCN + cascade + GC r4)",5.48E+11,48.4,67.6,52.7,,,,,,,8,,,,,120
-47,COCO test-dev,2018,https://arxiv.org/pdf/1811.05181v1.pdf,Gradient Harmonized Single-stage Detector,"GHM-C + GHM-R
-(RetinaNet-FPN-ResNeXt-101)",,41.6,62.8,44.2,22.3,45.1,55.3,,,1080Ti,8,,,9.07E+04,,14
-32,COCO test-dev,2018,https://arxiv.org/pdf/1811.12030v1.pdf,Grid R-CNN,"Grid R-CNN
-(ResNeXt-101-FPN)",,43.2,63,46.6,25.1,46.5,55.2,,,Titan Xp,32,,,3.64E+05,,20
-10,COCO test-dev,2019,https://arxiv.org/pdf/1901.07518v2.pdf,Hybrid Task Cascade for Instance Segmentation,"HTC
-(ResNeXt-101-FPN)",,47.1,63.9,44.7,22.8,43.9,54.6,2.1fps,,Titan Xp,1,,,1.14E+04,,20
-,COCO test-dev,2019,https://arxiv.org/pdf/1911.09516v2.pdf,Learning Spatial Fusion for Single-Shot Object Detection,"YOLOv3 @800 + ASFF*
-(Darknet-53)",,43.9,64.1,49.2,27,46.6,53.4,29.4fps,,V100,4,,,5.65E+04,,
-35,COCO test-dev,2019,https://arxiv.org/pdf/1904.02701v1.pdf,Libra R-CNN: Towards Balanced Learning for Object Detection,"Libra R-CNN
-(ResNeXt-101-FPN)",,43,64,47,25.3,45.6,54.6,,,,8,,,,,12
-24,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det
-(VGG-16, multi-scale)",,44.2,64.6,49.3,29.2,47.9,55.1,14 days,1209600,V100,2,,,2.83E+04,,
-25,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det
-(ResNet-101, multi-scale)",,43.9,64.4,48,29.6,49.6,54.3,11 days,950400,V100,2,,,2.83E+04,,
-51,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det
-(VGG-16, single-scale)",,41,59.7,45,22.1,46.5,53.8,14 days,1209600,V100,2,,,2.83E+04,,
-70,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det
-(ResNet-101, single-scale)",,38.8,59.4,41.7,20.5,43.9,53.4,11 days,950400,V100,2,,,2.83E+04,,
-61,COCO test-dev,2017,https://arxiv.org/pdf/1703.06870v3.pdf,Mask R-CNN,"Mask R-CNN
-(ResNeXt-101-FPN)",,39.8,62.3,43.4,22.1,43.2,51.2,2 days,172800,M40,8,,,1.13E+05,,
-73,COCO test-dev,2017,https://arxiv.org/pdf/1703.06870v3.pdf,Mask R-CNN,"Mask R-CNN
-(ResNet-101-FPN)",,38.2,60.3,41.7,20.1,41.1,50.2,2 days,172800,M40,8,,,1.13E+05,,
-43,COCO test-dev,2019,https://arxiv.org/pdf/1904.07850v2.pdf,Objects as Points,"CenterNet-HG
-(Hourglass-104, single-scale)",,42.1,61.1,45.9,24.1,45.5,52.8,5 days,432000,TITAN-V,8,,,1.19E+05,,140
-48,COCO test-dev,2019,https://arxiv.org/pdf/1904.07850v2.pdf,Objects as Points," CenterNet-DLA
-(DLA-34, multi-scale)",,41.6,60.3,45.1,21.5,43.9,56,2.5days,216000,TITAN-V,8,,,1.19E+05,,140
-65,COCO test-dev,2019,https://arxiv.org/pdf/1904.07850v2.pdf,Objects as Points,"CenterNet-DLA
-(DLA-34, single-scale)",,39.2,57.1,42.8,19.9,43,51.4,2.5days,216000,TITAN-V,8,,,1.19E+05,,140
+22,COCO test-dev,2019,https://arxiv.org/pdf/1903.00621v1.pdf,Feature Selective Anchor-Free Module for Single-Shot Object Detection,"FSAF (ResNeXt-101, multi-scale)",,44.6,65.2,48.6,29.7,47.1,54.6,,,GeForce Titan X,8,,,8.78E+04,,
+52,COCO test-dev,2019,https://arxiv.org/pdf/1903.00621v1.pdf,Feature Selective Anchor-Free Module for Single-Shot Object Detection,"FSAF (ResNet-101, single-scale)",,40.9,61.5,44,24,44.2,51.3,5 days,432000,GeForce Titan X,8,,,8.78E+04,,
+53,COCO test-dev,2017,https://arxiv.org/pdf/1708.02002v2.pdf,Focal Loss for Dense Object Detection,"RetinaNet (ResNeXt-101-FPN)",,40.8,61.1,44.1,24.1,44.2,51.2,10-35 hour,81000,M40,8,,,1.13E+05,,
+68,COCO test-dev,2017,https://arxiv.org/pdf/1708.02002v2.pdf,Focal Loss for Dense Object Detection,"RetinaNet (ResNet-101-FPN)",,39.1,59.1,42.3,21.8,42.7,50.2,10-35 hour,81000,M40,8,,,1.13E+05,,
+26,COCO test-dev,2019,https://arxiv.org/pdf/1904.03797v1.pdf,FoveaBox: Beyond Anchor-based Object Detector,"FoveaBox (ResNeXt-101)",,43.9,63.5,47.7,26.8,46.9,55.6,,,V100,4,,,5.65E+04,,
+,COCO test-dev,,https://arxiv.org/pdf/1904.03797v1.pdf,FoveaBox: Beyond Anchor-based Object Detector,"FoveaBox (ResNeXt-101)",,42.1,61.9,45.2,24.9,46.8,55.6,0.712(s/iter) * 270k,,V100,4,,,5.65E+04,,24
+18,COCO test-dev,2019,https://arxiv.org/pdf/1909.02466v2.pdf,FreeAnchor: Learning to Match Anchors for Visual Object Detection,"FreeAnchor (ResNeXt-101)",,44.8,64.3,48.4,27,47.9,56,,,V100,8,,,1.13E+05,,
+,COCO test-dev,2019,https://arxiv.org/pdf/1909.02466v2.pdf,FreeAnchor: Learning to Match Anchors for Visual Object Detection,"FreeAnchor (ResNeXt-101)",,44.9,64.3,48.55,26.8,48.3,55.9,180k iterations,,V100,8,,,1.13E+05,,
+6,COCO test-dev,2019,https://arxiv.org/pdf/1904.11492v1.pdf,GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond,"GCNet (ResNeXt-101 + DCN + cascade + GC r4)",5.48E+11,48.4,67.6,52.7,,,,,,,8,,,,,120
+47,COCO test-dev,2018,https://arxiv.org/pdf/1811.05181v1.pdf,Gradient Harmonized Single-stage Detector,"GHM-C + GHM-R (RetinaNet-FPN-ResNeXt-101)",,41.6,62.8,44.2,22.3,45.1,55.3,,,1080Ti,8,,,9.07E+04,,14
+32,COCO test-dev,2018,https://arxiv.org/pdf/1811.12030v1.pdf,Grid R-CNN,"Grid R-CNN (ResNeXt-101-FPN)",,43.2,63,46.6,25.1,46.5,55.2,,,Titan Xp,32,,,3.64E+05,,20
+10,COCO test-dev,2019,https://arxiv.org/pdf/1901.07518v2.pdf,Hybrid Task Cascade for Instance Segmentation,"HTC (ResNeXt-101-FPN)",,47.1,63.9,44.7,22.8,43.9,54.6,2.1fps,,Titan Xp,1,,,1.14E+04,,20
+,COCO test-dev,2019,https://arxiv.org/pdf/1911.09516v2.pdf,Learning Spatial Fusion for Single-Shot Object Detection,"YOLOv3 @800 + ASFF* (Darknet-53)",,43.9,64.1,49.2,27,46.6,53.4,29.4fps,,V100,4,,,5.65E+04,,
+35,COCO test-dev,2019,https://arxiv.org/pdf/1904.02701v1.pdf,Libra R-CNN: Towards Balanced Learning for Object Detection,"Libra R-CNN (ResNeXt-101-FPN)",,43,64,47,25.3,45.6,54.6,,,,8,,,,,12
+24,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det (VGG-16, multi-scale)",,44.2,64.6,49.3,29.2,47.9,55.1,14 days,1209600,V100,2,,,2.83E+04,,
+25,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det (ResNet-101, multi-scale)",,43.9,64.4,48,29.6,49.6,54.3,11 days,950400,V100,2,,,2.83E+04,,
+51,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det (VGG-16, single-scale)",,41,59.7,45,22.1,46.5,53.8,14 days,1209600,V100,2,,,2.83E+04,,
+70,COCO test-dev,2018,https://arxiv.org/pdf/1811.04533v3.pdf,M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network,"M2Det (ResNet-101, single-scale)",,38.8,59.4,41.7,20.5,43.9,53.4,11 days,950400,V100,2,,,2.83E+04,,
+61,COCO test-dev,2017,https://arxiv.org/pdf/1703.06870v3.pdf,Mask R-CNN,"Mask R-CNN (ResNeXt-101-FPN)",,39.8,62.3,43.4,22.1,43.2,51.2,2 days,172800,M40,8,,,1.13E+05,,
+73,COCO test-dev,2017,https://arxiv.org/pdf/1703.06870v3.pdf,Mask R-CNN,"Mask R-CNN (ResNet-101-FPN)",,38.2,60.3,41.7,20.1,41.1,50.2,2 days,172800,M40,8,,,1.13E+05,,
+43,COCO test-dev,2019,https://arxiv.org/pdf/1904.07850v2.pdf,Objects as Points,"CenterNet-HG (Hourglass-104, single-scale)",,42.1,61.1,45.9,24.1,45.5,52.8,5 days,432000,TITAN-V,8,,,1.19E+05,,140
+48,COCO test-dev,2019,https://arxiv.org/pdf/1904.07850v2.pdf,Objects as Points," CenterNet-DLA (DLA-34, multi-scale)",,41.6,60.3,45.1,21.5,43.9,56,2.5days,216000,TITAN-V,8,,,1.19E+05,,140
+65,COCO test-dev,2019,https://arxiv.org/pdf/1904.07850v2.pdf,Objects as Points,"CenterNet-DLA (DLA-34, single-scale)",,39.2,57.1,42.8,19.9,43,51.4,2.5days,216000,TITAN-V,8,,,1.19E+05,,140
 8,COCO test-dev,2018,https://arxiv.org/pdf/1803.01534v4.pdf,Path Aggregation Network for Instance Segmentation,"PANet (ResNeXt-101, multi-scale)",,47.4,67.2,51.8,30.1,51.7,60,,,,,,,,,
-13,COCO test-dev,2019,https://arxiv.org/pdf/1904.11490v2.pdf,RepPoints: Point Set Representation for Object Detection,"RPDet
-(ResNet-101-DCN, multi-scale)",,46.5,67.4,50.9,30.3,49.7,57.1,,,,4,,,,,
-36,COCO test-dev,2019,https://arxiv.org/pdf/1904.11490v2.pdf,RepPoints: Point Set Representation for Object Detection,"RPDet
-(ResNet-101-DCN)",,42.8,65,46.3,24.9,46.2,54.7,,,,4,,,,,
-50,COCO test-dev,2019,https://arxiv.org/pdf/1904.11490v2.pdf,RepPoints: Point Set Representation for Object Detection,"RPDet
-(ResNet-101)",,41,62.9,44.3,23.6,44.1,51.7,,,,4,,,,,
-41,COCO test-dev,2019,https://arxiv.org/pdf/1901.03353v1.pdf,RetinaMask: Learning to predict masks improves state-of-the-art single-shot detection for free,"RetinaMask
-(ResNeXt-101-FPN-GN)",,42.6,62.5,46,24.8,45.6,53.8,75hrs,270000,1080Ti,4,,,4.54E+04,,
-63,COCO test-dev,2019,https://arxiv.org/pdf/1901.03353v1.pdf,RetinaMask: Learning to predict masks improves state-of-the-art single-shot detection for free,"RetinaMask
-(ResNet-50-FPN)",,39.4,58.6,42.3,21.9,42,51,56hrs,201600,1080Ti,,,,,,
+13,COCO test-dev,2019,https://arxiv.org/pdf/1904.11490v2.pdf,RepPoints: Point Set Representation for Object Detection,"RPDet (ResNet-101-DCN, multi-scale)",,46.5,67.4,50.9,30.3,49.7,57.1,,,,4,,,,,
+36,COCO test-dev,2019,https://arxiv.org/pdf/1904.11490v2.pdf,RepPoints: Point Set Representation for Object Detection,"RPDet (ResNet-101-DCN)",,42.8,65,46.3,24.9,46.2,54.7,,,,4,,,,,
+50,COCO test-dev,2019,https://arxiv.org/pdf/1904.11490v2.pdf,RepPoints: Point Set Representation for Object Detection,"RPDet (ResNet-101)",,41,62.9,44.3,23.6,44.1,51.7,,,,4,,,,,
+41,COCO test-dev,2019,https://arxiv.org/pdf/1901.03353v1.pdf,RetinaMask: Learning to predict masks improves state-of-the-art single-shot detection for free,"RetinaMask (ResNeXt-101-FPN-GN)",,42.6,62.5,46,24.8,45.6,53.8,75hrs,270000,1080Ti,4,,,4.54E+04,,
+63,COCO test-dev,2019,https://arxiv.org/pdf/1901.03353v1.pdf,RetinaMask: Learning to predict masks improves state-of-the-art single-shot detection for free,"RetinaMask (ResNet-50-FPN)",,39.4,58.6,42.3,21.9,42,51,56hrs,201600,1080Ti,,,,,,
 5,COCO test-dev,2019,https://arxiv.org/pdf/1901.01892v2.pdf,Scale-Aware Trident Networks for Object Detection,"TridentNet (ResNet-101-Deformable, Image Pyramid)",,48.4,69.7,53.5,31.8,51.3,60.3,,,,8,,,,,12
-39,COCO test-dev,2019,https://arxiv.org/pdf/1901.01892v2.pdf,Scale-Aware Trident Networks for Object Detection,"TridentNet
-(ResNet-101)",,42.7,63.6,46.5,23.9,46.6,56.6,,,,8,,,,,12
+39,COCO test-dev,2019,https://arxiv.org/pdf/1901.01892v2.pdf,Scale-Aware Trident Networks for Object Detection,"TridentNet (ResNet-101)",,42.7,63.6,46.5,23.9,46.6,56.6,,,,8,,,,,12
 74,COCO test-dev,2019,https://arxiv.org/pdf/1904.13300v3.pdf,Segmentation is All You Need,WSMA-Seg,,38.1,58.2,40.7,22.5,41,51.9,,,,,,,,,
-46,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512+
-(ResNet-101)",,41.8,62.9,45.7,25.6,45.1,54.1,280k iterations,,M40,4,,,5.65E+04,,
-77,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512+
-(VGG-16)",,37.6,58.7,40.8,22.7,40.3,48.3,,,,,,,,,
-80,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512
-(ResNet-101)",,36.4,57.5,39.5,16.6,39.9,51.4,,,M40,4,,,5.65E+04,,
-86,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512
-(VGG-16)",,33,54.5,35.5,16.3,36.3,44.3,,,,,,,,,
-14,COCO test-dev,2019,https://arxiv.org/pdf/1805.09300v3.pdf,SNIPER: Efficient Multi-Scale Training,"SNIPER
-(ResNet-101)",,46.1,67,51.6,29.6,48.9,58.1,3 days,259200, V100,8,,,1.13E+05,,
-29,COCO test-dev,2018,https://arxiv.org/pdf/1805.09300v3.pdf,SNIPER: Efficient Multi-Scale Training,"SNIPER
-(ResNet-50)",,43.5,65,48.6,26.1,46.3,56,3 days,259200, V100,8,,,1.13E+05,,
+46,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512+ (ResNet-101)",,41.8,62.9,45.7,25.6,45.1,54.1,280k iterations,,M40,4,,,5.65E+04,,
+77,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512+ (VGG-16)",,37.6,58.7,40.8,22.7,40.3,48.3,,,,,,,,,
+80,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512 (ResNet-101)",,36.4,57.5,39.5,16.6,39.9,51.4,,,M40,4,,,5.65E+04,,
+86,COCO test-dev,2017,https://arxiv.org/pdf/1711.06897v3.pdf,Single-Shot Refinement Neural Network for Object Detection,"RefineDet512 (VGG-16)",,33,54.5,35.5,16.3,36.3,44.3,,,,,,,,,
+14,COCO test-dev,2019,https://arxiv.org/pdf/1805.09300v3.pdf,SNIPER: Efficient Multi-Scale Training,"SNIPER (ResNet-101)",,46.1,67,51.6,29.6,48.9,58.1,3 days,259200, V100,8,,,1.13E+05,,
+29,COCO test-dev,2018,https://arxiv.org/pdf/1805.09300v3.pdf,SNIPER: Efficient Multi-Scale Training,"SNIPER (ResNet-50)",,43.5,65,48.6,26.1,46.3,56,3 days,259200, V100,8,,,1.13E+05,,
 83,COCO test-dev,2016,https://arxiv.org/pdf/1611.10012v3.pdf,Speed/accuracy trade-offs for modern convolutional object detectors,Faster R-CNN,,34.7,,,,,,,,GeForce Titan X,1,Intel Xeon E5-1650 v2,1,1.13E+04,,
 90,COCO test-dev,2016,https://arxiv.org/pdf/1612.08242v1.pdf,"YOLO9000: Better, Faster, Stronger",YOLO v2 + Darknet-19,,21.6,44,19.2,5,22.4,35.5,,,,,,,,,160
 87,COCO test-dev,2018,https://arxiv.org/pdf/1804.02767v1.pdf,YOLOv3: An Incremental Improvement,YOLOv3 + Darknet-53,1.46E+12,33,57.9,34.4,18.3,35.4,41.9,175 min,10500,K80,1,,,5.60E+03,,
-7,COCO test-dev,2019,https://arxiv.org/pdf/1908.04646.pdf,Matrix Nets: A New Deep Architecture for Object Detection,"kp-Xnets
-(ResNeXt-101, multi-scale)",,47.8,66.2,52.3,29.7,50.4,60.7,,,,,,,,,
+7,COCO test-dev,2019,https://arxiv.org/pdf/1908.04646.pdf,Matrix Nets: A New Deep Architecture for Object Detection,"kp-Xnets (ResNeXt-101, multi-scale)",,47.8,66.2,52.3,29.7,50.4,60.7,,,,,,,,,
