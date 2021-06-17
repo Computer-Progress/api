@@ -1,26 +1,19 @@
 dataset,year,method,title,BLEU,SACREBLEU,#flops,#multiply-adds,gpu,tpu,#gpu,#tpu,hw time,hw_gflops,time_sec,#param,#epochs,#data points,,paper,authors implementation
-WMT2014 English-German,2018,"SMT + iterative backtranslation 
-(unsupervised)",Unsupervised Statistical Machine Translation,14.08,,,,,,,,,,,,,,,https://arxiv.org/pdf/1809.01272v1.pdf,https://github.com/artetxem/monoses
+WMT2014 English-German,2018,"SMT + iterative backtranslation (unsupervised)",Unsupervised Statistical Machine Translation,14.08,,,,,,,,,,,,,,,https://arxiv.org/pdf/1809.01272v1.pdf,https://github.com/artetxem/monoses
 WMT2014 English-German,2017,Transformer Big,Attention Is All You Need,28.4,,2.30E+19,,Tesla P100 PCIe 16 GB,,8,,3.5days,7.62E+04,302400,,,,,https://arxiv.org/pdf/1706.03762v5.pdf,
 WMT2014 English-German,2017,Transformer Base,Attention Is All You Need,27.3,,3.30E+18,,Tesla P100 PCIe 16 GB,,8,,3.5days,7.62E+04,302400,,,,,https://arxiv.org/pdf/1706.03762v5.pdf,
-WMT2014 English-German,2017,"ConvS2S 
-(ensemble)",Convolutional Sequence to Sequence Learning,26.4,,,,Tesla M40,,8,,2 weeks,5.48E+04,1598400,,,,,https://arxiv.org/pdf/1705.03122v3.pdf,
-WMT2014 English-German,2017,"ConvS2S 
-(ensemble)",Convolutional Sequence to Sequence Learning,25.16,,,,Tesla M40,,1,,18.5 days,6.84E+03,1209600,,,,,https://arxiv.org/pdf/1705.03122v3.pdf,
+WMT2014 English-German,2017,"ConvS2S (ensemble)",Convolutional Sequence to Sequence Learning,26.4,,,,Tesla M40,,8,,2 weeks,5.48E+04,1598400,,,,,https://arxiv.org/pdf/1705.03122v3.pdf,
+WMT2014 English-German,2017,"ConvS2S (ensemble)",Convolutional Sequence to Sequence Learning,25.16,,,,Tesla M40,,1,,18.5 days,6.84E+03,1209600,,,,,https://arxiv.org/pdf/1705.03122v3.pdf,
 WMT2014 English-German,2016,Deep-Att + PosUnk,Deep Recurrent Models with Fast-Forward Connections for Neural Machine Translation,20.7,,,,Tesla K40,,24,,10 days,1.03E+05,864000,,,4500000,,https://arxiv.org/pdf/1606.04199v3.pdf,
 WMT2014 English-German,2018,DenseNMT,Dense Information Flow for Neural Machine Translation,25.52,,,,Tesla M40,,1,, 1710 word/s,6.84E+03,,,,,,https://arxiv.org/pdf/1806.00722v2.pdf,
 WMT2014 English-German,2019,depth growing,Depth Growing for Neural Machine Translation,30.07,,,,Tesla M40,,8,,5 days,5.48E+04,432000,,,,,https://arxiv.org/pdf/1907.01968v1.pdf,
 WMT2014 English-German,2017,SliceNet,Depthwise Separable Convolutions for Neural Machine Translation,26.1,,,,,,,,,,,,,,,https://arxiv.org/pdf/1706.03059v2.pdf,https://github.com/tensorflow/tensor2tensor
-WMT2014 English-German,2018,"Denoising autoencoders 
-(non-autoregressive)",Deterministic Non-Autoregressive Neural Sequence Modeling by Iterative Refinement,21.54,,,,,,,,,,,,,,,https://arxiv.org/pdf/1802.06901v3.pdf,
+WMT2014 English-German,2018,"Denoising autoencoders (non-autoregressive)",Deterministic Non-Autoregressive Neural Sequence Modeling by Iterative Refinement,21.54,,,,,,,,,,,,,,,https://arxiv.org/pdf/1802.06901v3.pdf,
 WMT2014 English-German,2019,T5-11B,Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer,32.1,,,,,,,,,,,1.10E+10,,,,https://arxiv.org/pdf/1910.10683v2.pdf,
 WMT2014 English-German,2018,Transformer Big + MoS,Fast and Simple Mixture of Softmaxes with BPE and Hybrid-LightRNN for Language Generation,29.6,,,,,,,,,,,,,,,https://arxiv.org/pdf/1809.09296v2.pdf,
-WMT2014 English-German,2019,"FlowSeq-large 
-(NPD n = 30)",FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,23.64,,,,GeForce Titan X,,1,,,1.10E+04,,,,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
-WMT2014 English-German,2019,"FlowSeq-large 
-(NPD n = 15)",FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,23.14,,,,GeForce Titan X,,1,,,1.10E+04,,,,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
-WMT2014 English-German,2019,"FlowSeq-large 
-(IWD n = 15)",FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,22.94,,,,GeForce Titan X,,1,,,1.10E+04,,,,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
+WMT2014 English-German,2019,"FlowSeq-large (NPD n = 30)",FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,23.64,,,,GeForce Titan X,,1,,,1.10E+04,,,,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
+WMT2014 English-German,2019,"FlowSeq-large (NPD n = 15)",FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,23.14,,,,GeForce Titan X,,1,,,1.10E+04,,,,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
+WMT2014 English-German,2019,"FlowSeq-large (IWD n = 15)",FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,22.94,,,,GeForce Titan X,,1,,,1.10E+04,,,,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
 WMT2014 English-German,2019,FlowSeq-base,FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,18.55,,,,GeForce Titan X,,1,,,1.10E+04,,,50,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
 WMT2014 English-German,2019,FlowSeq-large,FlowSeq: Non-Autoregressive Conditional Sequence Generation with Generative Flow,20.85,,,,GeForce Titan X,,1,,,1.10E+04,,,50,,,https://arxiv.org/abs/1909.02480,https://github.com/XuezheMax/flowseq
 WMT2014 English-German,2018,Transformer Big with FRAGE,FRAGE: Frequency-Agnostic Word Representation,29.11,,,,,,,,,,,,,,,https://arxiv.org/pdf/1809.06858v1.pdf,
@@ -39,8 +32,7 @@ WMT2014 English-German,2018,Unsupervised NMT + Transformer,Phrase-Based & Neural
 WMT2014 English-German,2018,Unsupervised PBSMT,Phrase-Based & Neural Unsupervised Machine Translation,17.94,,,,,,,,,,,,,,,https://arxiv.org/pdf/1804.07755v2.pdf,
 WMT2014 English-German,2018,PBSMT + NMT,Phrase-Based & Neural Unsupervised Machine Translation,20.23,,,,,,,,,,,,,,,https://arxiv.org/pdf/1804.07755v2.pdf,
 WMT2014 English-German,2018,Transformer Big,Scaling Neural Machine Translation,29.3,,,,Tesla V100 PCIe 32 GB,,128,,85 mins,1.81E+06,5100,,,,,https://arxiv.org/pdf/1806.00187v3.pdf,
-WMT2014 English-German,2018,"Transformer 
-(big)",Self-Attention with Relative Position Representations,29.2,,,,Tesla P100 PCIe 16 GB,,8,,300k steps,7.62E+04,,,,,,https://arxiv.org/pdf/1803.02155v2.pdf,
+WMT2014 English-German,2018,"Transformer (big)",Self-Attention with Relative Position Representations,29.2,,,,Tesla P100 PCIe 16 GB,,8,,300k steps,7.62E+04,,,,,,https://arxiv.org/pdf/1803.02155v2.pdf,
 WMT2014 English-German,2016,Seq-KD + Seq-Inter + Word-KD,Sequence-Level Knowledge Distillation,18.5,,,,GeForce Titan X,,1,,,1.10E+04,,8.00E+06,,,,https://arxiv.org/pdf/1606.07947v4.pdf,
 WMT2014 English-German,2017,Transformer + SRU,Simple Recurrent Units for Highly Parallelizable Recurrence,28.4,,,,Tesla V100 PCIe 32 GB,,8,,3.5days,1.13E+05,302400,,40,,,https://arxiv.org/pdf/1709.02755v5.pdf,
 WMT2014 English-German,2019,SB-NMT,Synchronous Bidirectional Neural Machine Translation,29.21,,,,GeForce Titan Xp,,3,,,3.41E+04,,,,,,https://arxiv.org/pdf/1905.04847v1.pdf,
@@ -49,5 +41,4 @@ WMT2014 English-German,2019,Evolved Transformer Big,The Evolved Transformer,29.3
 WMT2014 English-German,2019,Evolved Transformer Base,The Evolved Transformer,28.4,,,,,Cloud TPU v2,,16,36000,180000,36000,6.41E+07,,,,https://arxiv.org/pdf/1901.11117v4.pdf,
 WMT2014 English-German,2018,Transformer Big + BT,Understanding Back-Translation at Scale,35,33.8,,,Tesla V100 PCIe 32 GB,,128,,22.5hrs,1.81E+06,81000,,,,,https://arxiv.org/pdf/1808.09381v2.pdf,
 WMT2014 English-German,2018,universal transformer base,Universal Transformers,28.9,,,,Tesla P100 PCIe 16 GB,,8,,,7.62E+04,,,,,,https://arxiv.org/pdf/1807.03819v3.pdf,
-WMT2014 English-German,2017,"Weighted Transformer 
-(large)",Weighted Transformer Network for Machine Translation,28.9,,,,Tesla K80,,,,250k steps,,,2.13E+08,,,,https://arxiv.org/pdf/1711.02132v1.pdf,
+WMT2014 English-German,2017,"Weighted Transformer (large)",Weighted Transformer Network for Machine Translation,28.9,,,,Tesla K80,,,,250k steps,,,2.13E+08,,,,https://arxiv.org/pdf/1711.02132v1.pdf,

@@ -8,7 +8,7 @@ class Paper(Base):
 
     title = Column(String)
     link = Column(String)
-    code_link = Column(Integer)
+    code_link = Column(String)
     publication_date = Column(Date)
     authors = Column(ARRAY(String))
 
