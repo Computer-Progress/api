@@ -12,3 +12,4 @@ class TaskDatasetAccuracyType(Base):
     required = Column(Boolean, default=True)
 
     task_dataset = relationship("TaskDataset", back_populates="accuracy_types")
+    accuracy_type = relationship("AccuracyType")

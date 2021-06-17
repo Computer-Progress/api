@@ -6,10 +6,9 @@ from sqlalchemy.orm import relationship
 class Dataset(Base):
     id = Column(Integer, primary_key=True, index=True)
 
-    name = Column(String, nullable=False)
-    image = Column(String, nullable=True)
-    description = Column(Text, nullable=False)
-    source = Column(String, nullable=True)
+    name = Column(String)
+    image = Column(String)
+    description = Column(Text)
+    source = Column(String)
     tasks = relationship(
-        "Task",
-        secondary="task_dataset", back_populates="datasets")
+        "TaskDataset", back_populates="dataset")

@@ -1,0 +1,37 @@
+dataset,year,method,title,BLEU,SACREBLEU,#flops,#multiply-adds,gpu,tpu,#gpu,#tpu,hw time,hw_gflops,time_sec,#param,#epochs,#data points,,paper,authors implementation
+WMT2014 English-French,2016,Deep Convolutional Encoder; single-layer decoder,A Convolutional Encoder Model for Neural Machine Translation,35.7,,,,Tesla M40,,1,,,6.84E+03,,,,,,https://arxiv.org/pdf/1611.02344v3.pdf,
+WMT2014 English-French,2014,LSTM6 + PosUnk,Addressing the Rare Word Problem in Neural Machine Translation,37.5,,,,,,8,,10-14 days,,1036800,,,,,https://arxiv.org/pdf/1410.8206v4.pdf,
+WMT2014 English-French,2017,Transformer Big,Attention Is All You Need,41.8,,2.30E+19,,Tesla P100 PCIe 16 GB,,8,,3.5days,7.62E+04,302400,,,,,https://arxiv.org/pdf/1901.11117v4.pdf,
+WMT2014 English-French,2017,Transformer Base,Attention Is All You Need,38.1,,3.30E+18,,Tesla P100 PCIe 16 GB,,8,,3.5days,7.62E+04,302400,,,,,https://arxiv.org/pdf/1706.03762v5.pdf,
+WMT2014 English-French,2016,GRU+Attention,Can Active Memory Replace Attention?,26.4,,,,,,,,,,,,,,,https://arxiv.org/pdf/1610.08613v2.pdf,
+WMT2014 English-French,2017,"ConvS2S 
+(ensemble)",Convolutional Sequence to Sequence Learning,40.51,,,,Tesla M40,,8,,37 days,5.48E+04,3196800,,,,,https://arxiv.org/pdf/1705.03122v3.pdf,
+WMT2014 English-French,2016,Deep-Att + PosUnk,Deep Recurrent Models with Fast-Forward Connections for Neural Machine Translation,39.2,,,,Tesla K40,,24,,10 days,1.03E+05,864000,,,36000000,,https://arxiv.org/pdf/1606.04199v3.pdf,
+WMT2014 English-French,2016,Deep-Att + PosUnk,Deep Recurrent Models with Fast-Forward Connections for Neural Machine Translation,35.9,,,,Tesla K40,,24,,10 days,1.03E+05,864000,,,12000000,,https://arxiv.org/pdf/1606.04199v3.pdf,
+WMT2014 English-French,2019,depth growing,Depth Growing for Neural Machine Translation,43.27,,,,Tesla M40,,8,,5 days,5.48E+04,432000,,,,,https://arxiv.org/pdf/1907.01968v1.pdf,
+WMT2014 English-French,2018,Transformer Big + MoS,Fast and Simple Mixture of Softmaxes with BPE and Hybrid-LightRNN for Language Generation,42.1,,,,,,,,,,,,,,,https://arxiv.org/pdf/1809.09296v2.pdf,
+WMT2014 English-French,2016,GNMT+RL,Google's Neural Machine Translation System: Bridging the Gap between Human and Machine Translation,39.9,,,,Tesla K80,,96,,6 days,5.38E+05,518400,,,,,https://arxiv.org/pdf/1609.08144v2.pdf,
+WMT2014 English-French,2019,Local Joint Self-attention,Joint Source-Target Self Attention with Locality Constraints,43.3,,,,,,,,,,,,,,,https://arxiv.org/pdf/1905.06596v1.pdf,
+WMT2014 English-French,2014,CSLM + RNN + WP,Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation,34.54,,,,,,1,,3 days,,259200,,,,Theano,https://arxiv.org/pdf/1406.1078v3.pdf,
+WMT2014 English-French,2014,RNN-search50*,Neural Machine Translation by Jointly Learning to Align and Translate,36.7,,,,Quadro K6000,,1,,252 hrs,5.20E+03,907200,,5,,,https://arxiv.org/pdf/1409.0473v7.pdf,
+WMT2014 English-French,2017,MoE,Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer,40.56,,,,Tesla K40,,64,,6days,2.75E+05,518400,8.70E+09,,,,https://arxiv.org/pdf/1701.06538v1.pdf,
+WMT2014 English-French,2019,DynamicConv,Pay Less Attention with Lightweight and Dynamic Convolutions,43.2,,,,Tesla V100 PCIe 32 GB,,8,,80k steps,1.13E+05,,,,,,https://arxiv.org/pdf/1901.10430v2.pdf,
+WMT2014 English-French,2019,LightConv,Pay Less Attention with Lightweight and Dynamic Convolutions,43.1,,,,Tesla V100 PCIe 32 GB,,8,,80k steps,1.13E+05,,,,,,https://arxiv.org/pdf/1901.10430v2.pdf,
+WMT2014 English-French,2018,Unsupervised PBSMT,Phrase-Based & Neural Unsupervised Machine Translation,28.11,,,,,,,,,,,,,,,https://arxiv.org/pdf/1804.07755v2.pdf,
+WMT2014 English-French,2018,PBSMT + NMT,Phrase-Based & Neural Unsupervised Machine Translation,27.6,,,,,,,,,,,,,,,https://arxiv.org/pdf/1804.07755v2.pdf,
+WMT2014 English-French,2018,Unsupervised NMT + Transformer,Phrase-Based & Neural Unsupervised Machine Translation,25.14,,,,,,,,,,,,,,,https://arxiv.org/pdf/1804.07755v2.pdf,
+WMT2014 English-French,2014,Regularized LSTM,Recurrent Neural Network Regularization,29.03,,,,Tesla K20,,1,,12 hrs,3.52E+03,43200,,,,,https://arxiv.org/pdf/1409.2329v5.pdf,
+WMT2014 English-French,2018,Transformer Big,Scaling Neural Machine Translation,43.2,,,,Tesla V100 PCIe 32 GB,,128,,8.5hrs,1.81E+06,30600,,,,,https://arxiv.org/pdf/1806.00187v3.pdf,
+WMT2014 English-French,2018,"Transformer 
+(big)",Self-Attention with Relative Position Representations,41.5,,,,Tesla P100 PCIe 16 GB,,8,,300k steps,7.62E+04,,,,,,https://arxiv.org/pdf/1803.02155v2.pdf,
+WMT2014 English-French,2014,SMT+LSTM5,Sequence to Sequence Learning with Neural Networks,36.5,,,,,,8,,10 days,,864000,,,,,https://arxiv.org/pdf/1409.3215v3.pdf,
+WMT2014 English-French,2014,LSTM,Sequence to Sequence Learning with Neural Networks,34.81,,,,,,8,,10 days,,864000,,,,,https://arxiv.org/pdf/1409.3215v3.pdf,
+WMT2014 English-French,2018,RNMT+,The Best of Both Worlds: Combining Recent Advances in Neural Machine Translation,41,,2.81E+10,,Tesla P100 PCIe 16 GB,,32,,120h,3.05E+05,432000,3.79E+08,8.5,,,https://arxiv.org/pdf/1804.09849v2.pdf,
+WMT2014 English-French,2019,Evolved Transformer Base,The Evolved Transformer,40.6,,,,,Cloud TPU v2,,16,,180000,,6.38E+07,,,,https://arxiv.org/pdf/1901.11117v4.pdf,
+WMT2014 English-French,2019,Evolved Transformer Big,The Evolved Transformer,41.3,,,,,Cloud TPU v2,,16,,180000,,2.21E+08,,,,https://arxiv.org/pdf/1901.11117v4.pdf,
+WMT2014 English-French,2018,Transformer Big + BT,Understanding Back-Translation at Scale,45.6,43.8,,,Tesla V100 PCIe 32 GB,,128,,27hrs 40mins,1.81E+06,99600,,,,,https://arxiv.org/pdf/1808.09381v2.pdf,
+WMT2014 English-French,2018,"SMT + iterative backtranslation 
+(unsupervised)",Unsupervised Statistical Machine Translation,26.22,,,,GeForce Titan X,,1,,4-5 days,,388800,,,,PyTorch,https://arxiv.org/pdf/1710.11041v2.pdf,https://github.com/paarthneekhara/byteNet-tensorflow
+WMT2014 English-French,2017,"Weighted Transformer 
+(large)",Weighted Transformer Network for Machine Translation,41.4,,,,Tesla K80,,,,,,,,,,,https://arxiv.org/pdf/1711.02132v1.pdf,
+WMT2014 English-French,2017,Unsupervised attentional encoder-decoder + BPE,Unsupervised Statistical Machine Translation,14.36,,,,GeForce Titan X,,1,,4-5 days,,388800,,,,PyTorch,https://arxiv.org/pdf/1710.11041v2.pdf,https://github.com/paarthneekhara/byteNet-tensorflow

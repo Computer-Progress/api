@@ -1,5 +1,5 @@
 from app.database.base import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, BigInteger, String, ForeignKey, Float
 from sqlalchemy.orm import relationship
 
 
@@ -10,10 +10,10 @@ class Model(Base):
 
     hardware_burden = Column(Float(precision=3))
 
-    training_time = Column(Integer)
+    training_time = Column(BigInteger)
     gflops = Column(Float(precision=3))
-    epochs = Column(Integer)
-    number_of_parameters = Column(Integer)
+    epochs = Column(BigInteger)
+    number_of_parameters = Column(BigInteger)
     multiply_adds = Column(Float(precision=3))
 
     number_of_cpus = Column(Integer)

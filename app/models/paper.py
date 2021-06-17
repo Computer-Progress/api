@@ -6,8 +6,8 @@ from sqlalchemy.orm import relationship
 class Paper(Base):
     id = Column(Integer, primary_key=True, index=True)
 
-    title = Column(String, nullable=False)
-    link = Column(Integer)
+    title = Column(String)
+    link = Column(String)
     code_link = Column(Integer)
     publication_date = Column(Date)
     authors = Column(ARRAY(String))

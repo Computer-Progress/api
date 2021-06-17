@@ -6,12 +6,14 @@ from pydantic import BaseModel
 # Shared properties
 class CpuBase(BaseModel):
     name: str
-    number_of_cores: int
-    frequency: int
-    fp32_per_cycle: int
-    transistors: int
-    tdp: int
-    gflops: float
+    number_of_cores: Optional[int]
+    frequency: Optional[int]
+    fp32_per_cycle: Optional[int]
+    transistors: Optional[int]
+    tdp: Optional[float]
+    gflops: Optional[float]
+    year: Optional[int]
+    die_size: Optional[int]
 
 
 # Properties to receive via API on creation
@@ -22,12 +24,6 @@ class CpuCreate(CpuBase):
 # Properties to receive via API on update
 class CpuUpdate(CpuBase):
     name: Optional[str]
-    number_of_cores: Optional[int]
-    frequency: Optional[int]
-    fp32_per_cycle: Optional[int]
-    transistors: Optional[int]
-    tdp: Optional[int]
-    gflops: Optional[float]
 
 
 class CpuInDBBase(CpuBase):

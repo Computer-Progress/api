@@ -1,0 +1,7 @@
+Release Year,TPU,GFLOPS (FP32)
+2016,Cloud TPU v1,
+2017,Cloud TPU v2,1.80E+05
+2017,Cloud TPU v2 Pod,1.15E+07
+2018,Cloud TPU v3,4.20E+05
+2018,Cloud TPU v3 Pod,1.00E+08
+2020,Cloud TPU v4,

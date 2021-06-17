@@ -13,3 +13,5 @@ class Cpu(Base):
     transistors = Column(Integer)
     tdp = Column(Float(precision=3))
     gflops = Column(Float(precision=3))
+    die_size = Column(Integer)
+    year = Column(Integer)

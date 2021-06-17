@@ -9,3 +9,6 @@ class TaskDataset(Base):
     task_id = Column(Integer, ForeignKey('task.id'))
     dataset_id = Column(Integer, ForeignKey('dataset.id'))
     accuracy_types = relationship("TaskDatasetAccuracyType")
+    models = relationship("Model")
+    task = relationship("Task", back_populates="datasets")
+    dataset = relationship("Dataset", back_populates="tasks")
