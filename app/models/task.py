@@ -10,4 +10,4 @@ class Task(Base):
     image = Column(String)
     description = Column(Text)
     datasets = relationship(
-        "TaskDataset", back_populates="task")
+        "Dataset", back_populates="tasks", secondary="task_dataset")

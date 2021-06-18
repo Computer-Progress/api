@@ -5,7 +5,7 @@ from app.database.session import SessionLocal
 from app.database.seeders.helper import parseFloat, parseInt
 
 
-def init_db() -> None:
+def seed() -> None:
     db = SessionLocal()
 
     with open('app/database/seeders/gpu.csv', mode='r') as csv_file:
@@ -26,6 +26,3 @@ def init_db() -> None:
 
             db.add(db_obj)
     db.commit()
-
-
-init_db()

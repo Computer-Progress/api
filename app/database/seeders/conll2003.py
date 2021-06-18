@@ -1,4 +1,3 @@
-from app.models import accuracy_value
 from datetime import datetime
 
 from fastapi.encoders import jsonable_encoder
@@ -6,7 +5,6 @@ from app import models, schemas
 import csv
 from app.database.session import SessionLocal
 from app.database.seeders.helper import parseFloat, parseInt
-import logging
 
 
 def check_none(value):
@@ -32,7 +30,7 @@ def calculate_hardware_burden(model):
     ) * check_none(model.training_time)
 
 
-def init_db() -> None:
+def seed() -> None:
     db = SessionLocal()
 
     task = models.Task(name='Named Entity Recognition')
@@ -65,15 +63,14 @@ def init_db() -> None:
                 'link': p[0].get('paper'),
                 'code_link': p[0].get('authors_implementation'),
                 'publication_date': get_date(p[0].get('year')),
-                'authors': p[0].get('authors'), #here
+                'authors': p[0].get('authors'),  # here
             }
             paper = models.Paper(**paper)
+            paper.revision = models.Revision(status='approved')
+
             count = 0
             for m in p:
                 count += 1
-
-                logging.error(m.get('time_sec'))
-                logging.error('paper:' + str(parseInt(m.get('time_sec'))))
 
                 model = {
                     'name':  m.get('method'),
@@ -83,20 +80,15 @@ def init_db() -> None:
                             parseFloat(m.get('flops'))) else None,
                     'epochs':  parseInt(m.get('#epochs')),
                     'number_of_parameters':  parseInt(m.get('#params')),
-                    'multiply_adds':  parseFloat(m.get('multiadds')), #here
+                    'multiply_adds':  parseFloat(m.get('multiadds')),  # here
                     'number_of_cpus':  parseInt(m.get('#cpu')),
                     'number_of_gpus':  parseInt(m.get('#gpu')),
                     'number_of_tpus':  parseInt(m.get('#tpu')),
                 }
                 try:
-                    logging.error(model)
                     model = jsonable_encoder(model)
                     schemas.Model(**model)
-                except Exception as e:
-
-                    logging.error('paper: ' + m.get('title'))
-                    logging.error('item number: ' + str(count))
-                    logging.error(e)
+                except Exception:
                     continue
                 model = models.Model(**model)
 
@@ -122,6 +114,3 @@ def init_db() -> None:
                 task_dataset.models.append(model)
         db.add(task)
         db.commit()
-
-
-init_db()

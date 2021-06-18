@@ -19,7 +19,6 @@ def read_tasks(
     Retrieve tasks.
     """
     tasks = crud.task.get_multi(db, skip=skip, limit=limit)
-
     return tasks
 
 

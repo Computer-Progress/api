@@ -5,7 +5,6 @@ from app import models, schemas
 import csv
 from app.database.session import SessionLocal
 from app.database.seeders.helper import parseFloat, parseInt
-import logging
 
 
 def check_none(value):
@@ -31,7 +30,7 @@ def calculate_hardware_burden(model):
     ) * check_none(model.training_time)
 
 
-def init_db() -> None:
+def seed() -> None:
     db = SessionLocal()
 
     task = models.Task(name='Machine Translation')
@@ -71,6 +70,8 @@ def init_db() -> None:
                 'authors': p[0].get('authors'),
             }
             paper = models.Paper(**paper)
+            paper.revision = models.Revision(status='approved')
+
             count = 0
             for m in p:
                 count += 1
@@ -88,12 +89,11 @@ def init_db() -> None:
                     'number_of_tpus':  parseInt(m.get('#tpu')),
                 }
                 try:
-                    logging.error(model)
+
                     model = jsonable_encoder(model)
                     schemas.Model(**model)
-                except Exception as e:
-                    logging.error('item numero: ' + str(count))
-                    logging.error(e)
+                except Exception:
+
                     continue
                 model = models.Model(**model)
 
@@ -124,6 +124,3 @@ def init_db() -> None:
                 task_dataset.models.append(model)
         db.add(task)
         db.commit()
-
-
-init_db()

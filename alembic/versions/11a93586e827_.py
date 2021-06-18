@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 318e669ced0e
-Revises: ec1ccec76843
-Create Date: 2021-06-17 21:58:07.253421
+Revision ID: 11a93586e827
+Revises: e4bd97b9df9c
+Create Date: 2021-06-17 23:33:07.187176
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '318e669ced0e'
-down_revision = 'ec1ccec76843'
+revision = '11a93586e827'
+down_revision = 'e4bd97b9df9c'
 branch_labels = None
 depends_on = None
 
@@ -54,10 +54,6 @@ def upgrade():
                existing_type=sa.REAL(),
                type_=sa.Float(precision=3),
                existing_nullable=True)
-    op.alter_column('paper', 'code_link',
-               existing_type=sa.INTEGER(),
-               type_=sa.String(),
-               existing_nullable=True)
     op.alter_column('tpu', 'tdp',
                existing_type=sa.REAL(),
                type_=sa.Float(precision=3),
@@ -78,10 +74,6 @@ def downgrade():
     op.alter_column('tpu', 'tdp',
                existing_type=sa.Float(precision=3),
                type_=sa.REAL(),
-               existing_nullable=True)
-    op.alter_column('paper', 'code_link',
-               existing_type=sa.String(),
-               type_=sa.INTEGER(),
                existing_nullable=True)
     op.alter_column('model', 'multiply_adds',
                existing_type=sa.Float(precision=3),

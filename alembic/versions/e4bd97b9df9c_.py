@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ec1ccec76843
+Revision ID: e4bd97b9df9c
 Revises: 
-Create Date: 2021-06-17 16:53:11.354823
+Create Date: 2021-06-17 22:54:08.141555
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ec1ccec76843'
+revision = 'e4bd97b9df9c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -117,7 +117,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=True),
     sa.Column('link', sa.String(), nullable=True),
-    sa.Column('code_link', sa.Integer(), nullable=True),
+    sa.Column('code_link', sa.String(), nullable=True),
     sa.Column('publication_date', sa.Date(), nullable=True),
     sa.Column('authors', sa.ARRAY(sa.String()), nullable=True),
     sa.Column('owner_id', sa.Integer(), nullable=True),
@@ -167,7 +167,7 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('status', sa.String(), nullable=False),
+    sa.Column('status', sa.Enum('pending', 'need_information', 'approved', 'declined', name='statusenum'), server_default='pending', nullable=True),
     sa.Column('reviewer_id', sa.Integer(), nullable=True),
     sa.Column('paper_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['paper_id'], ['paper.id'], ),

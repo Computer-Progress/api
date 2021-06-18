@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 # Shared properties
 class DatasetBase(BaseModel):
-    name: str
+    name: Optional[str]
     image: Optional[str]
     description: Optional[str]
     source: Optional[str]
