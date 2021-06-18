@@ -57,16 +57,14 @@ def seed() -> None:
     task_dataset_accuracy_type_apl = models.TaskDatasetAccuracyType(
         required=False, main=False, accuracy_type=apl)
 
-    task_dataset = models.TaskDataset()
-    task_dataset.dataset = dataset
+    task_dataset = models.TaskDataset(task=task, dataset=dataset)
+
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_box_ap)
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_ap50)
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_ap75)
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_aps)
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_apm)
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_apl)
-
-    task.datasets.append(task_dataset)
 
     with open('app/database/seeders/ms_coco.csv', mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -159,5 +157,5 @@ def seed() -> None:
                     model=model
                 )
                 task_dataset.models.append(model)
-        db.add(task)
+        db.add(task_dataset)
         db.commit()

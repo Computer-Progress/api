@@ -27,7 +27,7 @@ def init_db(db: Session) -> None:
             role='super_admin',
         )
         user = crud.user.create(db, obj_in=user_in)
-        cpu.seed() 
+        cpu.seed()
         gpu.seed()
         tpu.seed()
         conll2003.seed()

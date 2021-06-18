@@ -45,12 +45,10 @@ def seed() -> None:
     task_dataset_accuracy_type_top5 = models.TaskDatasetAccuracyType(
         required=False, main=False, accuracy_type=top5)
 
-    task_dataset = models.TaskDataset()
-    task_dataset.dataset = dataset
+    task_dataset = models.TaskDataset(task=task, dataset=dataset)
+
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_top1)
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_top5)
-
-    task.datasets.append(task_dataset)
 
     with open('app/database/seeders/imagenet.csv', mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -123,5 +121,5 @@ def seed() -> None:
                     model=model
                 )
                 task_dataset.models.append(model)
-        db.add(task)
+        db.add(task_dataset)
         db.commit()

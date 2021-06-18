@@ -31,7 +31,7 @@ class TaskInDBBase(TaskBase):
 # Additional properties to return via API
 class Task(TaskInDBBase):
     datasets: Optional[List[Dataset]]
-    pass
+    benchmarks: Optional[int]
 
 
 # Additional properties stored in DB

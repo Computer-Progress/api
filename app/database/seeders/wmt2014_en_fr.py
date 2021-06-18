@@ -48,12 +48,10 @@ def seed() -> None:
     task_dataset_accuracy_type_SACREBLEU = models.TaskDatasetAccuracyType(
         required=False, main=False, accuracy_type=SACREBLEU)
 
-    task_dataset = models.TaskDataset()
-    task_dataset.dataset = dataset
+    task_dataset = models.TaskDataset(task=task, dataset=dataset)
+
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_BLEU)
     task_dataset.accuracy_types.append(task_dataset_accuracy_type_SACREBLEU)
-
-    task.datasets.append(task_dataset)
 
     with open('app/database/seeders/wmt2014_en_fr.csv', mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -125,5 +123,5 @@ def seed() -> None:
                     model=model
                 )
                 task_dataset.models.append(model)
-        db.add(task)
+        db.add(task_dataset)
         db.commit()

@@ -1,3 +1,4 @@
+import logging
 from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -14,11 +15,11 @@ def read_tasks(
     skip: int = 0,
     limit: int = 100,
     # current_user: models.User = Depends(deps.GetCurrentUser('default')),
-) -> Any:
+) -> List[schemas.Task]:
     """
     Retrieve tasks.
     """
-    tasks = crud.task.get_multi(db, skip=skip, limit=limit)
+    tasks = crud.task.get_multi_and_count_benchmarks(db, skip=skip, limit=limit)
     return tasks
 
 

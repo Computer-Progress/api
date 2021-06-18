@@ -1,6 +1,7 @@
+from app.models.task_dataset import TaskDataset
 from app.database.base import Base
 from sqlalchemy import Column, Integer, String, Text
-from sqlalchemy.orm import relationship
+from sqlalchemy.ext.associationproxy import association_proxy
 
 
 class Task(Base):
@@ -9,5 +10,5 @@ class Task(Base):
     name = Column(String)
     image = Column(String)
     description = Column(Text)
-    datasets = relationship(
-        "Dataset", back_populates="tasks", secondary="task_dataset")
+    datasets = association_proxy(
+        'datasets_association', 'dataset', creator=lambda d: TaskDataset(dataset=d))

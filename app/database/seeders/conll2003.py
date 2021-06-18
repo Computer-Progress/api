@@ -36,17 +36,14 @@ def seed() -> None:
     task = models.Task(name='Named Entity Recognition')
 
     dataset = models.Dataset(name='Conll 2003')
-
     f1_score = models.AccuracyType(name='F1')
 
     task_dataset_accuracy_type_f1_score = models.TaskDatasetAccuracyType(
         required=True, main=True, accuracy_type=f1_score)
 
-    task_dataset = models.TaskDataset()
-    task_dataset.dataset = dataset
-    task_dataset.accuracy_types.append(task_dataset_accuracy_type_f1_score)
+    task_dataset = models.TaskDataset(task=task, dataset=dataset)
 
-    task.datasets.append(task_dataset)
+    task_dataset.accuracy_types.append(task_dataset_accuracy_type_f1_score)
 
     with open('app/database/seeders/conll2003.csv', mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -112,5 +109,6 @@ def seed() -> None:
                     model=model
                 )
                 task_dataset.models.append(model)
-        db.add(task)
+        db.add(task_dataset)
+
         db.commit()
