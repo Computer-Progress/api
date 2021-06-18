@@ -1,14 +1,14 @@
 from typing import List, Optional
 from datetime import date
 
-from pydantic import BaseModel, AnyHttpUrl
+from pydantic import BaseModel
 
 
 # Shared properties
 class PaperBase(BaseModel):
     title: str
-    link: Optional[AnyHttpUrl]
-    code_link: Optional[AnyHttpUrl]
+    link: Optional[str]
+    code_link: Optional[str]
     publication_date: Optional[date]
     authors: Optional[List[str]]
 
