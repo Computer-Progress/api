@@ -104,7 +104,7 @@ def seed() -> None:
                 model.hardware_burden = calculate_hardware_burden(model)
 
                 models.AccuracyValue(
-                    value=parseFloat(m.get('f1_score')),
+                    value=parseFloat(m.get('F1')),
                     accuracy_type=f1_score,
                     model=model
                 )
