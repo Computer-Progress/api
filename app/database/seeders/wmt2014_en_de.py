@@ -33,9 +33,9 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Machine Translation')
+    task = models.Task(name='Machine Translation', identifier='machine-translation')
 
-    dataset = models.Dataset(name='WMT2014 English-German')
+    dataset = models.Dataset(name='WMT2014 English-German', identifier='wmt2014-en-ge')
 
     BLEU = models.AccuracyType(name='BLEU')
     SACREBLEU = models.AccuracyType(name='SACREBLEU')

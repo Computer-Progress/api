@@ -1,10 +1,13 @@
+from app import models
+from pydantic.main import BaseModel
 from typing import List, Optional
 
-from pydantic import BaseModel
 from .dataset import Dataset
-
+from .model import Model
 
 # Shared properties
+
+
 class TaskBase(BaseModel):
     name: str
     image: Optional[str]
@@ -30,10 +33,25 @@ class TaskInDBBase(TaskBase):
 
 # Additional properties to return via API
 class Task(TaskInDBBase):
-    datasets: Optional[List[Dataset]]
-    benchmarks: Optional[int]
+    number_of_benchmarks: Optional[int]
 
 
 # Additional properties stored in DB
 class TaskInDB(TaskInDBBase):
     pass
+
+
+class DatasetModel(BaseModel):
+    id: Optional[int] = None
+    name: Optional[str]
+    image: Optional[str]
+    description: Optional[str]
+    source: Optional[str]
+    models: List[Model]
+
+
+class TaskDatasetModels(Task):
+    datasets: List[DatasetModel]
+
+    class Config:
+        orm_mode = True

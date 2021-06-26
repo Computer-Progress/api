@@ -33,9 +33,9 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Object Detection')
+    task = models.Task(name='Object Detection', identifier='object-detection')
 
-    dataset = models.Dataset(name='MS COCO')
+    dataset = models.Dataset(name='MS COCO', identifier='ms-coco')
 
     box_ap = models.AccuracyType(name='BOX_AP')
     ap50 = models.AccuracyType(name='AP50')

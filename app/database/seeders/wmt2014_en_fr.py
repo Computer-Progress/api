@@ -34,11 +34,11 @@ def seed() -> None:
     db = SessionLocal()
 
     task = db.query(models.Task).filter(
-        models.Task.name == 'Machine Translation').first()
+        models.Task.identifier == 'machine-translation').first()
     if not task:
-        task = models.Task(name='Machine Translation')
+        task = models.Task(name='Machine Translation', identifier='machine-translation')
 
-    dataset = models.Dataset(name='WMT2014 English-French')
+    dataset = models.Dataset(name='WMT2014 English-French', identifier='wmt2014-en-fr')
 
     BLEU = models.AccuracyType(name='BLEU')
     SACREBLEU = models.AccuracyType(name='SACREBLEU')

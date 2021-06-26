@@ -33,9 +33,9 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Named Entity Recognition')
+    task = models.Task(name='Named Entity Recognition', identifier='named-entity-recognition')
 
-    dataset = models.Dataset(name='Conll 2003')
+    dataset = models.Dataset(name='Conll 2003', identifier='conll-2003')
     f1_score = models.AccuracyType(name='F1')
 
     task_dataset_accuracy_type_f1_score = models.TaskDatasetAccuracyType(

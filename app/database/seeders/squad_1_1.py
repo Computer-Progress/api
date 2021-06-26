@@ -33,9 +33,9 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Question Answering')
+    task = models.Task(name='Question Answering', identifier='question-answering')
 
-    dataset = models.Dataset(name='SQuAD 1.1')
+    dataset = models.Dataset(name='SQuAD 1.1', identifier='squad11')
 
     F1 = models.AccuracyType(name='F1')
     EM = models.AccuracyType(name='EM')

@@ -33,9 +33,9 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Image Classification')
+    task = models.Task(name='Image Classification', identifier='image-classification')
 
-    dataset = models.Dataset(name='Imagenet')
+    dataset = models.Dataset(name='Imagenet', identifier='imagenet')
 
     top1 = models.AccuracyType(name='top1_error')
     top5 = models.AccuracyType(name='top5_error')

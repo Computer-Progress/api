@@ -6,7 +6,7 @@ from .msg import Msg
 from .token import Token, TokenPayload
 
 
-from .task import Task, TaskCreate, TaskInDB, TaskUpdate
+from .task import Task, TaskCreate, TaskInDB, TaskUpdate, TaskDatasetModels
 from .dataset import Dataset, DatasetCreate, DatasetInDB, DatasetUpdate
 from .accuracy_type import AccuracyType, AccuracyTypeCreate, AccuracyTypeInDB, AccuracyTypeUpdate
 from .paper import Paper, PaperCreate, PaperInDB, PaperUpdate

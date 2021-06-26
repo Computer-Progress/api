@@ -6,7 +6,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 class Task(Base):
     id = Column(Integer, primary_key=True, index=True)
-
+    identifier = Column(String, unique=True)
     name = Column(String)
     image = Column(String)
     description = Column(Text)

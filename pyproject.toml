@@ -5,7 +5,7 @@ description = ""
 authors = ["Andrew Lucas <andrewlucasgs@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.7.1"
 alembic = "^1.6.5"
 fastapi = "^0.65.1"
 uvicorn = "^0.14.0"
@@ -17,6 +17,7 @@ python-multipart = "^0.0.5"
 psycopg2 = "^2.8.6"
 bcrypt = "^3.2.0"
 Jinja2 = "^3.0.1"
+pandas = "^1.2.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
