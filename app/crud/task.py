@@ -1,5 +1,5 @@
 import logging
-from typing import List, Union
+from typing import Any, List, Union
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.functions import func
 from app.crud.base import CRUDBase
@@ -14,7 +14,7 @@ from app.models import (Task, Dataset, Model, TaskDataset,
 class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
     def get_multi_and_count_benchmarks(
         self, db: Session, *, skip: int = 0, limit: int = 100
-    ) -> List[schemas.Task]:
+    ) -> List[Any]:
 
         dataset_count = db.query(
             func.count(TaskDataset.id).label('number_of_benchmarks'),
@@ -80,7 +80,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             )
         ).subquery('best_model')
 
-        tasks = db.query(Task).filter(Task.id == 5).limit(5).subquery('tasks')
+        tasks = db.query(Task).limit(5).subquery('tasks')
 
         response = db.query(
             tasks.c.id.label("task_id"),
@@ -379,6 +379,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             Model.epochs.label('model_epochs'),
             Model.training_time.label('model_training_time'),
             Model.number_of_cpus.label('model_number_of_cpus'),
+            Model.hardware_burden.label('model_hardware_burden'),
             Cpu.name.label('model_cpu'),
             Model.number_of_gpus.label('model_number_of_gpus'),
             Gpu.name.label('model_gpu'),
@@ -389,6 +390,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             Paper.title.label('paper_title'),
             Paper.code_link.label('paper_code_link'),
             Paper.publication_date.label('paper_publication_date'),
+            Paper.link.label('paper_link'),
         ).join(TaskDataset.models)\
             .join(Model.accuracy_values)\
             .join(AccuracyValue.accuracy_type)\
@@ -418,26 +420,27 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     'task_name': row.task_name,
                     'dataset_name': row.dataset_name,
                     'model_id': row.model_id,
+                    'paper_publication_date': row.paper_publication_date.year,
+                    'paper_title': row.paper_title,
+                    'paper_link': row.paper_link,
+                    'paper_code_link': row.paper_code_link,
                     'model_name': row.model_name,
+                    row.accuracy_type: row.accuracy_value,
                     'model_gflops': row.model_gflops,
-                    'model_number_of_parameters': row.model_number_of_parameters,
                     'model_multiply_adds': row.model_multiply_adds,
-                    'model_epochs': row.model_epochs,
-                    'model_training_time': row.model_training_time,
                     'model_number_of_cpus': row.model_number_of_cpus,
                     'model_cpu': row.model_cpu,
                     'model_number_of_gpus': row.model_number_of_gpus,
                     'model_gpu': row.model_gpu,
                     'model_number_of_tpus': row.model_number_of_tpus,
                     'model_tpu': row.model_tpu,
-                    'paper_title': row.paper_title,
-                    'paper_code_link': row.paper_code_link,
-                    'paper_publication_date': row.paper_publication_date,
+                    'model_training_time': row.model_training_time,
+                    'model_hardware_burden': row.model_hardware_burden,
+                    'model_number_of_parameters': row.model_number_of_parameters,
+                    'model_epochs': row.model_epochs,
                 }
-                new_model[row.accuracy_type] = row.accuracy_value
 
                 models_res.append(new_model)
-        logging.error(models_res)
         return models_res
 
 

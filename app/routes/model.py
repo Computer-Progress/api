@@ -1,11 +1,80 @@
-from typing import Any, List
+from typing import Any, List, Union
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app import crud, models, schemas, deps
 
+from fastapi.responses import StreamingResponse
+import pandas
+import io
+
 router = APIRouter()
+
+
+@router.get("/{task_id}/{dataset_id}", response_model=Any)
+def get_models(
+    *,
+    db: Session = Depends(deps.get_db),
+    task_id: Union[int, str],
+    dataset_id: Union[int, str],
+):
+    task = crud.task.get_models(
+        db=db, task_id=task_id, dataset_id=dataset_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
+
+
+@router.get("/{task_id}/{dataset_id}/csv", response_model=Any)
+def get_models_csv(
+    *,
+    db: Session = Depends(deps.get_db),
+    task_id: Union[int, str],
+    dataset_id: Union[int, str],
+):
+    models = crud.task.get_models_csv(
+        db=db, task_id=task_id, dataset_id=dataset_id)
+    if not models:
+        raise HTTPException(status_code=404, detail="models not found")
+    model_keys = ['task_name',
+                  'dataset_name',
+                  'model_id',
+                  'paper_publication_date',
+                  'paper_title',
+                  'paper_link',
+                  'paper_code_link',
+                  'model_name']
+    computing_power_keys = ['model_gflops',
+                            'model_multiply_adds',
+                            'model_number_of_cpus',
+                            'model_cpu',
+                            'model_number_of_gpus',
+                            'model_gpu',
+                            'model_number_of_tpus',
+                            'model_tpu',
+                            'model_training_time',
+                            'model_hardware_burden',
+                            'model_number_of_parameters',
+                            'model_epochs']
+    accuracy_key = [k for k in models[0].keys()
+                    if k not in model_keys and k not in computing_power_keys]
+    res_keys = [*model_keys, *accuracy_key[::-1], *computing_power_keys]
+
+    df = pandas.DataFrame(models, columns=res_keys)
+    df = df.drop(['model_id'], axis=1)
+    stream = io.StringIO()
+    ['']
+
+    df.to_csv(stream, index=False)
+
+    response = StreamingResponse(iter([stream.getvalue()]),
+                                 media_type="text/csv"
+                                 )
+
+    response.headers["Content-Disposition"] = f"attachment; filename={task_id}-{dataset_id}.csv"
+
+    return response
 
 
 @router.get("/", response_model=List[schemas.Model])
