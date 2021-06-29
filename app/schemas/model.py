@@ -6,7 +6,7 @@ from pydantic import BaseModel
 # Shared properties
 class ModelBase(BaseModel):
     name: Optional[str]
-    hardware_burden: Optional[float]
+    hardware_burden: Optional[float] = None
     training_time: Optional[int]
     gflops: Optional[float]
     epochs: Optional[int]

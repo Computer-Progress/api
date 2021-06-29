@@ -249,6 +249,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     'sota_accuracy_value': row.model_accuracy,
                     'sota_hardware_burden': row.model_hardware_burden,
                     'sota_paper_link': row.paper_url,
+                    'sota_paper_publication_date': row.paper_publication_date
                 })
 
         return res
