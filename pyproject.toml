@@ -19,6 +19,7 @@ bcrypt = "^3.2.0"
 Jinja2 = "^3.0.1"
 pandas = "^1.2.5"
 aiofiles = "^0.7.0"
+python-slugify = "^5.0.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

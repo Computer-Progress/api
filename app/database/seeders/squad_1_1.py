@@ -33,7 +33,9 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Question Answering', identifier='question-answering')
+    task = models.Task(name='Question Answering', identifier='question-answering',
+                       description='Question Answering is the task of answering questions (typically reading comprehension questions), but abstaining when presented with a question that cannot be answered based on the provided context.',
+                       image='http://ec2-3-129-18-205.us-east-2.compute.amazonaws.com/image/question-answering.svg')
 
     dataset = models.Dataset(name='SQuAD 1.1', identifier='squad11')
 
@@ -107,7 +109,8 @@ def seed() -> None:
                     model.tpu = db.query(models.Tpu).filter(
                         models.Tpu.name == m.get('tpu')).first()
 
-                model.hardware_burden = calculate_hardware_burden(model)
+                hardware_burden = calculate_hardware_burden(model)
+                model.hardware_burden = hardware_burden if hardware_burden != 0 else None
 
                 models.AccuracyValue(
                     value=parseFloat(m.get('F1')),

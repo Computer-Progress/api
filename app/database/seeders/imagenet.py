@@ -33,7 +33,9 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Image Classification', identifier='image-classification')
+    task = models.Task(name='Image Classification', identifier='image-classification',
+                       description='Image Classification is a fundamental task that attempts to comprehend an entire image as a whole. The goal is to classify the image by assigning it to a specific label. Typically, Image Classification refers to images in which only one object appears and is analyzed. In contrast, object detection involves both classification and localization tasks, and is used to analyze more realistic cases in which multiple objects may exist in an image.',
+                       image='http://ec2-3-129-18-205.us-east-2.compute.amazonaws.com/image/image-classification.svg')
 
     dataset = models.Dataset(name='Imagenet', identifier='imagenet')
 
@@ -108,7 +110,8 @@ def seed() -> None:
                     model.tpu = db.query(models.Tpu).filter(
                         models.Tpu.name == m.get('tpu')).first()
 
-                model.hardware_burden = calculate_hardware_burden(model)
+                hardware_burden = calculate_hardware_burden(model)
+                model.hardware_burden = hardware_burden if hardware_burden != 0 else None
 
                 models.AccuracyValue(
                     value=parseFloat(m.get('top1_error')),

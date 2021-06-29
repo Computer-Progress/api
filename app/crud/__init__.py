@@ -6,3 +6,4 @@ from .dataset import dataset
 from .accuracy_type import accuracy_type
 from .model import model
 from .paper import paper
+from .paper_with_code import paper_with_code

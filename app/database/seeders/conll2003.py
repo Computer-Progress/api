@@ -33,7 +33,12 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Named Entity Recognition', identifier='named-entity-recognition')
+    task = models.Task(name='Named Entity Recognition',
+                       identifier='named-entity-recognition',
+                       description='Named entity recognition (NER) is the task of tagging entities in text with their corresponding type. Approaches typically use BIO notation, which differentiates the beginning (B) and the inside (I) of entities. O is used for non-entity tokens.',
+                       image='http://ec2-3-129-18-205.us-east-2.compute.amazonaws.com/image/named-entity-recognition.svg'
+
+                       )
 
     dataset = models.Dataset(name='Conll 2003', identifier='conll-2003')
     f1_score = models.AccuracyType(name='F1')
@@ -101,7 +106,8 @@ def seed() -> None:
                     model.tpu = db.query(models.Tpu).filter(
                         models.Tpu.name == m.get('tpu')).first()
 
-                model.hardware_burden = calculate_hardware_burden(model)
+                hardware_burden = calculate_hardware_burden(model)
+                model.hardware_burden = hardware_burden if hardware_burden != 0 else None
 
                 models.AccuracyValue(
                     value=parseFloat(m.get('F1')),

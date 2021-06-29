@@ -33,7 +33,10 @@ def calculate_hardware_burden(model):
 def seed() -> None:
     db = SessionLocal()
 
-    task = models.Task(name='Object Detection', identifier='object-detection')
+    task = models.Task(name='Object Detection', identifier='object-detection',
+                       description='Object detection is the task of detecting instances of objects of a certain class within an image. The state-of-the-art methods can be categorized into two main types: one-stage methods and two stage-methods. One-stage methods prioritize inference speed, and example models include YOLO, SSD and RetinaNet. Two-stage methods prioritize detection accuracy, and example models include Faster R-CNN, Mask R-CNN and Cascade R-CNN. The most popular benchmark is the MSCOCO dataset. Models are typically evaluated according to a Mean Average Precision metric.',
+                       image='http: // ec2-3-129-18-205.us-east-2.compute.amazonaws.com/image/object-detection.svg'
+                       )
 
     dataset = models.Dataset(name='MS COCO', identifier='ms-coco')
 
@@ -124,7 +127,8 @@ def seed() -> None:
                     model.tpu = db.query(models.Tpu).filter(
                         models.Tpu.name == m.get('tpu')).first()
 
-                model.hardware_burden = calculate_hardware_burden(model)
+                hardware_burden = calculate_hardware_burden(model)
+                model.hardware_burden = hardware_burden if hardware_burden != 0 else None
 
                 models.AccuracyValue(
                     value=parseFloat(m.get('BOX_AP')),

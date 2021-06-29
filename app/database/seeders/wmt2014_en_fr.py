@@ -36,7 +36,10 @@ def seed() -> None:
     task = db.query(models.Task).filter(
         models.Task.identifier == 'machine-translation').first()
     if not task:
-        task = models.Task(name='Machine Translation', identifier='machine-translation')
+        task = models.Task(name='Machine Translation', identifier='machine-translation',
+                           description='Machine translation is the task of translating a sentence in a source language to a different target language.',
+                           image='http://ec2-3-129-18-205.us-east-2.compute.amazonaws.com/image/machine-translation.svg'
+                           )
 
     dataset = models.Dataset(name='WMT2014 English-French', identifier='wmt2014-en-fr')
 
@@ -110,7 +113,8 @@ def seed() -> None:
                     model.tpu = db.query(models.Tpu).filter(
                         models.Tpu.name == m.get('tpu')).first()
 
-                model.hardware_burden = calculate_hardware_burden(model)
+                hardware_burden = calculate_hardware_burden(model)
+                model.hardware_burden = hardware_burden if hardware_burden != 0 else None
 
                 models.AccuracyValue(
                     value=parseFloat(m.get('BLEU')),

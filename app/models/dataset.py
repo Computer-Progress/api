@@ -1,15 +1,25 @@
 from sqlalchemy.ext.associationproxy import association_proxy
-from app.models.task_dataset import TaskDataset
+from app import models
 from app.database.base import Base
 from sqlalchemy import Column, Integer, String, Text
+from slugify import slugify
+
+
+def generate_identifier(context):
+    return slugify(
+        context.get_current_parameters()['name'],
+        max_length=45,
+        word_boundary=True
+    )
 
 
 class Dataset(Base):
     id = Column(Integer, primary_key=True, index=True)
-    identifier = Column(String, unique=True)
+    identifier = Column(String, unique=True,
+                        default=generate_identifier, onupdate=generate_identifier)
     name = Column(String)
     image = Column(String)
     description = Column(Text)
     source = Column(String)
     tasks = association_proxy(
-        'tasks_association', 'task', creator=lambda t: TaskDataset(task=t))
+        'tasks_association', 'task', creator=lambda t: models.TaskDataset(task=t))
