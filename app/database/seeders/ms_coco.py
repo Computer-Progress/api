@@ -101,7 +101,9 @@ def seed() -> None:
                             parseFloat(m.get('flops'))) else None,
                     'epochs':  parseInt(m.get('#epochs')),
                     'number_of_parameters':  parseInt(m.get('#param')),
-                    'multiply_adds':  parseFloat(m.get('multiadds')),
+                    'multiply_adds':
+                        (parseFloat(m.get('multiadds')) / 10e9) if (
+                            parseFloat(m.get('multiadds'))) else None,
                     'number_of_cpus':  parseInt(m.get('#cpu')),
                     'number_of_gpus':  parseInt(m.get('#gpu')),
                     'number_of_tpus':  parseInt(m.get('#tpu')),
