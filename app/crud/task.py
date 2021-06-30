@@ -96,6 +96,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             bestModel.c.hardware_burden.label("model_hardware_burden"),
             bestModel.c.value.label("model_accuracy"),
             Paper.link.label("paper_url"),
+            Paper.title.label("paper_title"),
             Paper.publication_date.label('paper_publication_date')
 
         ).select_from(tasks)\
@@ -124,7 +125,8 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     'sota_accuracy_value': row.model_accuracy,
                     'sota_hardware_burden': row.model_hardware_burden,
                     'sota_paper_link': row.paper_url,
-                    'paper_publication_date': row.paper_publication_date
+                    'sota_paper_publication_date': row.paper_publication_date,
+                    'sota_paper_title': row.paper_title
 
                 })
             else:
@@ -143,7 +145,9 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                         'sota_accuracy_value': row.model_accuracy,
                         'sota_hardware_burden': row.model_hardware_burden,
                         'sota_paper_link': row.paper_url,
-                        'paper_publication_date': row.paper_publication_date
+                        'sota_paper_publication_date': row.paper_publication_date,
+                        'sota_paper_title': row.paper_title
+
 
                     }],
                 }
@@ -215,6 +219,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             bestModel.c.name.label("model_name"),
             bestModel.c.hardware_burden.label("model_hardware_burden"),
             bestModel.c.value.label("model_accuracy"),
+            Paper.title.label("paper_title"),
             Paper.link.label("paper_url"),
             Paper.publication_date.label('paper_publication_date')
         ).select_from(tasks)\
@@ -249,7 +254,9 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     'sota_accuracy_value': row.model_accuracy,
                     'sota_hardware_burden': row.model_hardware_burden,
                     'sota_paper_link': row.paper_url,
-                    'sota_paper_publication_date': row.paper_publication_date
+                    'sota_paper_publication_date': row.paper_publication_date,
+                    'sota_paper_title': row.paper_title,
+
                 })
 
         return res
@@ -412,8 +419,9 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
 
         models_res = []
         for row in models:
-            current_item = (
-                next((item for item in models_res if item["model_id"] == row.model_id), None))
+            current_item = next(
+                (item for item in models_res if item["model_id"] == row.model_id), None)
+
             if current_item:
                 current_item[row.accuracy_type] = row.accuracy_value
             else:
