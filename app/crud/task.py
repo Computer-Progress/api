@@ -325,6 +325,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             AccuracyValue.value.label('accuracy_value'),
             AccuracyType.name.label('accuracy_type'),
             Paper.title.label('paper_title'),
+            Paper.link.label('paper_link'),
             Paper.code_link.label('paper_code_link'),
             Paper.publication_date.label('paper_publication_date'),
         ).join(TaskDataset.models)\
@@ -356,6 +357,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     'hardware_burden': row.model_hardware_burden,
                     'paper_title': row.paper_title,
                     'paper_code_link': row.paper_code_link,
+                    'paper_link': row.paper_link,
                     'paper_publication_date': row.paper_publication_date,
                 }
                 new_model[row.accuracy_type] = row.accuracy_value
