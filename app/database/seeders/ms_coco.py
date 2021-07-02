@@ -40,7 +40,7 @@ def seed() -> None:
 
     dataset = models.Dataset(name='MS COCO', identifier='ms-coco')
 
-    box_ap = models.AccuracyType(name='BOX_AP')
+    box_ap = models.AccuracyType(name='BOX AP')
     ap50 = models.AccuracyType(name='AP50')
     ap75 = models.AccuracyType(name='AP75')
     aps = models.AccuracyType(name='APS')

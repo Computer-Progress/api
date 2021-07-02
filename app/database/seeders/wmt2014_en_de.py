@@ -40,8 +40,8 @@ def seed() -> None:
 
     dataset = models.Dataset(name='WMT2014 English-German', identifier='wmt2014-en-ge')
 
-    BLEU = models.AccuracyType(name='BLEU')
-    SACREBLEU = models.AccuracyType(name='SACREBLEU')
+    BLEU = models.AccuracyType(name='BLEU score')
+    SACREBLEU = models.AccuracyType(name='SacreBLEU')
 
     task_dataset_accuracy_type_BLEU = models.TaskDatasetAccuracyType(
         required=True, main=True, accuracy_type=BLEU)

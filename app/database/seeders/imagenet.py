@@ -39,8 +39,8 @@ def seed() -> None:
 
     dataset = models.Dataset(name='Imagenet', identifier='imagenet')
 
-    top1 = models.AccuracyType(name='top1_error')
-    top5 = models.AccuracyType(name='top5_error')
+    top1 = models.AccuracyType(name='TOP 1')
+    top5 = models.AccuracyType(name='TOP 5')
 
     task_dataset_accuracy_type_top1 = models.TaskDatasetAccuracyType(
         required=True, main=True, accuracy_type=top1)
@@ -115,13 +115,18 @@ def seed() -> None:
                 hardware_burden = calculate_hardware_burden(model)
                 model.hardware_burden = hardware_burden if hardware_burden != 0 else None
 
+                top1_accuracy = 100-parseFloat(m.get('top1_error')) if parseFloat(
+                    m.get('top1_error')) else parseFloat(m.get('top1_error'))
+                top5_accuracy = 100-parseFloat(m.get('top5_error')) if parseFloat(
+                    m.get('top5_error')) else parseFloat(m.get('top5_error'))
+
                 models.AccuracyValue(
-                    value=parseFloat(m.get('top1_error')),
+                    value=top1_accuracy,
                     accuracy_type=top1,
                     model=model
                 )
                 models.AccuracyValue(
-                    value=parseFloat(m.get('top5_error')),
+                    value=top5_accuracy,
                     accuracy_type=top5,
                     model=model
                 )
