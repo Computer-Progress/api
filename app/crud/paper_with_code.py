@@ -67,6 +67,7 @@ class CRUDTask():
             Model.hardware_burden.label("model_hardware_burden"),
             Model.gflops.label("model_gflops"),
             Model.multiply_adds.label("model_multiply_adds"),
+            Model.extra_training_time.label("model_extra_training_time"),
             Paper.identifier.label("paper_identifier"),
         ).select_from(tasks_dataset)\
             .join(TaskDataset.models)\
@@ -86,6 +87,9 @@ class CRUDTask():
                 'model_hardware_burden': response[0].model_hardware_burden,
                 'model_gflops': response[0].model_gflops,
                 'model_multiply_adds': response[0].model_multiply_adds,
+                'model_operation_per_network_pass': response[0].model_gflops if response[0].model_gflops else response[0].model_multiply_adds,
+
+                'model_extra_training_time': response[0].model_extra_training_time,
                 'paper_identifier': response[0].paper_identifier,
             }
 
