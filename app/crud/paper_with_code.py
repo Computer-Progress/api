@@ -42,8 +42,6 @@ class CRUDTask():
                     'model_identifier': row.model_identifier,
                     'model_name': row.model_name,
                     'model_hardware_burden': row.model_hardware_burden,
-                    'model_gflops': row.model_gflops,
-                    'model_multiply_adds': row.model_multiply_adds,
                     'model_operation_per_network_pass': row.model_gflops if row.model_gflops else row.model_multiply_adds,
 
                     'paper_identifier': row.paper_identifier,
@@ -87,8 +85,6 @@ class CRUDTask():
                 'model_identifier': response[0].model_identifier,
                 'model_name': response[0].model_name,
                 'model_hardware_burden': response[0].model_hardware_burden,
-                'model_gflops': response[0].model_gflops,
-                'model_multiply_adds': response[0].model_multiply_adds,
                 'model_operation_per_network_pass': response[0].model_gflops if response[0].model_gflops else response[0].model_multiply_adds,
                 'paper_identifier': response[0].paper_identifier,
             }
