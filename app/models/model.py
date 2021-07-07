@@ -1,5 +1,5 @@
 from app.database.base import Base
-from sqlalchemy import Column, Integer, BigInteger, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, BigInteger, String, ForeignKey, Float, Boolean
 from sqlalchemy.orm import relationship
 from slugify import slugify
 
@@ -34,7 +34,7 @@ class Model(Base):
     task_dataset_id = Column(Integer, ForeignKey('task_dataset.id'))
 
     accuracy_values = relationship("AccuracyValue")
-
+    extra_training_time = Column(Boolean)
     paper_id = Column(Integer, ForeignKey('paper.id'))
     paper = relationship("Paper", uselist=False, back_populates="models")
 

@@ -47,6 +47,7 @@ def get_models_csv(
                   'model_name']
     computing_power_keys = ['model_gflops',
                             'model_multiply_adds',
+                            'model_extra_training_time',
                             'model_number_of_cpus',
                             'model_cpu',
                             'model_number_of_gpus',
