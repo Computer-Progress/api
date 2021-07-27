@@ -5,8 +5,7 @@ from app.settings import settings
 from app.database import base  # noqa: F401
 
 from app.database.seeders import (
-    cpu, gpu, tpu, conll2003, imagenet, ms_coco, squad_1_1, wmt2014_en_de,
-    wmt2014_en_fr)
+    cpu, gpu, tpu)
 
 # make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
 # otherwise, SQL Alchemy might fail to initialize relationships properly
@@ -30,9 +29,3 @@ def init_db(db: Session) -> None:
         cpu.seed()
         gpu.seed()
         tpu.seed()
-        imagenet.seed()
-        conll2003.seed()
-        ms_coco.seed()
-        squad_1_1.seed()
-        wmt2014_en_de.seed()
-        wmt2014_en_fr.seed()
