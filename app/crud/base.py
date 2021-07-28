@@ -3,6 +3,7 @@ from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+import logging
 
 from app.database.base import Base
 

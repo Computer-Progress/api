@@ -8,19 +8,24 @@ from app import crud, models, schemas, deps
 router = APIRouter()
 
 
-@router.get("/", response_model=List[schemas.AccuracyType])
-def read_accuracy_types(
+@router.get("/", response_model=List[Any])
+def read_accuracy_types_by_task_dataset_identifier(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    # current_user: models.User = Depends(deps.GetCurrentUser('default')),
+    task_dataset_identifier: str = None
 ) -> Any:
     """
     Retrieve accuracy_types.
     """
-    accuracy_types = crud.accuracy_type.get_multi(db, skip=skip, limit=limit)
+    if task_dataset_identifier:
+        accuracy_types = crud.accuracy_type.get_multi_by_task_dataset_identifier(
+            db, skip=skip, limit=limit, task_dataset_identifier=task_dataset_identifier)
+    else:
+        accuracy_types = crud.accuracy_type.get_multi(db, skip=skip, limit=limit)
 
     return accuracy_types
+
 
 
 @router.post("/", response_model=schemas.AccuracyType)

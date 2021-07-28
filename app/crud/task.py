@@ -4,7 +4,6 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.functions import func
 from app.crud.base import CRUDBase
 from app.schemas.task import TaskCreate, TaskUpdate, TaskDatasetModels
-from app import schemas
 from app.models import (Task, Dataset, Model, TaskDataset,
                         TaskDatasetAccuracyType, AccuracyValue,
                         AccuracyType, Revision, Paper,
@@ -12,9 +11,16 @@ from app.models import (Task, Dataset, Model, TaskDataset,
 
 
 class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
+
     def get_multi_and_count_benchmarks(
-        self, db: Session, *, skip: int = 0, limit: int = 100
+        self, db: Session, *, skip: int = 0, limit: int = 100, q
     ) -> List[Any]:
+
+        if q:
+            return db.query(Task.id, Task.name)\
+                .filter(Task.name.ilike("%{}%".format(q)))\
+                .offset(skip)\
+                .limit(limit).all()
 
         dataset_count = db.query(
             func.count(TaskDataset.id).label('number_of_benchmarks'),

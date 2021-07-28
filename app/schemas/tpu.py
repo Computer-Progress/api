@@ -6,9 +6,9 @@ from pydantic import BaseModel
 # Shared properties
 class TpuBase(BaseModel):
     name: str
-    transistors: int
-    tdp: int
-    gflops: float
+    transistors: Optional[int]
+    tdp: Optional[int]
+    gflops: Optional[float]
 
 
 # Properties to receive via API on creation

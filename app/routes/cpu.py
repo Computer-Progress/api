@@ -13,12 +13,12 @@ def read_cpus(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    current_user: models.User = Depends(deps.GetCurrentUser('default')),
+    q: str = None,
 ) -> Any:
     """
     Retrieve cpus.
     """
-    cpus = crud.cpu.get_multi(db, skip=skip, limit=limit)
+    cpus = crud.cpu.get_multi(db, skip=skip, limit=limit, q=q)
 
     return cpus
 

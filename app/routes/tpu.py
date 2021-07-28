@@ -13,22 +13,24 @@ def read_tpus(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    current_user: models.User = Depends(deps.GetCurrentUser('default')),
+    q: str = None,
 ) -> Any:
     """
     Retrieve tpus.
     """
-    tpus = crud.tpu.get_multi(db, skip=skip, limit=limit)
+    tpus = crud.tpu.get_multi(db, skip=skip, limit=limit, q=q)
 
     return tpus
 
 
-@router.post("/", response_model=schemas.Tpu)
+@ router.post("/", response_model=schemas.Tpu)
 def create_tpu(
     *,
     db: Session = Depends(deps.get_db),
     tpu_in: schemas.TpuCreate,
     current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+
+
 ) -> Any:
     """
     Create new tpu.
@@ -37,7 +39,7 @@ def create_tpu(
     return tpu
 
 
-@router.put("/{id}", response_model=schemas.Tpu)
+@ router.put("/{id}", response_model=schemas.Tpu)
 def update_tpu(
     *,
     db: Session = Depends(deps.get_db),
@@ -55,7 +57,7 @@ def update_tpu(
     return tpu
 
 
-@router.get("/{id}", response_model=schemas.Tpu)
+@ router.get("/{id}", response_model=schemas.Tpu)
 def read_tpu(
     *,
     db: Session = Depends(deps.get_db),
@@ -73,7 +75,7 @@ def read_tpu(
     return tpu
 
 
-@router.delete("/{id}", response_model=schemas.Tpu)
+@ router.delete("/{id}", response_model=schemas.Tpu)
 def delete_tpu(
     *,
     db: Session = Depends(deps.get_db),

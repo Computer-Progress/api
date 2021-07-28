@@ -4,7 +4,14 @@ from app.schemas.dataset import DatasetCreate, DatasetUpdate
 
 
 class CRUDDataset(CRUDBase[Dataset, DatasetCreate, DatasetUpdate]):
-    pass
+    def get_multi(
+        self, db, *, skip: int = 0, limit: int = 100, q: str = None
+    ):
+        if q:
+            return db.query(Dataset).filter(Dataset.name.ilike("%{}%".format(q)))\
+                .offset(skip)\
+                .limit(limit).all()
+        return db.query(Dataset).offset(skip).limit(limit).all()
 
 
 dataset = CRUDDataset(Dataset)

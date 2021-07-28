@@ -23,17 +23,17 @@ def read_papers(
     return papers
 
 
-@router.post("/", response_model=schemas.Paper)
+@router.post("/", response_model=Any)
 def create_paper(
     *,
     db: Session = Depends(deps.get_db),
     paper_in: schemas.PaperCreate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('default')),
 ) -> Any:
     """
     Create new paper.
     """
-    paper = crud.paper.create(db=db, obj_in=paper_in)
+    paper = crud.paper.create(db=db, obj_in=paper_in, current_user=current_user)
     return paper
 
 
