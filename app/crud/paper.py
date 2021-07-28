@@ -9,7 +9,7 @@ from app.models import (Model, Revision, Message, TaskDataset)
 
 
 class CRUDPaper(CRUDBase[Paper, PaperCreate, PaperUpdate]):
-    def create(self, db, *, obj_in, current_user):
+    def create(self, db, *, obj_in):
         data = obj_in
         paper = Paper(
             title=data.title,
@@ -17,7 +17,7 @@ class CRUDPaper(CRUDBase[Paper, PaperCreate, PaperUpdate]):
             code_link=data.code_link,
             publication_date=data.publication_date,
             authors=data.authors,
-            owner=current_user
+            # owner=current_user
         )
         revision = Revision(
             paper=paper

@@ -17,7 +17,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
     ) -> List[Any]:
 
         if q:
-            return db.query(Task.id, Task.name)\
+            return db.query(Task.id, Task.name, Task.identifier)\
                 .filter(Task.name.ilike("%{}%".format(q)))\
                 .offset(skip)\
                 .limit(limit).all()

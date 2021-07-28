@@ -8,7 +8,8 @@ class CRUDDataset(CRUDBase[Dataset, DatasetCreate, DatasetUpdate]):
         self, db, *, skip: int = 0, limit: int = 100, q: str = None
     ):
         if q:
-            return db.query(Dataset).filter(Dataset.name.ilike("%{}%".format(q)))\
+            return db.query(Dataset.id, Dataset.name, Dataset.identifier)\
+                .filter(Dataset.name.ilike("%{}%".format(q)))\
                 .offset(skip)\
                 .limit(limit).all()
         return db.query(Dataset).offset(skip).limit(limit).all()
