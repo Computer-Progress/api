@@ -1,6 +1,4 @@
-from pydantic.fields import Field
 from app.models.submission import StatusEnum
-import logging
 from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -28,7 +26,6 @@ def read_submissions(
         )
 
     submission = crud.submission.get_multi(db, skip=skip, limit=limit)
-    logging.error(submission[0].data)
     return submission
 
 
@@ -138,7 +135,7 @@ def create_submission_messages(
     skip: int = 0,
     limit: int = 100,
     current_user: models.User = Depends(deps.GetCurrentUser('default')),
-    body: str = Body(...)
+    message: str = Body(..., embed=True)
 ) -> Any:
     """
     Create messages on submission
@@ -150,9 +147,9 @@ def create_submission_messages(
     if current_user.role.value == 'default' and submission.owner_id != current_user.id:
         raise HTTPException(status_code=400, detail="Not enough permissions")
     message_in = schemas.MessageCreate(
-        submission_id=submission.id, body=body, author_id=current_user.id)
+        submission_id=submission.id, body=message, author_id=current_user.id)
 
-    message = crud.message.create(db, message_in)
+    message = crud.message.create(db, obj_in=message_in)
 
     return message
 
