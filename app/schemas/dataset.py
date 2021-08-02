@@ -9,6 +9,7 @@ class DatasetBase(BaseModel):
     image: Optional[str]
     description: Optional[str]
     source: Optional[str]
+    identifier: Optional[str]
 
 
 # Properties to receive via API on creation

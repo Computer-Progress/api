@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 761ca70b556c
+Revision ID: 9f876af59e81
 Revises: 
-Create Date: 2021-06-18 05:05:35.132007
+Create Date: 2021-08-02 16:46:30.401791
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '761ca70b556c'
+revision = '9f876af59e81'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -47,11 +47,13 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('identifier', sa.String(), nullable=True),
     sa.Column('name', sa.String(), nullable=True),
     sa.Column('image', sa.String(), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('source', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('identifier')
     )
     op.create_index(op.f('ix_dataset_id'), 'dataset', ['id'], unique=False)
     op.create_table('gpu',
@@ -67,14 +69,30 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_gpu_id'), 'gpu', ['id'], unique=False)
+    op.create_table('paper',
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('identifier', sa.String(), nullable=True),
+    sa.Column('title', sa.String(), nullable=True),
+    sa.Column('link', sa.String(), nullable=True),
+    sa.Column('code_link', sa.String(), nullable=True),
+    sa.Column('publication_date', sa.Date(), nullable=True),
+    sa.Column('authors', sa.ARRAY(sa.String()), nullable=True),
+    sa.Column('is_public', sa.Boolean(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_paper_id'), 'paper', ['id'], unique=False)
     op.create_table('task',
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
+    sa.Column('identifier', sa.String(), nullable=True),
     sa.Column('image', sa.String(), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('identifier')
     )
     op.create_index(op.f('ix_task_id'), 'task', ['id'], unique=False)
     op.create_table('tpu',
@@ -111,35 +129,52 @@ def upgrade():
     op.create_index(op.f('ix_user_first_name'), 'user', ['first_name'], unique=False)
     op.create_index(op.f('ix_user_id'), 'user', ['id'], unique=False)
     op.create_index(op.f('ix_user_last_name'), 'user', ['last_name'], unique=False)
-    op.create_table('paper',
+    op.create_table('submission',
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(), nullable=True),
-    sa.Column('link', sa.String(), nullable=True),
-    sa.Column('code_link', sa.String(), nullable=True),
-    sa.Column('publication_date', sa.Date(), nullable=True),
-    sa.Column('authors', sa.ARRAY(sa.String()), nullable=True),
+    sa.Column('data', sa.JSON(), nullable=True),
+    sa.Column('status', sa.Enum('pending', 'need_information', 'approved', 'declined', name='statusenum'), server_default='pending', nullable=True),
+    sa.Column('reviewer_id', sa.Integer(), nullable=True),
+    sa.Column('paper_id', sa.Integer(), nullable=True),
     sa.Column('owner_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['paper_id'], ['paper.id'], ),
+    sa.ForeignKeyConstraint(['reviewer_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_paper_id'), 'paper', ['id'], unique=False)
+    op.create_index(op.f('ix_submission_id'), 'submission', ['id'], unique=False)
     op.create_table('task_dataset',
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('task_id', sa.Integer(), nullable=True),
     sa.Column('dataset_id', sa.Integer(), nullable=True),
+    sa.Column('identifier', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['dataset_id'], ['dataset.id'], ),
     sa.ForeignKeyConstraint(['task_id'], ['task.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('identifier')
     )
     op.create_index(op.f('ix_task_dataset_id'), 'task_dataset', ['id'], unique=False)
+    op.create_table('message',
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('body', sa.Text(), nullable=False),
+    sa.Column('type', sa.String(), nullable=True),
+    sa.Column('submission_id', sa.Integer(), nullable=True),
+    sa.Column('author_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['author_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['submission_id'], ['submission.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_message_id'), 'message', ['id'], unique=False)
     op.create_table('model',
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('identifier', sa.String(), nullable=True),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('hardware_burden', sa.Float(precision=3), nullable=True),
     sa.Column('training_time', sa.BigInteger(), nullable=True),
@@ -151,6 +186,7 @@ def upgrade():
     sa.Column('number_of_gpus', sa.Integer(), nullable=True),
     sa.Column('number_of_tpus', sa.Integer(), nullable=True),
     sa.Column('task_dataset_id', sa.Integer(), nullable=True),
+    sa.Column('extra_training_time', sa.Boolean(), nullable=True),
     sa.Column('paper_id', sa.Integer(), nullable=True),
     sa.Column('cpu_id', sa.Integer(), nullable=True),
     sa.Column('tpu_id', sa.Integer(), nullable=True),
@@ -163,18 +199,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_model_id'), 'model', ['id'], unique=False)
-    op.create_table('revision',
-    sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('status', sa.Enum('pending', 'need_information', 'approved', 'declined', name='statusenum'), server_default='pending', nullable=True),
-    sa.Column('reviewer_id', sa.Integer(), nullable=True),
-    sa.Column('paper_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['paper_id'], ['paper.id'], ),
-    sa.ForeignKeyConstraint(['reviewer_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_index(op.f('ix_revision_id'), 'revision', ['id'], unique=False)
     op.create_table('task_dataset_accuracy_type',
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -200,37 +224,23 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_accuracy_value_id'), 'accuracy_value', ['id'], unique=False)
-    op.create_table('message',
-    sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('body', sa.Text(), nullable=False),
-    sa.Column('revision_id', sa.Integer(), nullable=True),
-    sa.Column('author_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['author_id'], ['user.id'], ),
-    sa.ForeignKeyConstraint(['revision_id'], ['revision.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_index(op.f('ix_message_id'), 'message', ['id'], unique=False)
     # ### end Alembic commands ###
 
 
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
-    op.drop_index(op.f('ix_message_id'), table_name='message')
-    op.drop_table('message')
     op.drop_index(op.f('ix_accuracy_value_id'), table_name='accuracy_value')
     op.drop_table('accuracy_value')
     op.drop_index(op.f('ix_task_dataset_accuracy_type_id'), table_name='task_dataset_accuracy_type')
     op.drop_table('task_dataset_accuracy_type')
-    op.drop_index(op.f('ix_revision_id'), table_name='revision')
-    op.drop_table('revision')
     op.drop_index(op.f('ix_model_id'), table_name='model')
     op.drop_table('model')
+    op.drop_index(op.f('ix_message_id'), table_name='message')
+    op.drop_table('message')
     op.drop_index(op.f('ix_task_dataset_id'), table_name='task_dataset')
     op.drop_table('task_dataset')
-    op.drop_index(op.f('ix_paper_id'), table_name='paper')
-    op.drop_table('paper')
+    op.drop_index(op.f('ix_submission_id'), table_name='submission')
+    op.drop_table('submission')
     op.drop_index(op.f('ix_user_last_name'), table_name='user')
     op.drop_index(op.f('ix_user_id'), table_name='user')
     op.drop_index(op.f('ix_user_first_name'), table_name='user')
@@ -240,6 +250,8 @@ def downgrade():
     op.drop_table('tpu')
     op.drop_index(op.f('ix_task_id'), table_name='task')
     op.drop_table('task')
+    op.drop_index(op.f('ix_paper_id'), table_name='paper')
+    op.drop_table('paper')
     op.drop_index(op.f('ix_gpu_id'), table_name='gpu')
     op.drop_table('gpu')
     op.drop_index(op.f('ix_dataset_id'), table_name='dataset')

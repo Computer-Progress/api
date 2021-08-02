@@ -13,7 +13,6 @@ def read_papers(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    # current_user: models.User = Depends(deps.GetCurrentUser('default')),
 ) -> Any:
     """
     Retrieve papers.
@@ -28,7 +27,7 @@ def create_paper(
     *,
     db: Session = Depends(deps.get_db),
     paper_in: schemas.PaperCreate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('default')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new paper.
@@ -43,7 +42,7 @@ def update_paper(
     db: Session = Depends(deps.get_db),
     id: int,
     paper_in: schemas.PaperUpdate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an paper.

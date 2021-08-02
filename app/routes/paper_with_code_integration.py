@@ -1,4 +1,4 @@
-from typing import Any, List, Union
+from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -14,8 +14,6 @@ def get_home_info(
     skip: int = 0,
     limit: int = 100,
     task_dataset_identifier:  str = None,
-
-    # current_user: models.User = Depends(deps.GetCurrentUser('default')),
 ) -> List[Any]:
     """
     Retrieve tasks.
@@ -31,7 +29,6 @@ def get_all_datasets_for_task(
     db: Session = Depends(deps.get_db),
     task_dataset_identifier:  str = None,
     model_identifier:  str = None,
-    # current_user: models.User = Depends(deps.GetCurrentUser('default')),
 ) -> Any:
     """
     Get task by ID.

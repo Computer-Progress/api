@@ -11,7 +11,7 @@ from .accuracy_type import AccuracyType
 from .task_dataset_accuracy_type import TaskDatasetAccuracyType
 
 from .paper import Paper
-from .revision import Revision
+from .submission import Submission
 from .message import Message
 from .model import Model
 from .accuracy_value import AccuracyValue

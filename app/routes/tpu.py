@@ -28,9 +28,7 @@ def create_tpu(
     *,
     db: Session = Depends(deps.get_db),
     tpu_in: schemas.TpuCreate,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
-
-
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new tpu.
@@ -45,7 +43,7 @@ def update_tpu(
     db: Session = Depends(deps.get_db),
     id: int,
     tpu_in: schemas.TpuUpdate,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an tpu.
@@ -80,7 +78,7 @@ def delete_tpu(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Delete an tpu.

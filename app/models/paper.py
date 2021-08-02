@@ -1,5 +1,5 @@
 from app.database.base import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, ARRAY
+from sqlalchemy import Column, Integer, String, Date, ARRAY, Boolean
 from sqlalchemy.orm import relationship
 from slugify import slugify
 
@@ -22,8 +22,6 @@ class Paper(Base):
     publication_date = Column(Date)
     authors = Column(ARRAY(String))
 
-    owner_id = Column(Integer, ForeignKey('user.id'))
-    owner = relationship("User")
-
+    is_public = Column(Boolean, default=True)
     models = relationship("Model", back_populates="paper")
-    revision = relationship("Revision", uselist=False, back_populates='paper')
+    submission = relationship("Submission", uselist=False, back_populates='paper')

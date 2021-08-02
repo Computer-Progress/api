@@ -11,3 +11,6 @@ from .dataset import Dataset, DatasetCreate, DatasetInDB, DatasetUpdate
 from .accuracy_type import AccuracyType, AccuracyTypeCreate, AccuracyTypeInDB, AccuracyTypeUpdate
 from .paper import Paper, PaperCreate, PaperInDB, PaperUpdate
 from .model import Model, ModelCreate, ModelInDB, ModelUpdate
+
+from .submission import SubmissionData, Submission
+from .message import Message, MessageCreate, MessageInDB

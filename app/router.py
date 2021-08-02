@@ -1,9 +1,12 @@
 from fastapi import APIRouter
 from app.routes import (accuracy_type, login, model, user,
-                        cpu, tpu, gpu, task, dataset, paper, util, sota, paper_with_code_integration)
+                        cpu, tpu, gpu, task, dataset, paper, util, sota,
+                        paper_with_code_integration, submission)
 
 api_router = APIRouter()
 api_router.include_router(login.router, tags=["login"])
+api_router.include_router(
+    submission.router, prefix="/submissions", tags=["submissions"])
 api_router.include_router(task.router, prefix="/tasks", tags=["tasks"])
 api_router.include_router(sota.router, prefix="/sota", tags=["sota"])
 api_router.include_router(model.router, prefix="/models", tags=["models"])

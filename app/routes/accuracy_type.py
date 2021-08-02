@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=List[Any])
-def read_accuracy_types_by_task_dataset_identifier(
+def read_accuracy_types(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
@@ -27,13 +27,12 @@ def read_accuracy_types_by_task_dataset_identifier(
     return accuracy_types
 
 
-
 @router.post("/", response_model=schemas.AccuracyType)
 def create_accuracy_type(
     *,
     db: Session = Depends(deps.get_db),
     accuracy_type_in: schemas.AccuracyTypeCreate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new accuracy_type.
@@ -48,7 +47,7 @@ def update_accuracy_type(
     db: Session = Depends(deps.get_db),
     id: int,
     accuracy_type_in: schemas.AccuracyTypeUpdate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an accuracy_type.
@@ -85,7 +84,7 @@ def delete_accuracy_type(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Delete an accuracy_type.

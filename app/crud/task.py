@@ -6,7 +6,7 @@ from app.crud.base import CRUDBase
 from app.schemas.task import TaskCreate, TaskUpdate, TaskDatasetModels
 from app.models import (Task, Dataset, Model, TaskDataset,
                         TaskDatasetAccuracyType, AccuracyValue,
-                        AccuracyType, Revision, Paper,
+                        AccuracyType, Paper,
                         Cpu, Tpu, Gpu)
 
 
@@ -58,9 +58,8 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                   AccuracyValue.accuracy_type_id
                   )\
             .join(Model.paper)\
-            .join(Paper.revision)\
             .filter(TaskDatasetAccuracyType.main)\
-            .filter(Revision.status == 'approved')\
+            .filter(Paper.is_public)\
             .group_by(Model.task_dataset_id)\
             .subquery('accuracy')
 
@@ -178,9 +177,8 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                   AccuracyValue.accuracy_type_id
                   )\
             .join(Model.paper)\
-            .join(Paper.revision)\
             .filter(TaskDatasetAccuracyType.main)\
-            .filter(Revision.status == 'approved')\
+            .filter(Paper.is_public)\
             .group_by(Model.task_dataset_id)\
             .subquery('accuracy')
 
@@ -338,13 +336,12 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             .join(Model.accuracy_values)\
             .join(AccuracyValue.accuracy_type)\
             .join(Model.paper)\
-            .join(Paper.revision)\
             .join(TaskDataset.task)\
             .join(TaskDataset.dataset)\
             .filter(
             filterTask,
             filterDataset,
-            Revision.status == 'approved'
+            Paper.is_public
         )\
             .all()
         modes_res = []
@@ -416,13 +413,12 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
             .join(Model.cpu, isouter=True)\
             .join(Model.tpu, isouter=True)\
             .join(Model.gpu, isouter=True)\
-            .join(Paper.revision)\
             .join(TaskDataset.task)\
             .join(TaskDataset.dataset)\
             .filter(
             filterTask,
             filterDataset,
-            Revision.status == 'approved'
+            Paper.is_public
         )\
             .all()
         logging.error(models)

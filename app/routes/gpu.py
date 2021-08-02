@@ -28,7 +28,7 @@ def create_gpu(
     *,
     db: Session = Depends(deps.get_db),
     gpu_in: schemas.GpuCreate,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new gpu.
@@ -43,7 +43,7 @@ def update_gpu(
     db: Session = Depends(deps.get_db),
     id: int,
     gpu_in: schemas.GpuUpdate,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an gpu.
@@ -78,7 +78,7 @@ def delete_gpu(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Delete an gpu.

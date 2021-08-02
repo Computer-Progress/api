@@ -13,12 +13,13 @@ def read_datasets(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    q: str = None
+    q: str = None,
+    task_id: int = None
 ) -> Any:
     """
     Retrieve datasets.
     """
-    datasets = crud.dataset.get_multi(db, skip=skip, limit=limit, q=q)
+    datasets = crud.dataset.get_multi(db, skip=skip, limit=limit, q=q, task_id=task_id)
 
     return datasets
 
@@ -28,7 +29,7 @@ def create_dataset(
     *,
     db: Session = Depends(deps.get_db),
     dataset_in: schemas.DatasetCreate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new dataset.
@@ -43,7 +44,7 @@ def update_dataset(
     db: Session = Depends(deps.get_db),
     id: int,
     dataset_in: schemas.DatasetUpdate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an dataset.
@@ -79,7 +80,7 @@ def delete_dataset(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Delete an dataset.

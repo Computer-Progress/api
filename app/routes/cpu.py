@@ -28,7 +28,7 @@ def create_cpu(
     *,
     db: Session = Depends(deps.get_db),
     cpu_in: schemas.CpuCreate,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new cpu.
@@ -43,7 +43,7 @@ def update_cpu(
     db: Session = Depends(deps.get_db),
     id: int,
     cpu_in: schemas.CpuUpdate,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an cpu.
@@ -78,7 +78,7 @@ def delete_cpu(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Delete an cpu.

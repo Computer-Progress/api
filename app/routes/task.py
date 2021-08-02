@@ -27,7 +27,7 @@ def create_task(
     *,
     db: Session = Depends(deps.get_db),
     task_in: schemas.TaskCreate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new task.
@@ -42,7 +42,7 @@ def update_task(
     db: Session = Depends(deps.get_db),
     id: int,
     task_in: schemas.TaskUpdate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an task.
@@ -59,7 +59,7 @@ def delete_task(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Delete an task.

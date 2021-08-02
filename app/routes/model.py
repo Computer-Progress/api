@@ -99,7 +99,7 @@ def create_model(
     *,
     db: Session = Depends(deps.get_db),
     model_in: schemas.ModelCreate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Create new model.
@@ -114,7 +114,7 @@ def update_model(
     db: Session = Depends(deps.get_db),
     id: int,
     model_in: schemas.ModelUpdate,
-    # current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Update an model.
@@ -149,7 +149,7 @@ def delete_model(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    current_user: models.User = Depends(deps.GetCurrentUser('reviewer')),
 ) -> Any:
     """
     Delete an model.

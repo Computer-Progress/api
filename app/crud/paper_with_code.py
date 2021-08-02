@@ -1,7 +1,7 @@
 import logging
 from typing import Any, List
 from sqlalchemy.orm.session import Session
-from app.models import (Task,  Model, TaskDataset, Revision, Paper)
+from app.models import (Model, TaskDataset, Paper)
 
 
 class CRUDTask():
@@ -30,8 +30,7 @@ class CRUDTask():
         ).select_from(tasks_dataset)\
             .join(TaskDataset.models)\
             .join(Model.paper)\
-            .join(Paper.revision)\
-            .filter(Revision.status == 'approved')\
+            .filter(Paper.is_public)\
             .all()
 
         res = []
@@ -72,8 +71,7 @@ class CRUDTask():
         ).select_from(tasks_dataset)\
             .join(TaskDataset.models)\
             .join(Model.paper)\
-            .join(Paper.revision)\
-            .filter(Revision.status == 'approved')\
+            .filter(Paper.is_public)\
             .filter(Model.identifier == model_identifier)\
             .all()
 
