@@ -15,6 +15,8 @@ def read_submissions(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
+    q: str = None,
+    owner_id: int = None,
     current_user: models.User = Depends(deps.GetCurrentUser('default')),
 ) -> Any:
     """
@@ -22,10 +24,11 @@ def read_submissions(
     """
     if current_user.role.value == 'default':
         submission = crud.submission.get_multi(
-            db, skip=skip, limit=limit, owner_id=current_user.id
+            db, skip=skip, limit=limit, owner_id=current_user.id, q=q
         )
-
-    submission = crud.submission.get_multi(db, skip=skip, limit=limit)
+    else:
+        submission = crud.submission.get_multi(
+            db, skip=skip, limit=limit, owner_id=owner_id, q=q)
     return submission
 
 

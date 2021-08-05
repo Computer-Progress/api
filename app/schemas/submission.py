@@ -40,7 +40,7 @@ class SubmissionData(BaseModel):
 
 
 class SubmissionBase(BaseModel):
-    data: Json[SubmissionData]
+    data: SubmissionData
     paper_id: Optional[int]
     owner_id: Optional[int]
     reviewer_id: Optional[int]

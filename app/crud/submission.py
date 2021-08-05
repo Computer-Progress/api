@@ -69,9 +69,21 @@ def calculate_hardware_burden(model):
 
 
 class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
+    def get_multi(
+        self, db, *, skip: int = 0, limit: int = 100, q: str = None, owner_id
+    ):
+        submissions = db.query(Submission)
+        if owner_id:
+            submissions = submissions.filter(Submission.owner_id == owner_id)
+        if q:
+            submissions = submissions.filter(
+                Submission.data.as_json()['title'].as_string().ilike("%{}%".format(q)))
+
+        return submissions.offset(skip).limit(limit).all()
+
     def create(self, db, *, obj_in: SubmissionData, current_user):
         submission = Submission(
-            data=obj_in.json(), owner=current_user)
+            data=json.loads(obj_in.json()), owner=current_user)
         messages = [Message(body="submission created", submission=submission)]
         for msg in checkFields(db, obj_in):
             messages.append(Message(body=msg, submission=submission))
@@ -89,10 +101,13 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
     def update(self, db, *, db_obj: Submission, obj_in: SubmissionData):
         submission = db_obj
         messages = [Message(body="submission updated", submission=submission)]
+        # submissionData = SubmissionData(**submission.data).dict()
+        # newSubmissionData = obj_in.dict()
+
         for msg in checkFields(db, obj_in):
             messages.append(Message(body=msg, submission=submission))
 
-        submission.data = obj_in.json()
+        submission.data = json.loads(obj_in.json())
         try:
             db.add(submission)
             db.commit()
@@ -128,35 +143,35 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
         return submission
 
     def process_submission(self, db, *, submission: Submission, current_user):
-        submissionData = SubmissionData(**json.loads(submission.data))
+        submissionData = submission.data
         submission.reviewer = current_user
         submission.status = StatusEnum.approved
         paper = Paper(
-            title=submissionData.title,
-            link=submissionData.link,
-            code_link=submissionData.code_link,
-            publication_date=submissionData.publication_date,
-            authors=submissionData.authors,
+            title=submissionData['title'],
+            link=submissionData['link'],
+            code_link=submissionData['code_link'],
+            publication_date=submissionData['publication_date'],
+            authors=submissionData['authors'],
             submission=submission
         )
 
-        for model_data in submissionData.models:
+        for model_data in submissionData['models']:
             model = Model(
-                name=model_data.name,
-                training_time=model_data.training_time,
-                gflops=model_data.gflops,
-                epochs=model_data.epochs,
-                number_of_parameters=model_data.number_of_parameters,
-                multiply_adds=model_data.multiply_adds,
-                number_of_cpus=model_data.number_of_cpus,
-                number_of_gpus=model_data.number_of_gpus,
-                number_of_tpus=model_data.number_of_tpus,
-                extra_training_time=model_data.extra_training_time
+                name=model_data['name'],
+                training_time=model_data['training_time'],
+                gflops=model_data['gflops'],
+                epochs=model_data['epochs'],
+                number_of_parameters=model_data['number_of_parameters'],
+                multiply_adds=model_data['multiply_adds'],
+                number_of_cpus=model_data['number_of_cpus'],
+                number_of_gpus=model_data['number_of_gpus'],
+                number_of_tpus=model_data['number_of_tpus'],
+                extra_training_time=model_data['extra_training_time']
             )
 
             task_dataset = db.query(TaskDataset).join(Task).join(Dataset).filter(
-                Task.name == model_data.task,
-                Dataset.name == model_data.dataset
+                Task.name == model_data['task'],
+                Dataset.name == model_data['dataset']
             ).first()
 
             if task_dataset:
@@ -166,7 +181,7 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
                     status_code=404,
                     detail="Error: association beetween task and dataset not found")
 
-            gpu = db.query(Gpu).filter(Gpu.name.ilike(model_data.gpu)).first()
+            gpu = db.query(Gpu).filter(Gpu.name.ilike(model_data['gpu'])).first()
             if gpu:
                 model.gpu = gpu
             else:
@@ -174,8 +189,8 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
                     status_code=404,
                     detail="Error: gpu not found")
 
-            if model_data.cpu:
-                cpu = db.query(Cpu).filter(Cpu.name.ilike(model_data.cpu)).first()
+            if model_data['cpu']:
+                cpu = db.query(Cpu).filter(Cpu.name.ilike(model_data['cpu'])).first()
                 if cpu:
                     model.cpu = cpu
                 else:
@@ -183,8 +198,8 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
                         status_code=404,
                         detail="Error: cpu not found")
 
-            if model_data.tpu:
-                tpu = db.query(Tpu).filter(Tpu.name.ilike(model_data.tpu)).first()
+            if model_data['tpu']:
+                tpu = db.query(Tpu).filter(Tpu.name.ilike(model_data['tpu'])).first()
                 if tpu:
                     model.tpu = tpu
                 else:
@@ -193,12 +208,12 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
                         detail="Error: tpu not found")
 
             accuracy_types_ids = []
-            for accuracy in model_data.accuracies:
+            for accuracy in model_data['accuracies']:
                 accuracy_type = db.query(AccuracyType).filter(
-                    AccuracyType.name.ilike(accuracy.accuracy_type)).first()
+                    AccuracyType.name.ilike(accuracy['accuracy_type'])).first()
                 if accuracy_type:
                     accuracy_types_ids.append(accuracy_type.id)
-                    accuracy_value = AccuracyValue(value=accuracy.value,
+                    accuracy_value = AccuracyValue(value=accuracy['value'],
                                                    accuracy_type=accuracy_type)
                     model.accuracy_values.append(accuracy_value)
                 else:
