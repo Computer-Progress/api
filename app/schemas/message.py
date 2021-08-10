@@ -1,3 +1,4 @@
+from app.schemas.user import User
 from typing import Optional
 
 from pydantic import BaseModel
@@ -18,6 +19,8 @@ class MessageInDBBase(MessageBase):
     id: Optional[int] = None
     author_id: Optional[int]
     submission_id: Optional[int]
+    author: Optional[User]
+    type: Optional[str]
 
     class Config:
         orm_mode = True

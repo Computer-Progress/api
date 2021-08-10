@@ -14,6 +14,41 @@ from app.models import (Dataset, Message, Task,
 from slugify import slugify
 
 
+def checkDiff(oldSubmission, newSubmission):
+    messages = []
+    print(type(oldSubmission), flush=True)
+    print(oldSubmission, flush=True)
+    if oldSubmission.title != newSubmission.title:
+        messages.append('paper title changed to {}'.format(newSubmission.title))
+
+    if oldSubmission.link != newSubmission.link:
+        messages.append('paper link changed to {}'.format(newSubmission.link))
+
+    if oldSubmission.code_link != newSubmission.code_link:
+        messages.append('paper code link changed to {}'.format(
+            newSubmission.code_link))
+
+    if oldSubmission.publication_date != newSubmission.publication_date:
+        messages.append('paper publication date changed to {}'.format(
+            newSubmission.publication_date))
+
+    if oldSubmission.authors != newSubmission.authors:
+        messages.append('paper authors changed to {}'.format(
+            ' '.join(newSubmission.authors)))
+
+    oldModels = [model.json() for model in newSubmission.models]
+    newModels = [model.json() for model in oldSubmission.models]
+    if len(oldSubmission.models) > len(newSubmission.models):
+        messages.append('{} model deleted'.format(
+            len(oldSubmission.models) - len(newSubmission.models)))
+    elif len(oldSubmission.models) < len(newSubmission.models):
+        messages.append('new model added')
+
+    elif oldModels != newModels:
+        messages.append('models updated')
+    return messages
+
+
 def checkFields(db, obj_in):
     messages = []
     for model_data in obj_in.models:
@@ -98,14 +133,24 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
                 status_code=404,
                 detail="Error on create submission")
 
-    def update(self, db, *, db_obj: Submission, obj_in: SubmissionData):
+    def update(self, db, *, db_obj: Submission, obj_in: SubmissionData, current_user):
         submission = db_obj
-        messages = [Message(body="submission updated", submission=submission)]
-        # submissionData = SubmissionData(**submission.data).dict()
-        # newSubmissionData = obj_in.dict()
-
-        for msg in checkFields(db, obj_in):
-            messages.append(Message(body=msg, submission=submission))
+        messages = []
+        for msg in checkDiff(
+            SubmissionData.parse_obj(db_obj.data),
+            SubmissionData.parse_obj(obj_in)
+        ):
+            messages.append(
+                Message(
+                    body="{} by {}".format(
+                        msg, ' '.join([current_user.first_name, current_user.last_name])
+                    ),
+                    type="edit",
+                    submission=submission
+                )
+            )
+        # for msg in checkFields(db, obj_in):
+        #     messages.append(Message(body=msg, submission=submission))
 
         submission.data = json.loads(obj_in.json())
         try:
@@ -132,6 +177,8 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
                                            current_user=current_user)
         elif status == StatusEnum.declined:
             submission.status = StatusEnum.declined
+            if submission.paper:
+                submission.paper.is_public = False
             # TODO: send declined email
         elif status == StatusEnum.need_information:
             submission.status = StatusEnum.need_information

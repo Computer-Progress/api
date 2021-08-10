@@ -2,7 +2,7 @@ from app.models.submission import StatusEnum
 from typing import List, Optional
 from datetime import date, datetime
 
-from pydantic import BaseModel, Json
+from pydantic import BaseModel
 
 
 class SubmissionDataAccuracyValues(BaseModel):

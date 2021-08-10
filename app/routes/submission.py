@@ -86,7 +86,8 @@ def update_submission(
         raise HTTPException(status_code=404, detail="Submission not found")
     if current_user.role.value == 'default' and submission.owner_id != current_user.id:
         raise HTTPException(status_code=400, detail="Not enough permissions")
-    submission = crud.submission.update(db=db, db_obj=submission, obj_in=submission_in)
+    submission = crud.submission.update(
+        db=db, db_obj=submission, obj_in=submission_in, current_user=current_user)
     return submission
 
 
