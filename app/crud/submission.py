@@ -173,8 +173,12 @@ class CRUDSubmission(CRUDBase[Submission, SubmissionData, SubmissionData]):
                 detail="Error: submission already approved")
 
         if status == StatusEnum.approved:
-            return self.process_submission(db, submission=submission,
-                                           current_user=current_user)
+            if submission.paper:
+                submission.paper.is_public = True
+            else:
+                return self.process_submission(db, submission=submission,
+                                               current_user=current_user)
+
         elif status == StatusEnum.declined:
             submission.status = StatusEnum.declined
             if submission.paper:
