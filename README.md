@@ -1,7 +1,8 @@
+![Build](https://github.com/Computer-Progress/api/workflows/Build/badge.svg)
+![Style](https://github.com/Computer-Progress/api/workflows/Style/badge.svg)
+![Tests](https://github.com/Computer-Progress/api/workflows/Tests/badge.svg)
 
 # API Computer Progress
-
-
 
 ## Commands 
 
@@ -33,4 +34,3 @@ And if you need to install new dependencies you can run:
 After the docker is runnig, you can acess the routes documentation accessing:
 
     http://localhost:8000/docs
-

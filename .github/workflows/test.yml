@@ -1,0 +1,54 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-20.04
+
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_SERVER: localhost
+          POSTGRES_PASSWORD: postgres123
+          POSTGRES_USER: postgres
+          POSTGRES_DB: app
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 4s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: 3.7
+
+      - name: Install poetry
+        run: pip install poetry==1.1
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run pytest
+        env:
+          # Overwrite data from alembic/env.py
+          POSTGRES_SERVER: localhost
+          POSTGRES_PASSWORD: postgres123
+
+          # Doesn't overwrite data from alembic/env.py
+          POSTGRES_USER: postgres
+          POSTGRES_DB: app
+
+          DB_CONNECTION: postgresql://postgres:postgres123@localhost/app
+        run: |
+          USE_LOCAL_DB_FOR_TEST=true poetry run ./.github/scripts/test
