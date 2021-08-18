@@ -16,7 +16,7 @@ Follow those steps:
 
 1. Comment in the issue you are going to work, if there is no issue, create one describing the problem you are solving.
 1. Fork the repository.
-1. Make a pull request to this repository as a draft, look this [tutorial](https://github.blog/2019-02-14-introducing-draft-pull-requests/).
+1. Make a pull request to this repository with the first word of the title as [WIP] to show that is a working in progress
 1. Make your changes in the forked repository.
-1. When done with the changes, mark the PR as ready for review and call the attention of the reviwer by commenting on the pull request.
+1. When done with the changes,rename the title of the pull request to remove the [WIP] and call the attention of the reviwer by commenting on the pull request.
 
