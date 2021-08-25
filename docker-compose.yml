@@ -31,8 +31,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        INSTALL_DEV: ${INSTALL_DEV-false}
 
 volumes:
   app-db-data:
