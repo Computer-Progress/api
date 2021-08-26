@@ -11,21 +11,25 @@ on:
 jobs:
   lint:
     name: Check style
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2.2.2
         with:
-          python-version: 3.7
+          fetch-depth: 0
 
-      - name: Install poetry
-        run: pip install poetry==1.1
+      - name: Create .env
+        run: |
+          touch .env
+          echo SECRET_KEY=secret_key >> .env
+          echo POSTGRES_DB=app >> .env
+          echo POSTGRES_SERVER=db >> .env
+          echo POSTGRES_USER=postgres >> .env
+          echo POSTGRES_PASSWORD=postgres123 >> .env
+          cat .env
 
-      - name: Install dependencies
-        run: poetry install
-      
+      - name: Run docker-compose build with INSTALL_DEV=true
+        run: sudo docker-compose build --build-arg INSTALL_DEV=true      
+
       - name: Run flake8
-        run: poetry run flake8 app
+        run: sudo docker-compose run backend flake8

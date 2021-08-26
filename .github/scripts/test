@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-pytest -v --color=yes --cov=app --cov-report=xml
