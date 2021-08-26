@@ -241,4 +241,35 @@ def test_dataset_update():
 
 def test_dataset_in_db_base():
     with pytest.raises(ValueError):
-        dataset_in_db_base = schemas.dataset.DatasetInDBBase(id="id")
+        dataset_in_db_base = schemas.dataset.DatasetInDBBase(id="id_dataset_in_db_base")
+
+
+def test_gpu_base():
+    gpu_base = schemas.gpu.GpuBase(
+        name="test gpu base name", transistors=1, tdp=2, gflops=3.4
+    )
+
+    assert gpu_base.name == "test gpu base name"
+    assert gpu_base.transistors == 1
+    assert gpu_base.tdp == 2
+    assert gpu_base.gflops == 3.4
+
+
+def test_gpu_update():
+    gpu_update = schemas.gpu.GpuUpdate(
+        name="test gpu update name", transistors=2, gflops=4.4
+    )
+
+    assert gpu_update.name == "test gpu update name"
+    assert gpu_update.transistors == 2
+    assert gpu_update.gflops == 4.4
+
+
+def test_gpu_in_the_base1():
+    with pytest.raises(ValueError):
+        gpu_in_the_base = schemas.gpu.GpuInDBBase(name="test gpu in the base name", id="id_gpu_in_the_base1")
+
+
+def test_gpu_in_the_base2():
+    with pytest.raises(ValueError):
+        gpu_in_the_base = schemas.gpu.GpuInDBBase(id=5)
