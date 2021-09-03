@@ -20,6 +20,7 @@ Jinja2 = "^3.0.1"
 pandas = "^1.2.5"
 aiofiles = "^0.7.0"
 python-slugify = "^5.0.2"
+SQLAlchemy-Utils = "^0.37.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
