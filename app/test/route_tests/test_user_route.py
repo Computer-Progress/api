@@ -9,11 +9,10 @@ from app.main import app
 
 client = TestClient(router)
 
-base_url='http://localhost:8000/api/v1'
 
 
 @pytest.mark.asyncio
-async def test_user_route():
+async def test_user_route(headers, base_url):
   user_id = []
   body = {
     "email": "barbar@foofoo.com",
@@ -23,7 +22,6 @@ async def test_user_route():
   }  
   async with AsyncClient(app=app, base_url=base_url) as ac:
     response = await ac.post('/users/open', json=body)
-  print(response.json())
   user_id = response.json()
   assert response.status_code == 200
   assert list(response.json().keys()) == [
@@ -35,7 +33,6 @@ async def test_user_route():
                               'id'
                               ]
   async with AsyncClient(app=app, base_url=base_url) as ac:
-    response = await ac.get(f'/users/{user_id["id"]}')
-  print(user_id)
+    response = await ac.get(f'/users/{user_id["id"]}', headers=headers)
   assert response.status_code == 200
   assert response.json() == user_id
