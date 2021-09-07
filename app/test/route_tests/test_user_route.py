@@ -11,10 +11,10 @@ client = TestClient(router)
 
 base_url='http://localhost:8000/api/v1'
 
-user_id = []
 
 @pytest.mark.asyncio
-async def test_user_creation():
+async def test_user_route():
+  user_id = []
   body = {
     "email": "barbar@foofoo.com",
     "first_name": "Foo",
@@ -34,11 +34,8 @@ async def test_user_creation():
                               'last_name',
                               'id'
                               ]
-
-@pytest.mark.asyncio
-async def test_user_get():
   async with AsyncClient(app=app, base_url=base_url) as ac:
-    response = await ac.get(f'/users/{user_id.id}')
+    response = await ac.get(f'/users/{user_id["id"]}')
   print(user_id)
   assert response.status_code == 200
   assert response.json() == user_id
