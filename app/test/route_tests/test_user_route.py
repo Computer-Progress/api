@@ -5,10 +5,7 @@ from httpx import AsyncClient
 
 from app.routes.user import router
 from app.main import app
-
-
-client = TestClient(router)
-
+from app.settings import settings
 
 
 @pytest.fixture(scope="module")
@@ -27,6 +24,27 @@ async def user_created(base_url):
 def test_user_create(user_created):
   assert user_created.status_code == 200
   assert list(user_created.json().keys()) == [
+                              'email',
+                              'is_active',
+                              'role',
+                              'first_name',
+                              'last_name',
+                              'id'
+                              ]
+
+@pytest.mark.asyncio
+async def test_user_create_auth(base_url, headers):
+  settings.EMAILS_ENABLED = False
+  body = {
+    "email": "user@example.com",
+    "first_name": "string",
+    "last_name": "string",
+    "password": "string"
+  }
+  async with AsyncClient(app=app, base_url=base_url) as ac:
+    response = await ac.post(f'/users/', headers=headers, json=body)
+  assert response.status_code == 200
+  assert list(response.json().keys()) == [
                               'email',
                               'is_active',
                               'role',
