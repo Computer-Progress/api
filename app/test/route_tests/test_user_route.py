@@ -46,6 +46,8 @@ async def test_user_create_auth(base_url, headers):
     async with AsyncClient(app=app, base_url=base_url) as ac:
         response = await ac.post(f"/users/", headers=headers, json=body)
     assert response.status_code == 200
+    del body["password"]
+    assert body.items() <= response.json().items()
     assert list(response.json().keys()) == [
         "email",
         "is_active",
