@@ -84,3 +84,26 @@ async def test_user_get_me(headers, base_url):
         "last_name",
         "id",
     ]
+
+
+@pytest.mark.asyncio
+async def test_user_put(base_url, headers, user_created):
+    user_json = user_created.json()
+    user_id = user_json["id"]
+    body = {
+        "email": user_json["email"],
+        "first_name": "bazbazbaz",
+        "last_name": "foooooo",
+    }
+    async with AsyncClient(app=app, base_url=base_url) as ac:
+        response = await ac.put(f"/users/{user_id}", headers=headers, json=body)
+    assert response.status_code == 200
+    assert body.items() <= response.json().items()
+    assert list(response.json().keys()) == [
+        "email",
+        "is_active",
+        "role",
+        "first_name",
+        "last_name",
+        "id",
+    ]
