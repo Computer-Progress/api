@@ -61,3 +61,22 @@ async def test_user_get(user_created, headers, base_url):
     response = await ac.get(f'/users/{user_id}', headers=headers)
   assert response.status_code == 200
   assert response.json() == user_json
+
+@pytest.mark.asyncio
+async def test_user_get_me(headers, base_url):
+  async with AsyncClient(app=app, base_url=base_url) as ac:
+    response = await ac.get(f'/users/me', headers=headers)
+  json = response.json()
+  assert response.status_code == 200
+  assert {
+            "email":settings.FIRST_SUPERUSER,
+            "role":'super_admin'
+  }.items() <= json.items()
+  assert list(json.keys()) == [
+                              'email',
+                              'is_active',
+                              'role',
+                              'first_name',
+                              'last_name',
+                              'id'
+                              ]
