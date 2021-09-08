@@ -1,0 +1,35 @@
+name: Style
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Check style
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Create .env
+        run: |
+          touch .env
+          echo SECRET_KEY=secret_key >> .env
+          echo POSTGRES_DB=app >> .env
+          echo POSTGRES_SERVER=db >> .env
+          echo POSTGRES_USER=postgres >> .env
+          echo POSTGRES_PASSWORD=postgres123 >> .env
+          cat .env
+
+      - name: Run docker-compose build with INSTALL_DEV=true
+        run: sudo docker-compose build --build-arg INSTALL_DEV=true      
+
+      - name: Run flake8
+        run: sudo docker-compose run backend flake8
