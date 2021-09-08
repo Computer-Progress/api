@@ -1,6 +1,5 @@
 import pytest
-
-# import alembic.config
+import asyncio
 from httpx import AsyncClient
 from typing import Generator
 from sqlalchemy_utils import create_database, database_exists
@@ -26,13 +25,18 @@ Base.metadata.create_all(bind=engine)
 init_db(TestSessionLocal())
 
 
-@pytest.fixture
-def base_url():
+@pytest.fixture(scope="session")
+def event_loop():
+    return asyncio.get_event_loop()
+
+
+@pytest.fixture(scope="session")
+def base_url() -> str:
     return "http://localhost:8000/api/v1"
 
 
-@pytest.fixture
-async def headers(base_url):
+@pytest.fixture(scope="session")
+async def headers(base_url) -> dict:
     body = {
         "username": settings.FIRST_SUPERUSER,
         "password": settings.FIRST_SUPERUSER_PASSWORD,
@@ -40,5 +44,5 @@ async def headers(base_url):
     async with AsyncClient(app=app, base_url=base_url) as ac:
         response = await ac.post("/login/access-token", data=body)
     json = response.json()
-    assert json == {"token_type": "bearer", **json }
-    return  {"Authorization": f"{json['token_type']} {json['access_token']}"}
+    assert json == {"token_type": "bearer", **json}
+    return {"Authorization": f"{json['token_type']} {json['access_token']}"}
