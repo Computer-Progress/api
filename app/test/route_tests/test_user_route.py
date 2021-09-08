@@ -109,3 +109,23 @@ async def test_user_put(base_url, headers, user_created):
         "last_name",
         "id",
     ]
+
+@pytest.mark.asyncio
+async def test_user_put_me(base_url, headers):
+    body = {
+        "email": settings.FIRST_SUPERUSER,
+        "first_name": "administrator",
+        "last_name": "big boss",
+    }
+    async with AsyncClient(app=app, base_url=base_url) as ac:
+        response = await ac.put(f"/users/me", headers=headers, json=body)
+    assert response.status_code == 200
+    assert body.items() <= response.json().items()
+    assert list(response.json().keys()) == [
+        "email",
+        "is_active",
+        "role",
+        "first_name",
+        "last_name",
+        "id",
+    ]
