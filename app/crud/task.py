@@ -357,7 +357,10 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     'gflops': row.model_gflops,
                     'number_of_parameters': row.model_number_of_parameters,
                     'multiply_adds': row.model_multiply_adds,
-                    'operation_per_network_pass': row.model_gflops if row.model_gflops else row.model_multiply_adds,
+                    'operation_per_network_pass': (
+                        row.model_gflops
+                        if row.model_gflops else row.model_multiply_adds
+                    ),
                     'hardware_burden': row.model_hardware_burden,
                     'paper_title': row.paper_title,
                     'paper_code_link': row.paper_code_link,
@@ -443,7 +446,10 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     row.accuracy_type: row.accuracy_value,
                     'model_gflops': row.model_gflops,
                     'model_multiply_adds': row.model_multiply_adds,
-                    'model_operation_per_network_pass': row.model_gflops if row.model_gflops else row.model_multiply_adds,
+                    'model_operation_per_network_pass': (
+                        row.model_gflops
+                        if row.model_gflops else row.model_multiply_adds
+                    ),
                     'model_extra_training_time': row.model_extra_training_time,
                     'model_number_of_cpus': row.model_number_of_cpus,
                     'model_cpu': row.model_cpu,
