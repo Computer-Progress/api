@@ -2,7 +2,6 @@ import pytest
 from httpx import AsyncClient, Response
 
 from app.main import app
-from app.settings import settings
 
 keys_get = ["updated_at", "name", "created_at", "id", "description"]
 post_body = {
@@ -44,3 +43,17 @@ async def test_accuracy_get_id(
         response = await ac.get(f"/accuracy_types/{accuracy_id}")
     assert response.status_code == 200
     assert accuracy_json == response.json()
+
+
+@pytest.mark.asyncio
+async def test_accuracy_put(base_url: str, headers: dict, accuracy_created: Response):
+    accuracy_json = accuracy_created.json()
+    accuracy_id = accuracy_json["id"]
+    put_json = {
+        "name": "bazz",
+        "description": "jazz",
+    }
+    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
+        response = await ac.put(f"/accuracy_types/{accuracy_id}", json=put_json)
+    assert response.status_code == 200
+    assert {**put_json, "id": accuracy_id} == response.json()
