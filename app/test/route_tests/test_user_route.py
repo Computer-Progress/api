@@ -7,7 +7,6 @@ from app.settings import settings
 
 @pytest.fixture(scope="module")
 async def user_created(base_url):
-    user_id = []
     body = {
         "email": "barbar@foofoo.com",
         "first_name": "Foo",
