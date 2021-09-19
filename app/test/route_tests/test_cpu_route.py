@@ -35,7 +35,6 @@ def test_cpu_post(cpu_created: Response):
     assert set(cpu_created.json().keys()) == keys
 
 
-
 @pytest.mark.asyncio
 async def test_cpu_get(headers: dict, base_url: str, cpu_created: Response):
     async with AsyncClient(app=app, base_url=base_url) as ac:
@@ -45,9 +44,7 @@ async def test_cpu_get(headers: dict, base_url: str, cpu_created: Response):
 
 
 @pytest.mark.asyncio
-async def test_cpu_get_id(
-    base_url: str, headers: dict, cpu_created: Response
-):
+async def test_cpu_get_id(base_url: str, headers: dict, cpu_created: Response):
     cpu_json = cpu_created.json()
     cpu_id = cpu_json["id"]
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
@@ -60,11 +57,7 @@ async def test_cpu_get_id(
 async def test_cpu_put(base_url: str, headers: dict, cpu_created: Response):
     cpu_json = cpu_created.json()
     cpu_id = cpu_json["id"]
-    put_json = {
-        **post_body,
-        "year": 2020,
-        "transistors": 3333
-    }
+    put_json = {**post_body, "year": 2020, "transistors": 3333}
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.put(f"/cpus/{cpu_id}", json=put_json)
     assert response.status_code == 200
