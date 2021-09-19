@@ -20,14 +20,14 @@ async def user_created(base_url):
 
 def test_user_create(user_created):
     assert user_created.status_code == 200
-    assert list(user_created.json().keys()) == [
+    assert set(user_created.json().keys()) == {
         "email",
         "is_active",
         "role",
         "first_name",
         "last_name",
         "id",
-    ]
+    }
 
 
 @pytest.mark.asyncio
@@ -44,14 +44,14 @@ async def test_user_create_auth(base_url, headers):
     assert response.status_code == 200
     del body["password"]
     assert body.items() <= response.json().items()
-    assert list(response.json().keys()) == [
+    assert set(response.json().keys()) == {
         "email",
         "is_active",
         "role",
         "first_name",
         "last_name",
         "id",
-    ]
+    }
 
 
 @pytest.mark.asyncio
@@ -74,14 +74,14 @@ async def test_user_get_me(headers, base_url):
         "email": settings.FIRST_SUPERUSER,
         "role": "super_admin",
     }.items() <= json.items()
-    assert list(json.keys()) == [
+    assert set(json.keys()) == {
         "email",
         "is_active",
         "role",
         "first_name",
         "last_name",
         "id",
-    ]
+    }
 
 
 @pytest.mark.asyncio
@@ -97,14 +97,14 @@ async def test_user_put(base_url, headers, user_created):
         response = await ac.put(f"/users/{user_id}", headers=headers, json=body)
     assert response.status_code == 200
     assert body.items() <= response.json().items()
-    assert list(response.json().keys()) == [
+    assert set(response.json().keys()) == {
         "email",
         "is_active",
         "role",
         "first_name",
         "last_name",
         "id",
-    ]
+    }
 
 @pytest.mark.asyncio
 async def test_user_put_me(base_url, headers):
@@ -117,11 +117,11 @@ async def test_user_put_me(base_url, headers):
         response = await ac.put(f"/users/me", headers=headers, json=body)
     assert response.status_code == 200
     assert body.items() <= response.json().items()
-    assert list(response.json().keys()) == [
+    assert set(response.json().keys()) == {
         "email",
         "is_active",
         "role",
         "first_name",
         "last_name",
         "id",
-    ]
+    }
