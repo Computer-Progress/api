@@ -1,6 +1,7 @@
+from app.utils.security import verify_password
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException, BackgroundTasks
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
@@ -19,12 +20,16 @@ def read_users(
     skip: int = 0,
     limit: int = 100,
     current_user: models.User = Depends(deps.GetCurrentUser('admin')),
+    email: str = None
 ) -> Any:
     """
     Retrieve users.
     """
-    users = crud.user.get_multi(db, skip=skip, limit=limit)
-    return users
+    if email:
+        user = crud.user.get_by_email(db, email=email)
+        return [user] if user else []
+    else:
+        return crud.user.get_multi(db, skip=skip, limit=limit)
 
 
 @router.post("/", response_model=schemas.User)
@@ -43,11 +48,7 @@ def create_user(
             status_code=400,
             detail="The user with this username already exists in the system.",
         )
-    user = crud.user.create(db, obj_in=user_in)
-    if settings.EMAILS_ENABLED and user_in.email:
-        send_new_account_email(
-            email_to=user_in.email, username=user_in.email, password=user_in.password
-        )
+    user = crud.user.create(db, obj_in=user_in, is_active=True)
     return user
 
 
@@ -55,7 +56,8 @@ def create_user(
 def update_user_me(
     *,
     db: Session = Depends(deps.get_db),
-    password: str = Body(None),
+    password: str = Body(None, min_length=8),
+    current_password: str = Body(None),
     first_name: str = Body(None),
     last_name: str = Body(None),
     email: EmailStr = Body(None),
@@ -67,6 +69,14 @@ def update_user_me(
     current_user_data = jsonable_encoder(current_user)
     user_in = schemas.UserUpdate(**current_user_data)
     if password is not None:
+        if current_password is None:
+            raise HTTPException(
+                status_code=400, detail="Current password is missing"
+            )
+        if not verify_password(current_password, current_user.hashed_password):
+            raise HTTPException(
+                status_code=400, detail="Incorrect current password"
+            )
         user_in.password = password
     if first_name is not None:
         user_in.first_name = first_name
@@ -92,8 +102,9 @@ def read_user_me(
 @router.post("/open", response_model=schemas.User)
 def create_user_open(
     *,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(deps.get_db),
-    password: str = Body(...),
+    password: str = Body(..., min_length=8),
     email: EmailStr = Body(...),
     first_name: str = Body(None),
     last_name: str = Body(None),
@@ -113,8 +124,13 @@ def create_user_open(
             detail="The user with this email already exists in the system",
         )
     user_in = schemas.UserCreate(
-        password=password, email=email, first_name=first_name, last_name=last_name)
+        password=password, email=email, first_name=first_name, last_name=last_name,
+        is_active=False)
     user = crud.user.create(db, obj_in=user_in)
+    if settings.EMAILS_ENABLED and user.email:
+        background_tasks.add_task(send_new_account_email,
+                                  email_to=user.email, first_name=user.first_name)
+
     return user
 
 

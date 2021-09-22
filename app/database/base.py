@@ -8,8 +8,8 @@ import re
 class Base:
     id: Any
     __name__: str
-    created_at = Column(DateTime, default=func.now())
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    created_at = Column(DateTime(timezone=True), default=func.now())
+    updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
     # Generate __tablename__ automatically
 
     @declared_attr

@@ -18,6 +18,10 @@ class Paper(Base):
                         default=generate_identifier, onupdate=generate_identifier)
     title = Column(String)
     link = Column(String)
+    
+    pwc_link = Column(String)
+    
+
     code_link = Column(String)
     publication_date = Column(Date)
     authors = Column(ARRAY(String))

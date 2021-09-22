@@ -32,7 +32,6 @@ class PaperModelsCreate(BaseModel):
     number_of_parameters: Optional[int]
     training_time: Optional[int]
     epochs: Optional[int]
-    extra_training_data: bool = False
     accuracies: List[AccuracyValuesCreate]
 
 

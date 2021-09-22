@@ -1,0 +1,13 @@
+<mjml>
+  <mj-body background-color="#fff">
+    <mj-section>
+      <mj-column>
+        <mj-divider border-color="#555"></mj-divider>
+        <mj-text font-size="20px" color="#555" font-family="helvetica">Computer Progress</mj-text>
+        <mj-text font-size="16px" color="#555">{{ message }}</mj-text>
+        <mj-text font-size="16px" color="#555">Please, sign in to your account and keep contributing to the Computer Progress!</mj-text>
+        <mj-divider border-color="#555" border-width="2px" />
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

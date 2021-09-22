@@ -18,6 +18,7 @@ def test_email(
     """
     Test emails.
     """
+    print(email_to, flush=True)
     background_tasks.add_task(send_test_email, email_to=email_to)
 
     return {"msg": "Test email sent"}
