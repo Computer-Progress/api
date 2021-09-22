@@ -435,7 +435,7 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
                     'task_name': row.task_name,
                     'dataset_name': row.dataset_name,
                     'model_id': row.model_id,
-                    'paper_publication_date': row.paper_publication_date.year,
+                    'paper_publication_date': row.paper_publication_date and row.paper_publication_date.year,
                     'paper_title': row.paper_title,
                     'paper_link': row.paper_link,
                     'paper_code_link': row.paper_code_link,

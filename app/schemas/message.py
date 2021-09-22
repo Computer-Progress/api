@@ -1,3 +1,4 @@
+from datetime import datetime
 from app.schemas.user import User
 from typing import Optional
 
@@ -21,6 +22,7 @@ class MessageInDBBase(MessageBase):
     submission_id: Optional[int]
     author: Optional[User]
     type: Optional[str]
+    created_at: datetime
 
     class Config:
         orm_mode = True

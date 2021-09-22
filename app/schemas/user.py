@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, constr
 
 from app.models.user import RoleEnum
 
@@ -17,12 +17,12 @@ class UserBase(BaseModel):
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     email: EmailStr
-    password: str
+    password: constr(min_length=8)
 
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
-    password: Optional[str] = None
+    password: Optional[constr(min_length=8)] = None
 
 
 class UserInDBBase(UserBase):

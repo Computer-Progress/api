@@ -93,3 +93,26 @@ def reset_password(
     db.add(user)
     db.commit()
     return {"msg": "Password updated successfully"}
+
+
+@router.post("/confirm-email/", response_model=schemas.Msg)
+def confirm_email(
+    token: str = Body(..., embed=True),
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Reset password
+    """
+    email = verify_password_reset_token(token)
+    if not email:
+        raise HTTPException(status_code=400, detail="Invalid token")
+    user = crud.user.get_by_email(db, email=email)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="The user with this username does not exist in the system.",
+        )
+    user.is_active = True
+    db.add(user)
+    db.commit()
+    return {"msg": "email confirmed successfully"}

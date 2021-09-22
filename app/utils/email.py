@@ -31,6 +31,7 @@ def send_email(
         smtp_options["password"] = settings.SMTP_PASSWORD
     response = message.send(to=email_to, render=environment, smtp=smtp_options)
     logging.info(f"send email result: {response}")
+    print(f"send email result: {response}", flush=True)
 
 
 def send_test_email(email_to: str) -> None:
@@ -67,22 +68,37 @@ def send_reset_password_email(email_to: str, email: str, token: str) -> None:
     )
 
 
-def send_new_account_email(email_to: str, username: str, password: str) -> None:
+def send_new_account_email(email_to: str, first_name: str) -> None:
     project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - New account for user {username}"
-    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "new_account.html") as f:
+    subject = f"{project_name} - Email confirmation"
+    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "email_confirmation.html") as f:
         template_str = f.read()
-    link = settings.SERVER_HOST
+    link = settings.SERVER_HOST + '/signin?confirmation=' + \
+        generate_email_confirmation_token(email=email_to)
     send_email(
         email_to=email_to,
         subject_template=subject,
         html_template=template_str,
         environment={
             "project_name": settings.PROJECT_NAME,
-            "username": username,
-            "password": password,
+            "first_name": first_name,
             "email": email_to,
             "link": link,
+        },
+    )
+
+
+def send_submission_updates_email(email_to: str, message: str) -> None:
+    project_name = settings.PROJECT_NAME
+    subject = f"{project_name} - submission update"
+    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "submission_updates.html") as f:
+        template_str = f.read()
+    send_email(
+        email_to=email_to,
+        subject_template=subject,
+        html_template=template_str,
+        environment={
+            "message": message,
         },
     )
 
@@ -98,9 +114,16 @@ def generate_password_reset_token(email: str) -> str:
     return encoded_jwt
 
 
+def generate_email_confirmation_token(email: str) -> str:
+    encoded_jwt = jwt.encode(
+        {"sub": email}, settings.SECRET_KEY, algorithm="HS256",
+    )
+    return encoded_jwt
+
+
 def verify_password_reset_token(token: str) -> Optional[str]:
     try:
         decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
-        return decoded_token["email"]
+        return decoded_token["sub"]
     except jwt.JWTError:
         return None

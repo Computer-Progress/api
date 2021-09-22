@@ -1,3 +1,4 @@
+from app.schemas.user import User
 from app.models.submission import StatusEnum
 from typing import List, Optional
 from datetime import date, datetime
@@ -22,7 +23,6 @@ class SubmissionDataModels(BaseModel):
     number_of_parameters: Optional[int]
     training_time: Optional[int]
     epochs: Optional[int]
-    extra_training_data: bool = False
     accuracies: List[SubmissionDataAccuracyValues]
     number_of_gpus: int
     number_of_cpus: Optional[int]
@@ -40,9 +40,10 @@ class SubmissionData(BaseModel):
 
 
 class SubmissionBase(BaseModel):
-    data: SubmissionData
+    data: Optional[SubmissionData]
     paper_id: Optional[int]
     owner_id: Optional[int]
+    owner: Optional[User]
     reviewer_id: Optional[int]
     status: StatusEnum
 

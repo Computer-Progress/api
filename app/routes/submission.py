@@ -1,7 +1,9 @@
+from pydantic.main import BaseModel
+from starlette.background import BackgroundTasks
 from app.models.submission import StatusEnum
 from typing import Any, List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from fastapi.param_functions import Body
 from sqlalchemy.orm import Session
 
@@ -10,13 +12,19 @@ from app import crud, models, schemas, deps
 router = APIRouter()
 
 
-@router.get("/", response_model=List[schemas.Submission])
+class SubmissionsWithTotal(BaseModel):
+    total: int
+    items: List[schemas.Submission]
+
+
+@router.get("/", response_model=SubmissionsWithTotal)
 def read_submissions(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
     q: str = None,
     owner_id: int = None,
+    status: StatusEnum = None,
     current_user: models.User = Depends(deps.GetCurrentUser('default')),
 ) -> Any:
     """
@@ -24,11 +32,11 @@ def read_submissions(
     """
     if current_user.role.value == 'default':
         submission = crud.submission.get_multi(
-            db, skip=skip, limit=limit, owner_id=current_user.id, q=q
+            db, skip=skip, limit=limit, owner_id=current_user.id, q=q, status=status
         )
     else:
         submission = crud.submission.get_multi(
-            db, skip=skip, limit=limit, owner_id=owner_id, q=q)
+            db, skip=skip, limit=limit, owner_id=owner_id, q=q, status=status)
     return submission
 
 
@@ -53,6 +61,7 @@ def create_submission(
 @router.put("/{id}/status", response_model=schemas.Submission)
 def update_status_submission(
     *,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(deps.get_db),
     id: int,
     status: StatusEnum = Body(..., embed=True),
@@ -66,7 +75,8 @@ def update_status_submission(
         raise HTTPException(status_code=404, detail="Submission not found")
     print(status, flush=True)
     submission = crud.submission.update_status(
-        db=db, db_obj=submission, status=status, current_user=current_user)
+        db=db, db_obj=submission, status=status, current_user=current_user,
+        background_tasks=background_tasks)
     return submission
 
 
