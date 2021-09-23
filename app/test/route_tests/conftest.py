@@ -21,7 +21,7 @@ async def datasets_created(base_url: str, headers: dict):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.delete(f"/datasets/{datasets_id}")
     assert response.status_code == 200
-    assert dataset_keys == set(response.json().keys())
+    assert datasets_keys == set(response.json().keys())
 
 
 task = {
