@@ -10,6 +10,7 @@ tpu_creation_body = {
   "gflops": 5
 }
 
+
 @pytest.fixture(scope="module")
 async def tpu_created(base_url: str, headers: dict):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
@@ -22,6 +23,7 @@ async def tpu_created(base_url: str, headers: dict):
     assert response.status_code == 200
     assert response.json().keys() == json.keys()
 
+
 def test_tpu_post(tpu_created: Response):
     json = tpu_created.json()
     body_keys = list(tpu_creation_body.keys())
@@ -30,6 +32,7 @@ def test_tpu_post(tpu_created: Response):
     assert json.pop('id', None) == 1
     assert json.items() == tpu_creation_body.items()
     assert list(tpu_created.json().keys()) == body_keys
+
 
 @pytest.mark.asyncio
 async def test_tpu_get_id(headers: dict, base_url: str, tpu_created: Response):
@@ -41,6 +44,7 @@ async def test_tpu_get_id(headers: dict, base_url: str, tpu_created: Response):
     assert response.status_code == 200
     assert response.json() == json
 
+
 @pytest.mark.asyncio
 async def test_tpu_get(headers: dict, base_url: str, tpu_created: Response):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
@@ -49,6 +53,7 @@ async def test_tpu_get(headers: dict, base_url: str, tpu_created: Response):
 
     for item in response.json():
         assert list(item.keys()) == list(tpu_created.json().keys())
+
 
 @pytest.mark.asyncio
 async def test_tpu_put(headers: dict, base_url: str, tpu_created: Response):

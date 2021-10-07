@@ -8,8 +8,8 @@ post_body = {
     "name": "Foo",
     "description": "foobar",
 }
-keys = {*post_body ,"id"}
-keys_get = {*keys ,"updated_at", "created_at"}
+keys = {*post_body, "id"}
+keys_get = {*keys, "updated_at", "created_at"}
 
 
 @pytest.fixture(scope="module")
@@ -33,7 +33,7 @@ def test_accuracy_post(accuracy_created: Response):
 @pytest.mark.asyncio
 async def test_accuracy_get(headers: dict, base_url: str, accuracy_created: Response):
     async with AsyncClient(app=app, base_url=base_url) as ac:
-        response = await ac.get(f"/accuracy_types/?skip=0&limit=1", headers=headers)
+        response = await ac.get("/accuracy_types/?skip=0&limit=1", headers=headers)
     assert response.status_code == 200
     assert set(response.json()[0].keys()) == keys_get
 

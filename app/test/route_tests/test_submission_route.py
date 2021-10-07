@@ -102,6 +102,7 @@ msg_res = {
   "type": "string"
 }
 
+
 @pytest.fixture(scope='module')
 async def submission_created(base_url: str, headers: dict):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
@@ -111,61 +112,83 @@ async def submission_created(base_url: str, headers: dict):
     assert response.status_code == 200
     assert response.json().keys() == submission_keys.keys()
 
-    async with AsyncClient(app=app,base_url=base_url, headers=headers) as ac:
+    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.delete(f'/submissions/{response.json()["id"]}')
 
     assert response.status_code == 200
     assert response.json().keys() == submission_keys.keys()
+
 
 def test_submission_post(submission_created: Response):
     created = submission_created['data']
     for key in submission_body.keys():
         assert submission_body[key] == created[key]
 
+
 @pytest.mark.asyncio
-async def test_submission_get_id(base_url: str, headers: dict, submission_created: Response):
+async def test_submission_get_id(base_url: str,
+                                 headers: dict,
+                                 submission_created: Response):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.get(f'/submissions/{submission_created["id"]}')
     assert response.status_code == 200
     assert response.json().keys() == submission_keys.keys()
     assert response.json()['data'] == submission_body
 
+
 @pytest.mark.asyncio
-async def test_submission_get(base_url: str, headers: dict, submission_created: Response):
+async def test_submission_get(base_url: str,
+                              headers: dict,
+                              submission_created: Response):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-        response = await ac.get(f'/submissions')
+        response = await ac.get('/submissions')
     assert response.status_code == 200
     assert response.json()[0].keys() == submission_keys.keys()
     assert response.json()[0]['data'] == submission_body
 
+
 @pytest.mark.asyncio
-async def test_submission_status_put(base_url: str, headers: dict, submission_created: Response):
+async def test_submission_status_put(base_url: str,
+                                     headers: dict,
+                                     submission_created: Response):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-        response = await ac.put(f'/submissions/{submission_created["id"]}/status', json={"status": "declined"})
+        response = await ac.put(f'/submissions/{submission_created["id"]}/status',
+                                json={"status": "declined"})
     assert response.status_code == 200
     assert response.json().keys() == submission_keys.keys()
     assert response.json()['data'] == submission_body
     assert response.json()['status'] == 'declined'
 
+
 @pytest.mark.asyncio
-async def test_submission_put(base_url: str, headers: dict, submission_created: Response):
+async def test_submission_put(base_url: str,
+                              headers: dict,
+                              submission_created: Response):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-        response = await ac.put(f'/submissions/{submission_created["id"]}', json=submission_new)
+        response = await ac.put(f'/submissions/{submission_created["id"]}',
+                                json=submission_new)
     assert response.status_code == 200
     assert response.json().keys() == submission_keys.keys()
     assert response.json()['data'] == submission_new
 
+
 @pytest.mark.asyncio
-async def test_submission_message_post(base_url: str, headers: dict, submission_created: Response):
+async def test_submission_message_post(base_url: str,
+                                       headers: dict,
+                                       submission_created: Response):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-        response = await ac.post(f'/submissions/{submission_created["id"]}/messages', json={'message': msg_res['body']})
+        response = await ac.post(f'/submissions/{submission_created["id"]}/messages',
+                                 json={'message': msg_res['body']})
     assert response.status_code == 200
     assert response.json().keys() == msg_res.keys()
     assert response.json()['body'] == msg_res['body']
     assert response.json()['author'].keys() == msg_res['author'].keys()
 
+
 @pytest.mark.asyncio
-async def test_submission_message_get(base_url: str, headers: dict, submission_created: Response):
+async def test_submission_message_get(base_url: str,
+                                      headers: dict,
+                                      submission_created: Response):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.get(f'/submissions/{submission_created["id"]}/messages')
     assert response.status_code == 200

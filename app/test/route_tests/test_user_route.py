@@ -40,7 +40,7 @@ async def test_user_create_auth(base_url, headers):
         "password": "string",
     }
     async with AsyncClient(app=app, base_url=base_url) as ac:
-        response = await ac.post(f"/users/", headers=headers, json=body)
+        response = await ac.post("/users/", headers=headers, json=body)
     assert response.status_code == 200
     del body["password"]
     assert body.items() <= response.json().items()
@@ -67,7 +67,7 @@ async def test_user_get(user_created, headers, base_url):
 @pytest.mark.asyncio
 async def test_user_get_me(headers, base_url):
     async with AsyncClient(app=app, base_url=base_url) as ac:
-        response = await ac.get(f"/users/me", headers=headers)
+        response = await ac.get("/users/me", headers=headers)
     json = response.json()
     assert response.status_code == 200
     assert {
@@ -106,6 +106,7 @@ async def test_user_put(base_url, headers, user_created):
         "id",
     }
 
+
 @pytest.mark.asyncio
 async def test_user_put_me(base_url, headers):
     body = {
@@ -114,7 +115,7 @@ async def test_user_put_me(base_url, headers):
         "last_name": "big boss",
     }
     async with AsyncClient(app=app, base_url=base_url) as ac:
-        response = await ac.put(f"/users/me", headers=headers, json=body)
+        response = await ac.put("/users/me", headers=headers, json=body)
     assert response.status_code == 200
     assert body.items() <= response.json().items()
     assert set(response.json().keys()) == {

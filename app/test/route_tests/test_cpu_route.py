@@ -38,7 +38,7 @@ def test_cpu_post(cpu_created: Response):
 @pytest.mark.asyncio
 async def test_cpu_get(headers: dict, base_url: str, cpu_created: Response):
     async with AsyncClient(app=app, base_url=base_url) as ac:
-        response = await ac.get(f"/cpus/?skip=0&limit=1", headers=headers)
+        response = await ac.get("/cpus/?skip=0&limit=1", headers=headers)
     assert response.status_code == 200
     assert set(response.json()[0].keys()) == keys
 

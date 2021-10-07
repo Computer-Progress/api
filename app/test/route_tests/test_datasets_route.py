@@ -14,7 +14,7 @@ def test_datasets_post(datasets_created: Response):
 @pytest.mark.asyncio
 async def test_datasets_get(headers: dict, base_url: str, datasets_created: Response):
     async with AsyncClient(app=app, base_url=base_url) as ac:
-        response = await ac.get(f"/datasets/?skip=0&limit=1", headers=headers)
+        response = await ac.get("/datasets/?skip=0&limit=1", headers=headers)
     assert response.status_code == 200
     assert set(response.json()[0].keys()) == datasets_keys
 
