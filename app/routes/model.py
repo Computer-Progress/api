@@ -74,7 +74,9 @@ def get_models_csv(
                                  media_type="text/csv"
                                  )
 
-    response.headers["Content-Disposition"] = f"attachment; filename={task_id}-{dataset_id}.csv"
+    response.headers[
+        "Content-Disposition"
+    ] = f"attachment; filename={task_id}-{dataset_id}.csv"
 
     return response
 

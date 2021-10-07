@@ -1,8 +1,6 @@
 from sqlalchemy import event
-import logging
-from sqlalchemy.sql.expression import bindparam, select, text
-from app.models import Dataset, Task
-from sqlalchemy.sql.functions import func
+
+from sqlalchemy.sql.expression import text
 from app.database.base import Base
 from sqlalchemy import Column, Integer, ForeignKey, String
 from sqlalchemy.orm import relationship
@@ -25,8 +23,11 @@ class TaskDataset(Base):
 
 def my_before_insert_listener(mapper, connection, target):
     target.identifier = connection.execute(
-        text("select concat(task.identifier,'-on-', dataset.identifier) from task, dataset where task.id = %d and dataset.id = %d" %
-             (target.task_id, target.dataset_id))
+        text(
+            "select concat(task.identifier,'-on-', dataset.identifier) from task, "
+            "dataset where task.id = %d and dataset.id = %d" %
+            (target.task_id, target.dataset_id)
+        )
     ).scalar()
 
 

@@ -1,8 +1,6 @@
-from app import models
 from pydantic.main import BaseModel
 from typing import List, Optional
 
-from .dataset import Dataset
 from .model import Model
 
 # Shared properties
