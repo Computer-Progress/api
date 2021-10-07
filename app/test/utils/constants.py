@@ -3,6 +3,22 @@ from app.settings import settings
 '''
 Test constants
 '''
+
+# ================================
+# BEGIN STATUS_CODE CONSTANTS
+
+SUCCESS = 200
+NOT_FOUND = 404
+BAD_REQUEST = 400
+UNAUTHORIZED = 401
+FORBIDDEN = 403
+METHOD_NOT_ALLOWED = 405
+SERVER_ERROR = 500
+
+# END STATUS_CODE CONSTANTS
+# ================================
+
+
 # ================================
 # BEGIN DATASETS CONSTANTS
 
