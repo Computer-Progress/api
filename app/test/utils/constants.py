@@ -309,5 +309,11 @@ PAPER_KEYS_POST = {
     "created_at"
 }
 
+PAPER_NEW = {
+  **PAPER_GET,
+  "title": "foofoo",
+  "code_link": "barbar"
+}
+
 # END PAPER CONSTANTS
 # ================================
