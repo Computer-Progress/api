@@ -2,11 +2,15 @@ import pytest
 from httpx import AsyncClient
 
 from app.main import app
-from app.test.utils.constants import DATASETS_KEYS,\
-                                     DATASETS_BODY,\
-                                     TASK_KEYS,    \
-                                     TASK,         \
-                                     SUCCESS
+from app.test.utils.constants import (
+    DATASETS_KEYS,
+    DATASETS_BODY,
+    TASK_KEYS,
+    TASK,
+    PAPER_BODY,
+    PAPER_KEYS,
+    SUCCESS,
+)
 
 
 @pytest.fixture(scope="session")
@@ -33,3 +37,15 @@ async def task_created(base_url: str, headers: dict):
         response = await ac.delete(f"/tasks/{a['id']}")
     assert response.status_code == SUCCESS
     assert response.json().keys() == TASK_KEYS.keys()
+
+
+@pytest.fixture(scope="session")
+async def paper_created(base_url: str, headers: dict):
+    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
+        response = await ac.post("/papers", json=PAPER_BODY)
+    yield response
+    # paper_id = response.json()["id"]
+    # async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
+    #     response = await ac.delete(f"/paper/{paper_id}")
+    # assert response.status_code == SUCCESS
+    # assert PAPER_KEYS == set(response.json().keys())

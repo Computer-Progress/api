@@ -280,3 +280,34 @@ USER_SUPERUSER_NEW = {
 
 # END USER CONSTANTS
 # ================================
+
+# ================================
+# BEGIN PAPER CONSTANTS
+
+PAPER_GET = {
+    "title": "foo",
+    "link": "bar",
+    "code_link": "baz",
+    "publication_date": "2021-10-17",
+    "authors": [],
+    # "models": []
+}
+
+PAPER_BODY = {
+    **PAPER_GET,
+    "models": []
+}
+
+PAPER_KEYS = {*PAPER_GET, "id"}
+
+PAPER_KEYS_POST = {
+    *PAPER_KEYS,
+    "is_public",
+    "updated_at",
+    "identifier",
+    "link",
+    "created_at"
+}
+
+# END PAPER CONSTANTS
+# ================================
