@@ -35,13 +35,17 @@ async def test_datasets_get_id(
 async def test_datasets_put(base_url: str, headers: dict, datasets_created: Response):
     datasets_json = datasets_created.json()
     datasets_id = datasets_json["id"]
+    print(datasets_id)
     put_json = {
-        **DATASETS_BODY,
+        "name": "foo",
+        "image": "bar",
+        "identifier": "foo bar",
         "description": "i changed my description because i want",
         "source": "example",
     }
     print(put_json)
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.put(f"/datasets/{datasets_id}", json=put_json)
+        print(response.json())
     assert response.status_code == SUCCESS
     assert {**put_json, "id": datasets_id} == response.json()

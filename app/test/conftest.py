@@ -2,6 +2,8 @@ import pytest
 import asyncio
 from httpx import AsyncClient
 from sqlalchemy_utils import create_database, database_exists
+from os import system, name
+from time import sleep
 
 from app.database.base import Base
 from app.settings import settings
@@ -22,6 +24,11 @@ Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 init_db(TestSessionLocal())
 
+if name == 'nt':
+  _ = system('cls')
+
+else:
+  _ = system('clear')
 
 @pytest.fixture(scope="session")
 def event_loop():
