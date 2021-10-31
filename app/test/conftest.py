@@ -18,11 +18,18 @@ from app.test.utils.test_db import (
 from .utils.test_db import TestSessionLocal
 
 app.dependency_overrides[get_db] = override_get_db
+
 if not database_exists(SQLALCHEMY_TEST_DATABASE_URI):
     create_database(SQLALCHEMY_TEST_DATABASE_URI)
+
 Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 init_db(TestSessionLocal())
+
+with open('app/test/utils/initial_seed.sql') as sql_file:
+    for statement in sql_file.read().split(';'):
+        if len(statement.strip()) > 0:
+             engine.execute(statement + ';')
 
 if name == 'nt':
   _ = system('cls')
