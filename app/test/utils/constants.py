@@ -97,6 +97,44 @@ CPU_KEYS = {*CPU_BODY, "id"}
 # ================================
 
 # ================================
+# BEGIN TPU CONSTANTS
+
+TPU_BODY = {
+  "name": "foobar",
+  "transistors": 10,
+  "tdp": 20,
+  "gflops": 5
+}
+
+TPU_NEW = {
+    "name": "barfoo",
+    "transistors": 50,
+    "tdp": 21,
+    "gflops": 3
+}
+
+# END TPU CONSTANTS
+# ================================
+
+# ================================
+# BEGIN GPU CONSTANTS
+
+GPU_BODY = {
+    "name": "GeForce 8300 GS",
+    "transistors": 210,
+    "tdp": 40,
+    "gflops": 14.4
+}
+
+GPU_KEYS = {
+    *GPU_BODY,
+    "id"
+}
+
+# END GPU CONSTANTS
+# ================================
+
+# ================================
 # BEGIN LOGIN CONSTANTS
 
 LOGIN_EXPECTED_JSON = {
@@ -185,6 +223,42 @@ SUBMISSION_NEW = {
   ]
 }
 
+SUBMISSION_ALT_BODY = {
+  "title": "string",
+  "link": "string",
+  "code_link": "string",
+  "publication_date": "2021-10-30",
+  "authors": [
+    "string"
+  ],
+  "models": [
+    {
+      "name": "string",
+      "task": "Image Classification",
+      "dataset": "Imagenet",
+      "cpu": CPU_BODY["name"],
+      "gpu": GPU_BODY["name"],
+      "tpu": TPU_BODY["name"],
+      "gflops": 0,
+      "multiply_adds": 0,
+      "number_of_parameters": 0,
+      "training_time": 0,
+      "epochs": 0,
+      "extra_training_data": False,
+      "accuracies": [
+        {
+          "accuracy_type": "TOP 1",
+          "value": 1
+        }
+      ],
+      "number_of_gpus": 0,
+      "number_of_cpus": 0,
+      "number_of_tpus": 0,
+      "extra_training_time": False
+    }
+  ]
+}
+
 SUBMISSION_KEYS = {
                   "data": {**SUBMISSION_BODY},
                   "paper_id": 0,
@@ -213,26 +287,6 @@ SUBMISSION_MSG_RES = {
 }
 
 # END SUBMISSION CONSTANTS
-# ================================
-
-# ================================
-# BEGIN TPU CONSTANTS
-
-TPU_BODY = {
-  "name": "foobar",
-  "transistors": 10,
-  "tdp": 20,
-  "gflops": 5
-}
-
-TPU_NEW = {
-    "name": "barfoo",
-    "transistors": 50,
-    "tdp": 21,
-    "gflops": 3
-}
-
-# END TPU CONSTANTS
 # ================================
 
 # ================================
@@ -316,4 +370,31 @@ PAPER_NEW = {
 }
 
 # END PAPER CONSTANTS
+# ================================
+
+# ================================
+# BEGIN MODEL CONSTANTS
+
+MODEL_KEYS = {
+  "name",
+  "hardware_burden",
+  "training_time",
+  "gflops",
+  "epochs",
+  "number_of_parameters",
+  "multiply_adds",
+  "number_of_cpus",
+  "number_of_gpus",
+  "number_of_tpus",
+  "task_dataset_id",
+  "task_dataset_id",
+  "paper_id",
+  "cpu_id",
+  "tpu_id",
+  "gpu_id",
+  "id"
+}
+
+
+# END MODEL CONSTANTS
 # ================================

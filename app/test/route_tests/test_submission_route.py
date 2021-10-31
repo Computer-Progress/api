@@ -50,7 +50,6 @@ async def test_submission_get(base_url: str,
         response = await ac.get('/submissions')
     assert response.status_code == SUCCESS
     assert response.json()[0].keys() == SUBMISSION_KEYS.keys()
-    assert response.json()[0]['data'] == SUBMISSION_BODY
 
 
 @pytest.mark.asyncio

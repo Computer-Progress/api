@@ -5,19 +5,6 @@ from app.main import app
 from app.test.utils.constants import TPU_BODY, TPU_NEW, SUCCESS
 
 
-@pytest.fixture(scope="module")
-async def tpu_created(base_url: str, headers: dict):
-    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-        response = await ac.post("/tpus", json=TPU_BODY)
-    yield response
-    json = response.json()
-    tpu_id = json["id"]
-    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-        response = await ac.delete(f"/tpus/{tpu_id}")
-    assert response.status_code == SUCCESS
-    assert response.json().keys() == json.keys()
-
-
 def test_tpu_post(tpu_created: Response):
     json = tpu_created.json()
     body_keys = list(TPU_BODY.keys())
