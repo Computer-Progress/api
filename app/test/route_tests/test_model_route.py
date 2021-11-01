@@ -17,8 +17,8 @@ async def test_model_get_id(headers: dict, base_url: str, get_test_model: Respon
 @pytest.mark.asyncio
 async def test_model_put(headers: dict, base_url: str, get_test_model: Response):
     model_id = get_test_model["id"]
-    put_body = {**get_test_model, "name": "fooo", "gflops": 2, "epochs": 3}
+    put_body = {**get_test_model, "name": "fooo", "gflops": 2.0, "epochs": 3}
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.put(f"/models/{model_id}", json=put_body)
     assert response.status_code == SUCCESS
-    assert set(put_body.items()) <= set(response.json().items())
+    assert {**put_body, "id": model_id} == response.json()

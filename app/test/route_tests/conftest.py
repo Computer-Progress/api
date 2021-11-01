@@ -25,11 +25,6 @@ async def cpu_created(base_url: str, headers: dict):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.post("/cpus", json=CPU_BODY)
     yield response
-    # cpu_id = response.json()["id"]
-    # async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-    #     response = await ac.delete(f"/cpus/{cpu_id}")
-    # assert response.status_code == SUCCESS
-    # assert CPU_KEYS == set(response.json().keys())
 
 
 @pytest.fixture(scope="session")
@@ -91,7 +86,7 @@ async def submission_approved_created(
     task_created: Response,
     tpu_created: Response,
     cpu_created: Response,
-    gpu_created: Response
+    gpu_created: Response,
 ):
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response_create = await ac.post("/submissions", json=SUBMISSION_ALT_BODY)
@@ -106,13 +101,35 @@ async def submission_approved_created(
 
 @pytest.fixture(scope="session")
 async def get_test_model(
-    headers: dict, base_url: str, submission_approved_created: Response
+    headers: dict,
+    base_url: str,
+    submission_approved_created: Response,
+    cpu_created: Response,
+    tpu_created: Response,
+    gpu_created: Response,
 ):
     async with AsyncClient(app=app, base_url=base_url) as ac:
         response = await ac.get("/models/?skip=0&limit=1", headers=headers)
     assert response.status_code == SUCCESS
     assert set(response.json()[0].keys()) == MODEL_KEYS
     yield response.json()[0]
+    model_id = response.json()[0]["id"]
+    cpu_id = cpu_created.json()["id"]
+    tpu_id = tpu_created.json()["id"]
+    gpu_id = gpu_created.json()["id"]
+    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
+        response_models = await ac.delete(f"/models/{model_id}")
+        response_cpu = await ac.delete(f"/cpus/{cpu_id}")
+        response_tpu = await ac.delete(f"/tpus/{tpu_id}")
+        response_gpu = await ac.delete(f"/gpus/{gpu_id}")
+    assert response_cpu.status_code == SUCCESS
+    assert CPU_KEYS == set(response_cpu.json().keys())
+    assert response_models.status_code == SUCCESS
+    assert MODEL_KEYS == set(response_models.json().keys())
+    assert response_tpu.status_code == SUCCESS
+    assert response_tpu.json().keys() == tpu_created.json().keys()
+    assert response_gpu.status_code == SUCCESS
+    assert GPU_KEYS == set(response_gpu.json().keys())
 
 
 @pytest.fixture(scope="session")
