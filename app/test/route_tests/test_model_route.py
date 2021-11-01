@@ -9,6 +9,7 @@ from app.test.utils.constants import (
     DATASET_MODEL,
     ACCURACY_TOP1,
     MODEL_TASK_DATASET_KEYS,
+    MODEL_CSV_KEYS
 )
 
 
@@ -55,5 +56,10 @@ async def test_model_get_task_dataset_csv(
         response = await ac.get(
             f"/models/{TASK_MODEL['task_id']}/{DATASET_MODEL['dataset_id']}/csv"
         )
+    response.encondig = "UTF-8"
+    csvReader = response.text.replace('\n', ',', 1)
+    csvReader = csvReader.split(",", maxsplit=len(MODEL_CSV_KEYS))
+    print(csvReader)
     assert response.status_code == SUCCESS
     assert len(response.text) > 340
+    assert set(csvReader[0:-1]) == MODEL_CSV_KEYS

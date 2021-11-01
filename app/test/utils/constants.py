@@ -425,5 +425,30 @@ MODEL_TASK_DATASET_KEYS = {
     "models"
 }
 
+MODEL_CSV_KEYS = {
+    "task_name",
+    "dataset_name",
+    "paper_publication_date",
+    "paper_title",
+    "paper_link",
+    "paper_code_link",
+    "model_name",
+    ACCURACY_TOP1["name"],
+    "model_gflops",
+    "model_multiply_adds",
+    "model_operation_per_network_pass",
+    "model_extra_training_time",
+    "model_number_of_cpus",
+    "model_cpu",
+    "model_number_of_gpus",
+    "model_gpu",
+    "model_number_of_tpus",
+    "model_tpu",
+    "model_training_time",
+    "model_hardware_burden",
+    "model_number_of_parameters",
+    "model_epochs",
+}
+
 # END MODEL CONSTANTS
 # ================================
