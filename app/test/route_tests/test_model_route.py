@@ -8,7 +8,7 @@ from app.test.utils.constants import (
     TASK_MODEL,
     DATASET_MODEL,
     ACCURACY_TOP1,
-    MODEL_TASK_DATASET_KEYS
+    MODEL_TASK_DATASET_KEYS,
 )
 
 
@@ -41,6 +41,19 @@ async def test_model_get_task_dataset(
         response = await ac.get(
             f"/models/{TASK_MODEL['task_id']}/{DATASET_MODEL['dataset_id']}"
         )
-
     assert response.status_code == SUCCESS
     assert MODEL_TASK_DATASET_KEYS == set(response.json().keys())
+
+
+@pytest.mark.asyncio
+async def test_model_get_task_dataset_csv(
+    headers: dict,
+    base_url: str,
+    get_test_model: Response,
+):
+    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
+        response = await ac.get(
+            f"/models/{TASK_MODEL['task_id']}/{DATASET_MODEL['dataset_id']}/csv"
+        )
+    assert response.status_code == SUCCESS
+    assert len(response.text) > 340
