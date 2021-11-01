@@ -70,6 +70,16 @@ TASK_MODEL = {
     "task_id": 10
 }
 
+TASK_DESCRIPTION = (
+    "Image Classification is a fundamental task that attempts to"
+    + " comprehend an entire image as a whole. The goal is to classify"
+    + " the image by assigning it to a specific label. Typically,"
+    + " Image Classification refers to images in which only one object"
+    + " appears and is analyzed. In contrast, object detection involves"
+    + " both classification and localization tasks, and is used to analyze."
+    # + " more realistic cases in which multiple objects may exist in an image."
+)
+
 # END TASK CONSTANTS
 # ================================
 
@@ -248,16 +258,16 @@ SUBMISSION_NEW = {
 }
 
 SUBMISSION_ALT_BODY = {
-  "title": "string",
-  "link": "string",
-  "code_link": "string",
+  "title": "sub_title_alt",
+  "link": "linking",
+  "code_link": "lonk",
   "publication_date": "2021-10-30",
   "authors": [
-    "string"
+    "DiCaprio"
   ],
   "models": [
     {
-      "name": "string",
+      "name": "oscar",
       "task": TASK_MODEL["task_name"],
       "dataset": DATASET_MODEL["dataset_name"],
       "cpu": CPU_BODY["name"],
@@ -451,4 +461,17 @@ MODEL_CSV_KEYS = {
 }
 
 # END MODEL CONSTANTS
+# ================================
+
+# ================================
+# BEGIN SOTA CONSTANTS
+
+
+SOTA_KEYS = {
+    *[x for x in TASK_MODEL if x != "task_image"],
+    "datasets"
+}
+
+
+# END SOTA CONSTANTS
 # ================================

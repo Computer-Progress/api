@@ -3,11 +3,9 @@ from httpx import AsyncClient, Response
 
 from app.main import app
 from app.test.utils.constants import (
-    MODEL_KEYS,
     SUCCESS,
     TASK_MODEL,
     DATASET_MODEL,
-    ACCURACY_TOP1,
     MODEL_TASK_DATASET_KEYS,
     MODEL_CSV_KEYS
 )
@@ -23,6 +21,7 @@ async def test_model_get_id(headers: dict, base_url: str, get_test_model: Respon
 
 
 @pytest.mark.asyncio
+@pytest.mark.order(-1)
 async def test_model_put(headers: dict, base_url: str, get_test_model: Response):
     model_id = get_test_model["id"]
     put_body = {**get_test_model, "name": "fooo", "gflops": 2.0, "epochs": 3}
