@@ -31,6 +31,12 @@ DATASETS_BODY = {
 }
 DATASETS_KEYS = {*DATASETS_BODY, "id"}
 
+DATASET_MODEL = {
+    "dataset_id": 10,
+    "dataset_identifier": "imagenet",
+    "dataset_name": "Imagenet",
+}
+
 # END DATASETS CONSTANTS
 # ================================
 
@@ -57,6 +63,13 @@ NEW_TASK = {
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
 }
 
+TASK_MODEL = {
+    "task_name": "Image Classification",
+    "task_image": "https://computerprogress.xyz/image/image-classification.svg",
+    "task_identifier": "image-classification",
+    "task_id": 10
+}
+
 # END TASK CONSTANTS
 # ================================
 
@@ -70,6 +83,12 @@ ACCURACY_BODY = {
 ACCURACY_KEYS = {*ACCURACY_BODY, "id"}
 
 ACCURACY_KEYS_GET = {*ACCURACY_KEYS, "updated_at", "created_at"}
+
+ACCURACY_TOP1 = {
+    "name": "TOP 1",
+    "description": None,
+    "main": True
+}
 
 # END ACCURACY CONSTANTS
 # ================================
@@ -234,8 +253,8 @@ SUBMISSION_ALT_BODY = {
   "models": [
     {
       "name": "string",
-      "task": "Image Classification",
-      "dataset": "Imagenet",
+      "task": TASK_MODEL["task_name"],
+      "dataset": DATASET_MODEL["dataset_name"],
       "cpu": CPU_BODY["name"],
       "gpu": GPU_BODY["name"],
       "tpu": TPU_BODY["name"],
@@ -247,7 +266,7 @@ SUBMISSION_ALT_BODY = {
       "extra_training_data": False,
       "accuracies": [
         {
-          "accuracy_type": "TOP 1",
+          "accuracy_type": ACCURACY_TOP1["name"],
           "value": 1
         }
       ],
@@ -387,7 +406,6 @@ MODEL_KEYS = {
   "number_of_gpus",
   "number_of_tpus",
   "task_dataset_id",
-  "task_dataset_id",
   "paper_id",
   "cpu_id",
   "tpu_id",
@@ -395,6 +413,12 @@ MODEL_KEYS = {
   "id"
 }
 
+MODEL_TASK_DATASET_KEYS = {
+    *TASK_MODEL,
+    *DATASET_MODEL,
+    "accuracy_types",
+    "models"
+}
 
 # END MODEL CONSTANTS
 # ================================

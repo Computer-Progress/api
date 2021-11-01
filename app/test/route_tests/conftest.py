@@ -82,8 +82,6 @@ async def task_created(base_url: str, headers: dict):
 async def submission_approved_created(
     base_url: str,
     headers: dict,
-    datasets_created: Response,
-    task_created: Response,
     tpu_created: Response,
     cpu_created: Response,
     gpu_created: Response,

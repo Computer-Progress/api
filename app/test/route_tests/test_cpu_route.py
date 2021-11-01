@@ -5,8 +5,6 @@ from app.main import app
 from app.test.utils.constants import CPU_BODY, CPU_KEYS, CPU_NEW, SUCCESS
 
 
-
-
 def test_cpu_post(cpu_created: Response):
     assert cpu_created.status_code == SUCCESS
     assert cpu_created.json().items() >= CPU_BODY.items()
