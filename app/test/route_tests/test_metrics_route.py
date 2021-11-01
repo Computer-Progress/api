@@ -2,57 +2,45 @@ import pytest
 from httpx import AsyncClient, Response
 
 from app.main import app
-from app.test.utils.constants import (
-    METRICS_KEYS,
-    SUCCESS,
-    TASK_DATASET_IDENTIFIER
-)
+from app.test.utils.constants import METRICS_KEYS, SUCCESS, TASK_DATASET_IDENTIFIER
+
+
+def make_id(name: str):
+    return name.replace(" ", "-").replace("_", "-").lower()
 
 
 @pytest.mark.asyncio
-async def test_paper_with_code_get(headers: dict, base_url: str, get_test_model: Response):
+async def test_paper_with_code_get(
+    headers: dict, base_url: str, get_test_model: Response
+):
     async with AsyncClient(app=app, base_url=base_url) as ac:
-        response = await ac.get(f"/metrics/{TASK_DATASET_IDENTIFIER}/?skip=0&limit=1", headers=headers)
+        response = await ac.get(
+            f"/metrics/{TASK_DATASET_IDENTIFIER}/?skip=0&limit=1", headers=headers
+        )
     assert response.status_code == SUCCESS
     assert set(response.json()[0].keys()) == METRICS_KEYS
 
 
-# @pytest.mark.asyncio
-# async def test_sota_get_id(
-#     base_url: str,
-#     headers: dict,
-#     get_test_model: Response,
-#     submission_approved_created: Response,
-# ):
-#     submission_data = {
-#         "sota_accuracy_value": submission_approved_created["data"]["models"][0][
-#             "accuracies"
-#         ][0]["value"],
-#         "sota_paper_publication_date": submission_approved_created["data"][
-#             "publication_date"
-#         ],
-#         "accuracy_name": submission_approved_created["data"]["models"][0]["accuracies"][
-#             0
-#         ]["accuracy_type"],
-#         "sota_paper_link": submission_approved_created["data"]["link"],
-#         "sota_paper_title": submission_approved_created["data"]["title"],
-#         "sota_name": submission_approved_created["data"]["models"][0]["name"]
-#     }
-#     sota_json = {
-#         **TASK_MODEL,
-#         "task_description": TASK_DESCRIPTION,
-#         "datasets": [
-#             {
-#                 **DATASET_MODEL,
-#                 **submission_data,
-#                 "task_dataset_id": get_test_model["task_dataset_id"],
-#                 "sota_id": get_test_model["id"],
-#                 "sota_hardware_burden": get_test_model["hardware_burden"],
-#             }
-#         ],
-#     }
-#     task_id = sota_json["task_id"]
-#     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
-#         response = await ac.get(f"/sota/{task_id}")
-#     assert response.status_code == SUCCESS
-#     assert sota_json == response.json()
+@pytest.mark.asyncio
+async def test_paper_with_code_get_model(
+    base_url: str,
+    headers: dict,
+    get_test_model: Response,
+    submission_approved_created: Response,
+):
+    model_identifier = make_id(get_test_model["name"])
+    paper_identifier = make_id(submission_approved_created["data"]["title"])
+
+    metrics_json = {
+        "tasks_dataset_identifier": TASK_DATASET_IDENTIFIER,
+        "model_identifier": model_identifier,
+        "model_name": get_test_model["name"],
+        "model_hardware_burden": get_test_model["hardware_burden"],
+        "paper_identifier": paper_identifier,
+    }
+    async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
+        response = await ac.get(
+            f"/metrics/{TASK_DATASET_IDENTIFIER}/{get_test_model['name']}"
+        )
+    assert response.status_code == SUCCESS
+    assert set(metrics_json.items()) <= set(response.json().items())
