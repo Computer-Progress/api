@@ -80,6 +80,8 @@ TASK_DESCRIPTION = (
     # + " more realistic cases in which multiple objects may exist in an image."
 )
 
+TASK_DATASET_IDENTIFIER = "image-classification-on-imagenet"
+
 # END TASK CONSTANTS
 # ================================
 
@@ -474,4 +476,21 @@ SOTA_KEYS = {
 
 
 # END SOTA CONSTANTS
+# ================================
+
+# ================================
+# BEGIN METRICS CONSTANTS
+
+
+METRICS_KEYS = {
+    "tasks_dataset_identifier",
+    "model_identifier",
+    "model_name",
+    "model_hardware_burden",
+    "model_operation_per_network_pass",
+    "paper_identifier"
+}
+
+
+# END METRICS CONSTANTS
 # ================================
