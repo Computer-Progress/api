@@ -150,6 +150,11 @@ GPU_KEYS = {
     "id"
 }
 
+GPU_NEW = {
+    **GPU_BODY,
+    "tdp": 222
+}
+
 # END GPU CONSTANTS
 # ================================
 
