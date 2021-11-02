@@ -79,6 +79,8 @@ DATASETS_NO_BODY_FAIL = {
     ]
 }
 
+
+
 DATASETS_INVALID_GET_ID = { 'detail': 'Dataset not found' }
 
 
@@ -156,6 +158,18 @@ ACCURACY_TOP1 = {
     "description": None,
     "main": True
 }
+
+ACCURACY_NO_BODY_FAIL = {
+    'detail': [
+        {
+            'loc': ['body'],
+            'msg': 'field required',
+            'type': 'value_error.missing'
+        }
+    ]
+}
+
+ACCURACY_INVALID_GET_ID = {'detail': 'AccuracyType not found'}
 
 # END ACCURACY CONSTANTS
 # ================================
