@@ -19,6 +19,20 @@ SERVER_ERROR = 500
 # END STATUS_CODE CONSTANTS
 # ================================
 
+INVALID_GET_PARAM = {
+    'detail': [
+        {
+            'loc': ['query', 'skip'],
+            'msg': 'value is not a valid integer',
+            'type': 'type_error.integer'
+        },
+        {
+            'loc': ['query', 'limit'],
+            'msg': 'value is not a valid integer',
+            'type': 'type_error.integer'
+        }
+    ]
+}
 
 # ================================
 # BEGIN DATASETS CONSTANTS
@@ -61,21 +75,6 @@ DATASETS_NO_BODY_FAIL = {
             'loc': ['body'],
             'msg': 'field required',
             'type': 'value_error.missing'
-        }
-    ]
-}
-
-DATASETS_INVALID_GET = {
-    'detail': [
-        {
-            'loc': ['query', 'skip'],
-            'msg': 'value is not a valid integer',
-            'type': 'type_error.integer'
-        },
-        {
-            'loc': ['query', 'limit'],
-            'msg': 'value is not a valid integer',
-            'type': 'type_error.integer'
         }
     ]
 }
@@ -127,6 +126,16 @@ TASK_DESCRIPTION = (
 )
 
 TASK_DATASET_IDENTIFIER = "image-classification-on-imagenet"
+
+TASK_FAIL = {
+    'detail': [
+        {
+            'loc': ['body'],
+            'msg': 'field required',
+            'type': 'value_error.missing'
+        }
+    ]
+}
 
 # END TASK CONSTANTS
 # ================================
