@@ -12,6 +12,7 @@ NOT_FOUND = 404
 BAD_REQUEST = 400
 UNAUTHORIZED = 401
 FORBIDDEN = 403
+VALIDATION_ERR = 422
 METHOD_NOT_ALLOWED = 405
 SERVER_ERROR = 500
 
@@ -36,6 +37,51 @@ DATASET_MODEL = {
     "dataset_identifier": "imagenet",
     "dataset_name": "Imagenet",
 }
+
+DATASETS_BODY_FAIL = {
+    "name": "string",
+    "image": "string",
+    "description": "string",
+    "source": [],
+}
+
+DATASETS_INVALID_BODY = {
+    'detail': [
+        {
+        'loc': ['body', 'source'],
+        'msg': 'str type expected',
+        'type': 'type_error.str'
+        }
+    ]
+}
+
+DATASETS_NO_BODY_FAIL = {
+    'detail': [
+        {
+            'loc': ['body'],
+            'msg': 'field required',
+            'type': 'value_error.missing'
+        }
+    ]
+}
+
+DATASETS_INVALID_GET = {
+    'detail': [
+        {
+            'loc': ['query', 'skip'],
+            'msg': 'value is not a valid integer',
+            'type': 'type_error.integer'
+        },
+        {
+            'loc': ['query', 'limit'],
+            'msg': 'value is not a valid integer',
+            'type': 'type_error.integer'
+        }
+    ]
+}
+
+DATASETS_INVALID_GET_ID = { 'detail': 'Dataset not found' }
+
 
 # END DATASETS CONSTANTS
 # ================================
