@@ -4,8 +4,7 @@ from app.schemas.paper import PaperCreate, PaperUpdate
 
 
 class CRUDPaper(CRUDBase[Paper, PaperCreate, PaperUpdate]):
-    pass        
-
+    pass
 
 
 paper = CRUDPaper(Paper)

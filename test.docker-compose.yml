@@ -1,9 +1,7 @@
 version: "3.3"
 services:
-  db:
+  dbtest:
     image: postgres:12
-    volumes:
-      - app-db-data:/var/lib/postgresql/data/pgdata
     env_file:
       - .env
     environment:
@@ -16,7 +14,7 @@ services:
       timeout: 4s
       retries: 5
 
-  backend:
+  backend-tests:
     command: bash -c "alembic upgrade head && poetry run python initial_data.py && poetry run uvicorn app.main:app --reload --host 0.0.0.0"
     image: "computerprogres-api:latest"
     volumes:
@@ -24,10 +22,12 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      db:
+      dbtest:
         condition: service_healthy
     env_file:
       - .env
+    environment:
+      - POSTGRES_SERVER=dbtest
     build:
       context: .
       dockerfile: Dockerfile
