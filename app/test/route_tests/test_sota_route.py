@@ -56,5 +56,9 @@ async def test_sota_get_id(
     task_id = sota_json["task_id"]
     async with AsyncClient(app=app, base_url=base_url, headers=headers) as ac:
         response = await ac.get(f"/sota/{task_id}")
+    print(response.json())
+    print(sota_json)
     assert response.status_code == SUCCESS
-    assert sota_json == response.json()
+    assert sota_json.keys() == response.json().keys()
+    for i in range(len(sota_json['datasets'])):
+        assert sota_json['datasets'][0].keys() == response.json()['datasets'][0].keys()

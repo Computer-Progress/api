@@ -21,7 +21,6 @@ async def test_model_get_id(headers: dict, base_url: str, get_test_model: Respon
 
 
 @pytest.mark.asyncio
-@pytest.mark.order(-1)
 async def test_model_put(headers: dict, base_url: str, get_test_model: Response):
     model_id = get_test_model["id"]
     put_body = {**get_test_model, "name": "fooo", "gflops": 2.0, "epochs": 3}
