@@ -1,3 +1,4 @@
+from slugify import slugify
 import datetime
 import gspread
 from urllib import response
@@ -56,12 +57,17 @@ async def hardware_burden(task_dataset_identifier):
     for item in dataset:
         new_item = {
             "model_name": item['name'] or None,
+            "model_identifier":  slugify(
+                item['name'],
+                max_length=45,
+                word_boundary=True
+            ) or None,
             "model_hardware_burden": item['computing_power'] or None,
             "model_network_operations": item['network_operations'] or None,
             "paper_title": item['title'] or None,
             "paper_pwc_link": item['paper_with_code'] or None,
             "paper_link": item['paper_link'] or None,
-            "model_ops_forward_pass": item['flops'] if item['flops'] else (item['multiadds'] * 2 if item['multiadds'] else None),
+            "model_operation_per_network_pass": item['flops'] if item['flops'] else (item['multiadds'] * 2 if item['multiadds'] else None),
         }
         response.append(new_item)
     return response
