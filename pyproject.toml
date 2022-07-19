@@ -20,6 +20,11 @@ Jinja2 = "^3.0.1"
 pandas = "^1.2.5"
 aiofiles = "^0.7.0"
 python-slugify = "^5.0.2"
+fastapi-cache2 = "^0.1.8"
+google-api-python-client = "^2.54.0"
+google-auth-httplib2 = "^0.1.0"
+google-auth-oauthlib = "^0.5.2"
+gspread = "^5.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
