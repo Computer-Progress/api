@@ -62,7 +62,7 @@ async def hardware_burden(task_dataset_identifier):
                 max_length=45,
                 word_boundary=True
             ) or None,
-            "model_hardware_burden": item['computing_power'] or None,
+            "model_hardware_burden": item['hardware_burden'] or None,
             "model_network_operations": item['network_operations'] or None,
             "paper_title": item['title'] or None,
             "paper_pwc_link": item['paper_with_code'] or None,
